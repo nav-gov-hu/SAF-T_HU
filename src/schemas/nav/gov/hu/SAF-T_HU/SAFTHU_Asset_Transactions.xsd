@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Létrehozta a Nemzeti Adó és Vámhivatal -->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" id="SAFT-HU"
+	xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0"
+	targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" version="1.00"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<!-- SAFTHU definitions, data types and OECD guideline compatibility -->
+	<xs:include schemaLocation="./SAFT_HU_Definitions.xsd"/>
+	<!-- -->
+
+	<xs:element name="AuditFile">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Header">
+					<xs:annotation>
+						<xs:documentation xml:lang="hu">Általános információk a szoftverről, melyből az adatok származnak, valamint a vizsgálat alá vont társaság adatai.</xs:documentation>
+						<xs:documentation xml:lang="en">Holds general information about the file including the name of the software which produced it; the company on whose behalf the SAF-T is being submitted; and the selection criteria used.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SAFTHUHeaderStructure">
+								<xs:sequence>
+									<xs:element name="TaxEntity" type="SAFTmiddle2textType">
+										<xs:annotation>
+											<xs:documentation xml:lang="hu">Az egység / divízió / ág hivatkozás egyedi azonosítója, amennyiben az adózó adatai több különálló rendszerből származnak. Pl. 1-es raktár</xs:documentation>
+											<xs:documentation xml:lang="en">Unique identifier of unit / Division / Branch reference E.g. Warehouse 1</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="FileContentType">
+										<xs:annotation>
+											<xs:documentation xml:lang="hu">A fájl tartalma. Opciók: 
+												„GL” - főkönyvi adatok, 
+												„MD” - törzsadatok,
+												„SI” - kimenő számla adatok, 
+												„PI” - bejövő számla adatok, 
+												„TR” - fizetési adatok, 
+												„PS” - készlet adatok,
+												„MG” - készletmozgás adatok,
+												„AS” - gazdasági események adatai, 
+												„VA” - ÁFA analitika,
+												„RD" - egyéb jelentési adatok</xs:documentation>
+											<xs:documentation xml:lang="en">Type of content that the file contains. Options: 
+												“GL” – the data of a general ledger, 
+												“MD” – master data, 
+												"SI” – sales information, 
+												“PI” – purchase information, 
+												“TR” – payment data, 
+												“PS” – physical stock, 
+												“MG” – movement of goods, 
+												“AT” – data of economic transactions or economic asset events,
+												"VA" - VAT Analytics Data,
+												"RD" - other reporting data</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="SAFTcodeType">
+												<xs:enumeration value="GL"/>
+												<xs:enumeration value="MD"/>
+												<xs:enumeration value="SI"/>
+												<xs:enumeration value="PI"/>
+												<xs:enumeration value="TR"/>
+												<xs:enumeration value="PS"/>
+												<xs:enumeration value="MG"/>
+												<xs:enumeration value="AT"/>
+												<xs:enumeration value="VA"/>
+												<xs:enumeration value="RD"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="NumberOfParts" type="xs:nonNegativeInteger">
+										<xs:annotation>
+											<xs:documentation xml:lang="hu">A fájldarabok száma.</xs:documentation>
+											<xs:documentation xml:lang="en">Total of number of parts of the file.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="PartNumber" type="xs:nonNegativeInteger">
+										<xs:annotation>
+											<xs:documentation xml:lang="hu">A fájldarab sorszáma (például 1, 2, 3, ...), ha egy SAF-T fájl több darabra van tagolva.
+Az entitás, a fájltartalom (DataType) és az időszak (PeriodStart - PeriodEnd) értékei minden fájlrészben egybeesnek.</xs:documentation>
+											<xs:documentation xml:lang="en">Number of the file part (e.g. 1, 2, 3,...), when a SAF-T file is divided in parts. 
+The values of the Entity , File Content (DataType) and period (PeriodStart – PeriodEnd) must coincide in all file parts.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element minOccurs="1" name="TransactionalData">
+					<xs:annotation>
+						<xs:documentation xml:lang="hu">Tranzakciós adatok és jelentések</xs:documentation>
+						<xs:documentation xml:lang="en">Transactional data and reports</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element minOccurs="0" name="AssetTransactions">
+								<xs:annotation>
+									<xs:documentation xml:lang="hu">Befektetett eszközökhöz kapcsolódó tranzakciók</xs:documentation>
+									<xs:documentation xml:lang="en">Details of all transactions related to assets during the Selectionperiod</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="NumberOfAssetTransactions"
+											type="xs:nonNegativeInteger">
+											<xs:annotation>
+												<xs:documentation xml:lang="hu">A befektetett eszközökhöz kapcsolódó tranzakciók száma.</xs:documentation>
+												<xs:documentation xml:lang="en">Number of transactions related to assets</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="AssetTransaction" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation xml:lang="hu">A befektett eszközökhöz kapcsolódó tranzakció adatai</xs:documentation>
+												<xs:documentation xml:lang="en">Assets transaction information</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+												<xs:element name="AssetTransactionID"
+												type="SAFTmiddle2textType">
+												<xs:annotation>
+												<xs:documentation xml:lang="hu">Befektetett eszköz tranzakció egyedi azonosítója</xs:documentation>
+												<xs:documentation xml:lang="en">A unique identifier of the asset transaction</xs:documentation>
+												</xs:annotation>
+												</xs:element>
+												<xs:element name="AssetID"
+												type="SAFTmiddle1textType">
+												<xs:annotation>
+												<xs:documentation xml:lang="hu">Befektetett eszköz egyedi azonosítója</xs:documentation>
+												<xs:documentation xml:lang="en">A unique identifier of the asset</xs:documentation>
+												</xs:annotation>
+												</xs:element>
+												<xs:element name="AssetTransactionType">
+												<xs:annotation>
+												<xs:documentation xml:lang="hu">Befektetett eszköz tranzakció típusa, opciók:
+„PU" - Beszerzés,
+„RC" - Követelés fejében átvétel,
+„FR" - Térítés nélküli átvétel,
+„CK" - Apport,
+„IS" - Leltári többlet,
+„OP" - Saját előállítás,
+„SA" - Értékesítés,
+„DP" - Terv szerinti értékcsökkenés,
+„ED" - Terven felüli értékcsökkenés,
+„SC" - Selejtezés,
+„FT" - Térítés nélküli átadás,
+„DE" - Hiány,
+„TK" - Apportba adás,
+„OI" - Egyéb növekedés,
+„OD" - Egyéb csökkenés
+</xs:documentation>
+												<xs:documentation xml:lang="en">The type of the asset transaction, options:
+"PU" - Purchase,
+"RC" - Receipt of claim,
+"FR" - Free receipt,
+"CK" - Contribution in kind,
+"IS" - Inventory surplus,
+"OP" - Own production,
+"SA" - Sale,
+"DP" - Depreciation according to plan,
+"ED" - Extraordinary depreciation,
+"SC" - Scrapping,
+"FT" - Free transfer,
+"DE" - Deficit,
+"TK" - Transfer contribution in kind,
+"OI" - Other increase,
+"OD" - Other decrease</xs:documentation>
+												</xs:annotation>
+												<xs:simpleType>
+												<xs:restriction base="SAFTcodeType">
+												<xs:enumeration value="PU"/>
+												<xs:enumeration value="RC"/>
+												<xs:enumeration value="FR"/>
+												<xs:enumeration value="CK"/>
+												<xs:enumeration value="IS"/>
+												<xs:enumeration value="OP"/>
+												<xs:enumeration value="SA"/>
+												<xs:enumeration value="DP"/>
+												<xs:enumeration value="ED"/>
+												<xs:enumeration value="SC"/>
+												<xs:enumeration value="FT"/>
+												<xs:enumeration value="DE"/>
+												<xs:enumeration value="TK"/>
+												<xs:enumeration value="OI"/>
+												<xs:enumeration value="OD"/>
+												</xs:restriction>
+												</xs:simpleType>
+												</xs:element>
+												<xs:element minOccurs="1" name="Description"
+												type="SAFTlongtextType">
+												<xs:annotation>
+												<xs:documentation xml:lang="hu">Tranzakció leírása</xs:documentation>
+												<xs:documentation xml:lang="en">Description of the transaction</xs:documentation>
+												</xs:annotation>
+												</xs:element>
+												<xs:element name="AssetTransactionDate"
+												type="xs:date">
+												<xs:annotation>
+												<xs:documentation xml:lang="hu">Befektetett eszköz tranzakció dátuma</xs:documentation>
+												<xs:documentation xml:lang="en">Asset transaction date</xs:documentation>
+												</xs:annotation>
+												</xs:element>
+												<xs:element minOccurs="0" name="Supplier">
+												<xs:annotation>
+												<xs:documentation xml:lang="hu">Befektetett eszköz szállítójának adatai</xs:documentation>
+												<xs:documentation xml:lang="en">Supplier Information</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element name="SupplierName"
+												type="SAFTmiddle2textType">
+												<xs:annotation>
+												<xs:documentation xml:lang="hu">Befektetett eszköz szállítójának neve</xs:documentation>
+												<xs:documentation xml:lang="en">Supplier Name</xs:documentation>
+												</xs:annotation>
+												</xs:element>
+												<xs:element minOccurs="1" name="SupplierID"
+												type="SAFTmiddle1textType">
+												<xs:annotation>
+												<xs:documentation xml:lang="hu">Szállító egyedi azonosítója (a törzsadatok alapján)</xs:documentation>
+												<xs:documentation xml:lang="en">Supplier id (should be on the suppliers master data structure)</xs:documentation>
+												</xs:annotation>
+												</xs:element>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												<xs:element minOccurs="0" name="TransactionID"
+												type="SAFTmiddle2textType">
+												<xs:annotation>
+												<xs:documentation xml:lang="hu">Főkönyvi könyvelés egyedi azonosítója</xs:documentation>
+												<xs:documentation xml:lang="en">A unique number assigned to the general ledger entry</xs:documentation>
+												</xs:annotation>
+												</xs:element>
+												<xs:element name="AssetTransactionValuations">
+												<xs:annotation>
+												<xs:documentation xml:lang="hu">A befektetett eszközhöz kapcsolódó tranzakciók értékei</xs:documentation>
+												<xs:documentation xml:lang="en">Values of an asset transaction</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element maxOccurs="unbounded"
+												name="AssetTransactionValuation">
+												<xs:annotation>
+												<xs:documentation xml:lang="hu">Befektetett eszközhöz kapcsolódó tranzakció értéke</xs:documentation>
+												<xs:documentation xml:lang="en">Value of an asset transaction</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element minOccurs="1"
+												name="AssetValuationType" type="SAFTshorttextType">
+												<xs:annotation>
+												<xs:documentation xml:lang="hu">Befektetett eszköz értékelési módszere</xs:documentation>
+												<xs:documentation xml:lang="en">Type of the asset valuation</xs:documentation>
+												</xs:annotation>
+												</xs:element>
+												<xs:element
+												name="AcquisitionAndProductionCostsOnTransaction"
+												type="SAFTmonetaryType">
+												<xs:annotation>
+												<xs:documentation xml:lang="hu">Befektetett eszköz bekerülési értéke a könyvelés pénznemében.</xs:documentation>
+												<xs:documentation xml:lang="en">Costs of acquisition and/or production of related asset transaction in the header's default currency at the date of transaction</xs:documentation>
+												</xs:annotation>
+												</xs:element>
+												<xs:element name="BookValueOnTransaction"
+												type="SAFTmonetaryType">
+												<xs:annotation>
+												<xs:documentation xml:lang="hu">Befektetett eszköz tranzakció könyv szerinti értéke a könyvelés pénznemében.</xs:documentation>
+												<xs:documentation xml:lang="en">Bookvalue of related asset transaction in the header's default currency at the date of transaction</xs:documentation>
+												</xs:annotation>
+												</xs:element>
+												<xs:element name="AssetTransactionAmount"
+												type="SAFTmonetaryType">
+												<xs:annotation>
+												<xs:documentation xml:lang="hu">Befektetett eszközhöz kapcsolódó tranzakció nettó értéke a könyvelés pénznemében, például nettó eladási ár.</xs:documentation>
+												<xs:documentation xml:lang="en">Net Amount of related asset transaction in the header's default currency, for instance the net sales revenue.</xs:documentation>
+												</xs:annotation>
+												</xs:element>
+												<xs:element name="DebitCreditIndicator">
+												<xs:annotation>
+												<xs:documentation xml:lang="hu">Tartozik-Követel jelölés (D - tartozik / C - követel)</xs:documentation>
+												<xs:documentation xml:lang="en">Debit or credit attribute (D – debit / C – credit)</xs:documentation>
+												</xs:annotation>
+												<xs:simpleType>
+												<xs:restriction base="SAFTcodeType">
+												<xs:enumeration value="D"/>
+												<xs:enumeration value="C"/>
+												</xs:restriction>
+												</xs:simpleType>
+												</xs:element>
+
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

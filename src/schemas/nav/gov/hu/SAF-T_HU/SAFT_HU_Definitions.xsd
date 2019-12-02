@@ -1,0 +1,1785 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+	xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0"
+	targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" version="1.00">
+
+	<!-- -->
+	<!-- SAFT Types *********** -->
+	<!-- -->
+
+	<!-- -->
+	<!-- SAFT HU Extended Types (with prefix SAFTHU) -->
+	<!-- -->
+
+	<!-- -->
+	<!-- TOC File -->
+	<!-- -->
+
+	<xs:complexType name="SAFTHUfileMetadata">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Az egyes fájlok XML-fejlécének metaadatai</xs:documentation>
+			<xs:documentation xml:lang="en">Metadata for the XML header on each file</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="SAFTHUfileName">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Fájlnév mintával :
+
+[típus]_[Adófizető_Nr]_[Adatszerkezet]_[Part]_[Number_Of_Parts].xml 
+
+Ahol:
+
+típus: [ SAFTHU ]
+Adófizető_Nr: [Country][Taxpayer_number]
+Adatszerkezet: [ TOC, GL, GLEH, GLE, POH, POL, SOH, SOL,… ]
+
+
+e.g. : SAFTHU_HU12345678_GL_1_9.xml</xs:documentation>
+					<xs:documentation xml:lang="en">File name with pattern :
+
+[Type]_[Taxpayer_Nr]_[Data_Structure]_[Part]_[Number_Of_Parts].xml 
+
+With
+
+Type: [ SAFTHU ]
+Taxpayer_Nr: [Country][Taxpayer_number]
+Data_Structure: [ TOC, GL, GLEH, GLE, POH, POL, SIH, SIL,… ]
+
+
+e.g. : SAFTHU_HU12345678_GL_1_9.xml</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MD5" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">A fájl MD5 hash függvénye, amely a fájl érvényesítéshez szükséges.</xs:documentation>
+					<xs:documentation xml:lang="en">MD5 hash function of the file, representing its content validation for crosscheking.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartNo" type="xs:nonNegativeInteger">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Az adatállomány szelet sorszáma.</xs:documentation>
+					<xs:documentation xml:lang="en">The part number of the partioned data set.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" maxOccurs="1" name="TypeOfOtherMasterData">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">A törzsadat szerkezet típusa. Opciók:
+						„JO" - Naplók
+						„TT" - Adótábla
+						„WA" - Raktárak
+						„UM" - Mértékegység tábla
+						„MT" - Mozgás típus tábla</xs:documentation>
+					<xs:documentation xml:lang="en">Type of the master data structure. Options:
+						"JO" - Journals
+						"TT" - Tax Table
+						"WA" - Warehouses
+						"UM" - UOMTable
+						"MT" - MovementType Table</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="SAFTcodeType">
+						<xs:enumeration value="JO"/>
+						<xs:enumeration value="TT"/>
+						<xs:enumeration value="WA"/>
+						<xs:enumeration value="UM"/>
+						<xs:enumeration value="MT"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="NrOfEntriesH" type="xs:nonNegativeInteger">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">A dokumentum fejléc bejegyzéseinek száma (0, ha a fájlban nincs vagy nincs elérhető adat)</xs:documentation>
+					<xs:documentation xml:lang="en">Number of Entries of the document headers (0 if none or no available data on the file).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NrOfEntriesL" type="xs:nonNegativeInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">A dokumentum sor/adat bejegyzéseinek száma (0, ha a fájlban nincs vagy nincs elérhető adat)</xs:documentation>
+					<xs:documentation xml:lang="en">Number of Entries of the document lines/details (0 if none or no available data on the file)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PeriodStart" type="xs:nonNegativeInteger">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">A fájl tartalma - az adatszolgáltatással érintett időszak kezdete (hónap)</xs:documentation>
+					<xs:documentation xml:lang="en">Content of the file - starting Fiscal Period</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PeriodEnd" type="xs:nonNegativeInteger">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">A fájl tartalma - az adatszolgáltatással érintett időszak vége (hónap)</xs:documentation>
+					<xs:documentation xml:lang="en">Content of the file - ending Fiscal Period</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PeriodYear">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">A fájl tartalma - üzleti év</xs:documentation>
+					<xs:documentation xml:lang="en">Content of the file - Fiscal Year</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger">
+						<xs:minInclusive value="1970"/>
+						<xs:maxInclusive value="2100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- -->
+	<!-- Data Structures -->
+	<!-- -->
+
+	<xs:complexType name="SAFTHUInvoiceStructureHeader">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Számlaadatok</xs:documentation>
+			<xs:documentation xml:lang="en">Invoice Information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="InvoiceNo" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Számla sorszáma</xs:documentation>
+					<xs:documentation xml:lang="en">Unique invoice number, it should be unique inside the company system(s)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="AccountID" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Főkönyvi számlaszám, tartalmazhat alszámlákat is.</xs:documentation>
+					<xs:documentation xml:lang="en">General Ledger Account code of the invoice entity</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="1" name="Period" type="xs:nonNegativeInteger">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Könyvelési időszak</xs:documentation>
+					<xs:documentation xml:lang="en">Accounting Period</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InvoiceDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Számla kiállítás dátuma</xs:documentation>
+					<xs:documentation xml:lang="en">Invoice issue date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InvoiceCategoryType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">A számla típusa. Opciók: 
+						„N" - Normál (nem egyszerűsített és nem gyűjtő) számla,
+						„S" - Egyszerűsített számla,
+						„A" - Gyűjtőszámla</xs:documentation>
+					<xs:documentation xml:lang="en">Type of invoice. Options: 
+						"N" - Normal (not simplified and not aggregate) invoice,
+						"S" - Simplified invoice,
+						"A" - Aggregate invoice
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="N"/>
+						<xs:enumeration value="S"/>
+						<xs:enumeration value="A"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element minOccurs="1" name="InvoiceType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Számla típusa, opciók:
+„IN" - Számla,
+„OD" - Számlával egy tekintet alá eső okirat
+</xs:documentation>
+					<xs:documentation xml:lang="en">Invoice Type, options:
+"IN" - Invoice,
+"OD" - Documents in lieu of an invoice</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="SAFTcodeType">
+						<xs:enumeration value="IN"/>
+						<xs:enumeration value="OD"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element minOccurs="1" name="InvoiceStatus">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Számla vagy módosító okirat aktuális állapota. Opciók:
+„O" - Eredeti,
+„M" - Módosítva
+„V" - Érvénytelenítve
+</xs:documentation>
+					<xs:documentation xml:lang="en">Invoice Status. Options:
+"O" - Original,
+"M" - Modification,
+"V" - Void
+</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="SAFTcodeType">
+						<xs:enumeration value="O"/>
+						<xs:enumeration value="M"/>
+						<xs:enumeration value="V"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element minOccurs="1" name="SourceBilling">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Számla forrása. Opciók:
+						„P" - ERP rendszer,
+						„S" - Önálló alkalmazás,
+						„I" - Külső szolgáltató,
+						„M" - Nyomtatvány (pl. számlatömb)			
+					</xs:documentation>
+					<xs:documentation xml:lang="en">Source of invoice. Options:
+						"P" - ERP system,
+						"S" - Standalone application,
+						"I" - External supplier,
+						"M" - Manual
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="SAFTcodeType">
+						<xs:enumeration value="P"/>
+						<xs:enumeration value="S"/>
+						<xs:enumeration value="I"/>
+						<xs:enumeration value="M"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element minOccurs="0" name="ShipTo" type="SAFTHUShippingPointStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Lerakodás helye</xs:documentation>
+					<xs:documentation xml:lang="en">Ship to details</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="ShipFrom" type="SAFTHUShippingPointStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Felrakodás helye</xs:documentation>
+					<xs:documentation xml:lang="en">Ship from details</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="DueDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Fizetési határidő</xs:documentation>
+					<xs:documentation xml:lang="en">Due date of the invoice</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="SelfBillingIndicator" type="xs:boolean" default="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Önszámlázás jelzése. Értéke "1" vagy "true", ha van megállapodás, és "0" (nulla) vagy "false" egyébként</xs:documentation>
+					<xs:documentation xml:lang="en">Indicator showing if self-billing is used for this invoice. It should be filled with "1" or "true" if there is agreement and with "0" (zero) or "false" otherwise</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="1" name="SourceID" type="SAFTmiddle1textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Forrásrendszer vagy az adatbevivő személy azonosítója</xs:documentation>
+					<xs:documentation xml:lang="en">Details of the person or application that entered the transaction
+Eg. Username</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="GLPostingDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Főkönyvi feladás dátuma</xs:documentation>
+					<xs:documentation xml:lang="en">Posting date of on the general ledger entry</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="1" name="SystemID" type="SAFTmiddle1textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Egyedi azonosító szám, melyet a rendszer a dokumentum számára képzett</xs:documentation>
+					<xs:documentation xml:lang="en">Unique number created by the system for the document</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="TransactionID" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Főkönyvi könyvelés azonosítója</xs:documentation>
+					<xs:documentation xml:lang="en">A unique number assigned to the general ledger entry</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Settlement">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Elszámolási információk</xs:documentation>
+					<xs:documentation xml:lang="en">Settlement information</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="SettlementDiscount"
+							type="SAFTmiddle1textType">
+							<xs:annotation>
+								<xs:documentation xml:lang="hu">Elszámolás leírása / egyéb kedvezmény</xs:documentation>
+								<xs:documentation xml:lang="en">Description of the settlement or other discount</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="SettlementAmount" type="AmountStructure">
+							<xs:annotation>
+								<xs:documentation xml:lang="hu">Elszámolási összeg</xs:documentation>
+								<xs:documentation xml:lang="en">Settlement amount</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="SettlementDate" type="xs:date">
+							<xs:annotation>
+								<xs:documentation xml:lang="hu">Elszámolás dátuma</xs:documentation>
+								<xs:documentation xml:lang="en">Settlement date</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="1" name="DocumentTotals">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Dokumentum összesítés</xs:documentation>
+					<xs:documentation xml:lang="en">Document totals details</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" minOccurs="0" name="TaxInformationTotals"
+							type="TaxInformationStructure">
+							<xs:annotation>
+								<xs:documentation xml:lang="hu">Adóösszesítő</xs:documentation>
+								<xs:documentation xml:lang="en">Information about the total taxes of the document</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="ShippingCostsAmountTotal"
+							type="AmountStructure">
+							<xs:annotation>
+								<xs:documentation xml:lang="hu">Számlán szereplő összes szállítási költség</xs:documentation>
+								<xs:documentation xml:lang="en">Total amount of the shipping costs of the document</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="NetTotal" type="AmountStructure">
+							<xs:annotation>
+								<xs:documentation xml:lang="hu">Számla nettó összesen összege, mely nem tartalmazza az adó és szállítás összegét</xs:documentation>
+								<xs:documentation xml:lang="en">Total net sales value (excluding taxes and shipping costs) of the document</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="GrossTotal" type="AmountStructure">
+							<xs:annotation>
+								<xs:documentation xml:lang="hu">Számla bruttó összesen összege, mely tartalmazza az adókat, valamint a szállítási költségeket</xs:documentation>
+								<xs:documentation xml:lang="en">Total gross sales value (including taxes and shipping costs) of the document</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SAFTHUInvoiceStructureLine">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Számla tételsor adatok</xs:documentation>
+			<xs:documentation xml:lang="en">Invoice Lines Information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="InvoiceNo" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Számla sorszáma</xs:documentation>
+					<xs:documentation xml:lang="en">Unique invoice number, it should be unique inside the company system(s) and refer a header invoice number. 
+FK: SalesInvoicesHeaders.Header.InvoiceNo </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="1" name="LineNumber" type="SAFTshorttextType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Számla tétel sorszáma</xs:documentation>
+					<xs:documentation xml:lang="en">Number of the invoice line</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="AccountID" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Főkönyvi számla száma, beleértve az alszámlák sorszámát is</xs:documentation>
+					<xs:documentation xml:lang="en">General ledger account number including sub-account number. It may contain several levels</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Analysis" type="AnalysisStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Főkönyv elemzés azonosító</xs:documentation>
+					<xs:documentation xml:lang="en">General ledger analysis codes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" maxOccurs="unbounded" name="References">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Dokumentum hivatkozások, referenciák</xs:documentation>
+					<xs:documentation xml:lang="en">Document references, should be indicated when applicable for eg. the sales order(s) that originated the line or the invoice(s) information associated to the modification document(s) of the line</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="DocumentReferenceType">
+							<xs:annotation>
+								<xs:documentation xml:lang="hu">Hivatkozott dokumentum típusa, opciók:
+									„OR" - Megrendelés,
+									„RI" - Számla hivatkozás,
+									„WO" - Munkalap,
+									„DN" - Szállítólevél,
+									„OT" - Egyéb
+								</xs:documentation>
+								<xs:documentation xml:lang="en">Reference document type, options:
+									"OR" - Order,
+									"RI" - Reference to initial invoice,
+									"WO" - Worksheet,
+									"DN" - Delivery note,
+									"OT" - Other
+								</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="SAFTcodeType">
+									<xs:enumeration value="OR"/>
+									<xs:enumeration value="RI"/>
+									<xs:enumeration value="WO"/>
+									<xs:enumeration value="DN"/>
+									<xs:enumeration value="OT"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element minOccurs="0" name="DocumentReferenceDate" type="xs:date">
+							<xs:annotation>
+								<xs:documentation xml:lang="hu">Hivatkozott dokumentum dátuma</xs:documentation>
+								<xs:documentation xml:lang="en">Reference document date</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DocumentReference" type="SAFTmiddle1textType"
+							minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="hu">A dokumentum hivatkozási száma</xs:documentation>
+								<xs:documentation xml:lang="en">Document reference number</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Reason" type="SAFTlongtextType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="hu">Hivatkozás oka (pl. Módosító dokumentum)</xs:documentation>
+								<xs:documentation xml:lang="en">Reference note reason or rationale (eg. modification document note reason)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="ShipTo" type="SAFTHUShippingPointStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Lerakodás helye</xs:documentation>
+					<xs:documentation xml:lang="en">Ship to details</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="ShipFrom" type="SAFTHUShippingPointStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Felrakodás helye</xs:documentation>
+					<xs:documentation xml:lang="en">Ship from details</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="1" name="GoodsServicesID" type="SAFTcodeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Jelölő arra, hogy a cikk áru vagy szolgáltatás.
+Használandó értékek:
+"P" - Termék
+"S" - Szolgáltatások
+"O" - Egyéb (pl. Szállítási költségek, előlegek, vagyonkezelés, ...)
+"T" - Adók</xs:documentation>
+					<xs:documentation xml:lang="en">Indicator to determine the product is a good or a service.
+Values to be used:
+	"P" - Product
+	"S" - Services
+	"O" - Others (eg. shipping costs, down payments, asset disposal, ...)
+	"T" - Taxes
+			</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="1" name="ProductCode" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Termék/szolgáltatás kód</xs:documentation>
+					<xs:documentation xml:lang="en">Product code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="ProductDescription" type="SAFTlongtextType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Termék vagy szolgáltatás leírása</xs:documentation>
+					<xs:documentation xml:lang="en">Description of the goods or services</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Delivery">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Teljesítés</xs:documentation>
+					<xs:documentation xml:lang="en">Delivery details</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice>
+						<xs:element maxOccurs="unbounded" name="MovementReference"
+							type="SAFTmiddle1textType">
+							<xs:annotation>
+								<xs:documentation xml:lang="hu">Árukészlet mozgás egyedi azonosítója</xs:documentation>
+								<xs:documentation xml:lang="en">Unique reference for the moveemnt of goods</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DeliveryDate" type="xs:date">
+							<xs:annotation>
+								<xs:documentation xml:lang="hu">Teljesítés dátuma</xs:documentation>
+								<xs:documentation xml:lang="en">Date of the delivery</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DeliveryPeriod">
+							<xs:annotation>
+								<xs:documentation xml:lang="hu">Teljesítés időszaka</xs:documentation>
+								<xs:documentation xml:lang="en">Timeframe of the deliveries</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="FromDate" type="xs:date">
+										<xs:annotation>
+											<xs:documentation xml:lang="hu">Teljesítési időszak kezdődátum</xs:documentation>
+											<xs:documentation xml:lang="en">Start date of the deliveries</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="ToDate" type="xs:date">
+										<xs:annotation>
+											<xs:documentation xml:lang="hu">Teljesítési időszak végdátuma</xs:documentation>
+											<xs:documentation xml:lang="en">End date of the deliveries</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="1" name="Quantity" type="SAFTquantityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Leszállított áru vagy szolgáltatás mennyisége</xs:documentation>
+					<xs:documentation xml:lang="en">Quantity of goods or services provided</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="InvoiceUOM" type="SAFTcodeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Mennyiségi egység</xs:documentation>
+					<xs:documentation xml:lang="en">Unit of measurement of quantity, eg. a package of 12 pcs</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="UOMToUOMBaseConversionFactor"
+				type="SAFTHUconversionfactorType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Mennyiségi egység átváltás. Csak akkor szükséges, amennyiben a számlázott mennyiségi egység és a nyilvántartott mennyiségi egység eltérő</xs:documentation>
+					<xs:documentation xml:lang="en">Conversion factor of the InvoiceUOM to UOM Base. Only needed when InvoiceUOM is reported and is different from the UOM Base</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UnitPrice" type="SAFTmonetaryType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Egységár a könyvelés pénznemben.</xs:documentation>
+					<xs:documentation xml:lang="en">Unit price for the unit/group of units per UOM in the header's default currency.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TaxPointDate" type="xs:date" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Teljesítés dátuma. Számla kiállítás dátuma, ha nincs külön teljesítés dátum</xs:documentation>
+					<xs:documentation xml:lang="en">Taxation point date. Invoice date if no date is specified</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="SAFTlongtextType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Számla tételsor leírása</xs:documentation>
+					<xs:documentation xml:lang="en">Description of the invoice line</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InvoiceLineAmount" type="AmountStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Számlatétel összege (kivéve adók, szállítási költség)</xs:documentation>
+					<xs:documentation xml:lang="en">Amount for transaction excluding taxes and shipping/freight charges</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DebitCreditIndicator">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Meghatározza, hogy a tételsorban szereplő összeg tartozik vagy követel a főkönyvi könyvelésben</xs:documentation>
+					<xs:documentation xml:lang="en">Indicates whether the amounts on the line is a debit or a credit amount (D – debit / C – credit)</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="SAFTcodeType">
+						<xs:enumeration value="D"/>
+						<xs:enumeration value="C"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element minOccurs="0" name="ShippingCostsAmount" type="AmountStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Szállítás költségének összege</xs:documentation>
+					<xs:documentation xml:lang="en">Amounts for shipping/freight charges</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="TaxInformation"
+				type="TaxInformationStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Adózási adat</xs:documentation>
+					<xs:documentation xml:lang="en">Line tax information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SAFTHUSimpleAddressStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Egyszerű címtípus</xs:documentation>
+			<xs:documentation xml:lang="en">Simple address type</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CountryCode" type="ISOCountryCode" default="hu">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Az országkód az ISO 3166 alpha-2 szabvány szerint</xs:documentation>
+					<xs:documentation xml:lang="en">ISO 3166 alpha-2 country code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Region" type="SAFTmiddle1textType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Tartomány kódja (amennyiben értelmezhető az adott országban) az ISO 3166-2 alpha 2 szabvány szerint</xs:documentation>
+					<xs:documentation xml:lang="en">ISO 3166 alpha-2 province code (if appropriate in a given country)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PostalCode" type="SAFTpostalcodeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Irányítószám (amennyiben nem értelmezhető, 0000 értékkel kell kitölteni)</xs:documentation>
+					<xs:documentation xml:lang="en">ZIP code (If can not be interpreted, need to be filled "0000")</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="City" type="SAFTmiddle1textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Település</xs:documentation>
+					<xs:documentation xml:lang="en">City</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalAddressDetail" type="SAFTlongtextType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">További címadatok (pl. közterület neve és jellege, házszám, emelet, ajtó, helyrajzi szám, stb.)</xs:documentation>
+					<xs:documentation xml:lang="en">Further address data (name and type of public place, house number, floor, door, lot number, etc)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Website" type="xs:anyURI">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">weboldal</xs:documentation>
+					<xs:documentation xml:lang="en">Website url</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SAFTHUShippingPointStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Szállítási adatok struktúrája.</xs:documentation>
+			<xs:documentation xml:lang="en">Delivery goods structure</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="1" name="DeliveryID" type="SAFTmiddle1textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Szállítás azonosító.</xs:documentation>
+					<xs:documentation xml:lang="en">Shipping document id</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="1" name="DeliveryDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Szállítás dátuma.</xs:documentation>
+					<xs:documentation xml:lang="en">Date in which goods are delivered </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="WarehouseID" type="SAFTmiddle1textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Áruház/telephely kód.</xs:documentation>
+					<xs:documentation xml:lang="en">Warehouse id (ship to or ship from warehouse).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Address" type="SAFTHUAddressStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Cím.</xs:documentation>
+					<xs:documentation xml:lang="en">Address Details</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SAFTHUAddressStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Az audit fájl általános címstruktúrája.</xs:documentation>
+			<xs:documentation>Addresses Structure</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="SimpleAddress" type="SAFTHUSimpleAddressStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Egyszerű cím</xs:documentation>
+					<xs:documentation xml:lang="en">Simple address</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DetailedAddress" type="SAFTHUDetailedAddressStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Részletes cím</xs:documentation>
+					<xs:documentation xml:lang="en">Detailed address</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="SAFTHUAmountStructureTax">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Adózási összegstruktúra. Az alapértelmezettől eltérő pénznemek esetén tartalmazhat átváltási árfolyamot</xs:documentation>
+			<xs:documentation xml:lang="en">Tax amount information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AmountHUF" minOccurs="1" type="SAFTmonetaryType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Összeg forintban</xs:documentation>
+					<xs:documentation xml:lang="en">Amount in HUF</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Amount" type="SAFTmonetaryType" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Összeg a könyvelés pénznemében</xs:documentation>
+					<xs:documentation xml:lang="en">Amount in the default currency of the file header</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="CurrencyCode" type="ISOCurrencyCode">
+					<xs:annotation>
+						<xs:documentation xml:lang="hu">Hárombetűs deviza kód az ISO 4217 szabványának megfelelően Például HUF - magyar forint, EUR - euró</xs:documentation>
+						<xs:documentation xml:lang="en">Three-letter currency code according to ISO 4217 standard
+Eg. HUF - Hungarian Forint, EUR - EUR</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="CurrencyAmount" type="SAFTmonetaryType">
+					<xs:annotation>
+						<xs:documentation xml:lang="hu">Összeg a dokumentum pénznemben, amennyiben az a könyvelés pénznemétől eltér</xs:documentation>
+						<xs:documentation xml:lang="en">Amount in foreign currency</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element minOccurs="0" name="ExchangeRate" type="SAFTexchangerateType">
+					<xs:annotation>
+						<xs:documentation xml:lang="hu">Használt átváltási árfolyam. CurrencyAmount x ExchangeRate = Amount</xs:documentation>
+						<xs:documentation>Used exchange rate. CurrencyAmount x ExchangeRate = Amount</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SAFTHUCompanyHeaderStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Általános információk a társaság székhelyéről</xs:documentation>
+			<xs:documentation xml:lang="en">General information about the company headquarters</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Társaság neve</xs:documentation>
+					<xs:documentation xml:lang="en">Company name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" name="Address" type="SAFTHUAddressStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Társaság címe</xs:documentation>
+					<xs:documentation xml:lang="en">Address Structure of the company headquarters</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" name="Contact" type="SAFTHUContactHeaderStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Elérhetőség. Tartalmaznia kell legalább az ellenőrzési fájlban szereplő adatokért felelős személy elérhetőségét.</xs:documentation>
+					<xs:documentation xml:lang="en">Contact information. It should contain at least the contact of the person responsible for the data contained on the audit file.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" name="DocumentationAddress"
+				type="SAFTHUAddressStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">A társaság papíralapú iratőrzési helye</xs:documentation>
+					<xs:documentation xml:lang="en">Address structure for the physical documentation of the company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="BankAccount"
+				type="BankAccountStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Bankszámla adatok</xs:documentation>
+					<xs:documentation xml:lang="en">Bank account details</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="1" name="TaxNumber" type="SAFTmiddle1textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Adószám (magyar adószám esetében az első 8 karakter)</xs:documentation>
+					<xs:documentation xml:lang="en">Hungarian Tax Identification number (8 digits)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EUVATNumber" minOccurs="0" type="SAFTmiddle1textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Közösségi adószám</xs:documentation>
+					<xs:documentation xml:lang="en">EU VAT Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GroupVATNumber" minOccurs="0" type="SAFTmiddle1textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Csoportos ÁFA azonosító</xs:documentation>
+					<xs:documentation xml:lang="en">Group VAT Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GroupCorpTaxNumber" minOccurs="0" type="SAFTmiddle1textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Csoportos társaságiadó azonosító</xs:documentation>
+					<xs:documentation xml:lang="en">Group corporation tax number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SAFTHUCompanyStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Társaság adatai</xs:documentation>
+			<xs:documentation xml:lang="en">Description of corporate data structure</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Társaság neve</xs:documentation>
+					<xs:documentation xml:lang="en">Company name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" name="Address" type="SAFTHUAddressStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Társaság címe</xs:documentation>
+					<xs:documentation xml:lang="en">Company address details</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Contact"
+				type="SAFTHUContactInformationStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Kapcsolattartó adatai. Meg kell adni a napi kapcsolattartásért felelős személy adatait.</xs:documentation>
+					<xs:documentation xml:lang="en">Contacts structure. Should be provided the contact of the person responsible for the daily operations.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="BankAccount"
+				type="BankAccountStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Bankszámla információk</xs:documentation>
+					<xs:documentation xml:lang="en">Bank account information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="1" name="TaxNumber" type="SAFTmiddle1textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Adószám (magyar adószám esetében az első 8 karakter)</xs:documentation>
+					<xs:documentation xml:lang="en">Tax registration number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EUVATNumber" minOccurs="0" type="SAFTmiddle1textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Közösségi adószám</xs:documentation>
+					<xs:documentation xml:lang="en">EU VAT Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GroupVATNumber" minOccurs="0" type="SAFTmiddle1textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">ÁFA csoport azonosító</xs:documentation>
+					<xs:documentation xml:lang="en">Group VAT Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GroupCorpTaxNumber" minOccurs="0" type="SAFTmiddle1textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Csoportos társaságiadó azonosító</xs:documentation>
+					<xs:documentation xml:lang="en">Group corporation tax number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SAFTHUContactHeaderStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Kapcsolattartó személy adatai</xs:documentation>
+			<xs:documentation xml:lang="en">Contact header information</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="SAFTHUContactInformationStructure">
+				<xs:sequence>
+					<xs:element name="ContactPerson" type="SAFTHUPersonNameStructure">
+						<xs:annotation>
+							<xs:documentation xml:lang="hu">Kapcsolattartó személy neve</xs:documentation>
+							<xs:documentation xml:lang="en">Contact person information</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Telephone" type="SAFTshorttextType">
+						<xs:annotation>
+							<xs:documentation xml:lang="hu">Kapcsolattartó személy telefonszáma</xs:documentation>
+							<xs:documentation xml:lang="en">Phone number</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="Fax" type="SAFTshorttextType">
+						<xs:annotation>
+							<xs:documentation xml:lang="hu">Kapcsolattartó személy fax száma</xs:documentation>
+							<xs:documentation xml:lang="en">Fax number</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="1" name="Email" type="SAFTmiddle2textType">
+						<xs:annotation>
+							<xs:documentation xml:lang="hu">Kapcsolattartó személy e-mail címe</xs:documentation>
+							<xs:documentation xml:lang="en">Email address</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="SAFTHUContactInformationStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Általános kapcsolattartó információk</xs:documentation>
+			<xs:documentation xml:lang="en">General contact information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ContactPerson" type="SAFTHUPersonNameStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Kapcsolattartó személy neve</xs:documentation>
+					<xs:documentation xml:lang="en">Name of the contact person</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="1" name="Telephone" type="SAFTshorttextType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Kapcsolattartó személy telefonszáma.</xs:documentation>
+					<xs:documentation xml:lang="en">Contact person's phone number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Fax" type="SAFTshorttextType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Kapcsolattartó személy fax száma</xs:documentation>
+					<xs:documentation xml:lang="en">Contact person fax number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="1" name="Email" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Kapcsolattartó személy e-mail címe</xs:documentation>
+					<xs:documentation xml:lang="en">Contact person email address</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SAFTHUDetailedAddressStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Részletes címadatok</xs:documentation>
+			<xs:documentation xml:lang="en">Detailed address data</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CountryCode" type="ISOCountryCode" default="hu">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Az országkód ISO 3166 alpha-2 szabvány szerint</xs:documentation>
+					<xs:documentation xml:lang="en">ISO 3166 alpha-2 country code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Region" type="SAFTmiddle1textType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Tartomány kódja (amennyiben értelmezhető az adott országban) az ISO 3166-2 alpha 2 szabvány szerint</xs:documentation>
+					<xs:documentation xml:lang="en">ISO 3166 alpha-2 province code (if appropriate in a given country)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PostalCode" type="SAFTpostalcodeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Irányítószám (amennyiben nem értelmezhető, 0000 értékkel kell kitölteni)</xs:documentation>
+					<xs:documentation xml:lang="en">ZIP code (If can not be interpreted, need to be filled "0000")</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="City" type="SAFTmiddle1textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Település</xs:documentation>
+					<xs:documentation xml:lang="en">City</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StreetName" type="SAFTlongtextType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Közterület neve</xs:documentation>
+					<xs:documentation xml:lang="en">Name of public place</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PublicPlaceCategory" type="SAFTmiddle1textType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Közterület jellege</xs:documentation>
+					<xs:documentation xml:lang="en">Category of public place</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Number" type="SAFTmiddle1textType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Házszám</xs:documentation>
+					<xs:documentation xml:lang="en">House number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Building" type="SAFTmiddle1textType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Épület</xs:documentation>
+					<xs:documentation xml:lang="en">Building</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Staircase" type="SAFTmiddle1textType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Lépcsőház</xs:documentation>
+					<xs:documentation xml:lang="en">Staircase</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Floor" type="SAFTmiddle1textType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Emelet</xs:documentation>
+					<xs:documentation xml:lang="en">Floor</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Door" type="SAFTmiddle1textType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Ajtó</xs:documentation>
+					<xs:documentation xml:lang="en">Door number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LotNumber" type="SAFTmiddle1textType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Helyrajzi szám</xs:documentation>
+					<xs:documentation xml:lang="en">Lot number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Website" type="xs:anyURI">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">weboldal</xs:documentation>
+					<xs:documentation xml:lang="en">Website url</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SAFTHUFiscalCalendarStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">A társasági üzleti év adatai</xs:documentation>
+			<xs:documentation xml:lang="en">Fiscal accounting calendar of the company structure</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FiscalCalendarStartDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">A társaság üzleti évének kezdő dátuma az adatszolgáltatással érintett időszakban</xs:documentation>
+					<xs:documentation xml:lang="en">The start date for the fiscal calendar of the company for the accounting year of the file</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FiscalCalendarEndDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">A társaság üzleti évének záró dátuma az adatszolgáltatással érintett időszakban</xs:documentation>
+					<xs:documentation xml:lang="en">The end date for the fiscal calendar of the company for the accounting year of the file</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SAFTHUHeaderStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Az audit fájl általános adatai</xs:documentation>
+			<xs:documentation xml:lang="en">General information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AuditFileVersion" type="SAFTcodeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Audit fájl verziószáma</xs:documentation>
+					<xs:documentation xml:lang="en">Identification of the Standard Audit File SAF-T version being used</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuditFileDateCreated" type="xs:date">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Audit fájl készítésének dátuma</xs:documentation>
+					<xs:documentation xml:lang="en">Audit file creation date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuditID" type="SAFTlongtextType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">A NAV által adott megbízólevél szám</xs:documentation>
+					<xs:documentation xml:lang="en">Audit Id provided by NAV</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TOCID" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Az adóhivatali adatbekérés egyedi azonosítója, melyet az adóhivatal határoz meg.</xs:documentation>
+					<xs:documentation xml:lang="en">Identifier of the Table of Contents File. Generated by the tax auth Information System.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SoftwareCompanyName" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Az audit fájlt előállító szoftvert fejlesztő társaság megnevezése</xs:documentation>
+					<xs:documentation xml:lang="en">Name of the software company whose product created the SAF-T</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SoftwareID" type="SAFTlongtextType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Az audit fájlt előállító szoftver megnevezése</xs:documentation>
+					<xs:documentation xml:lang="en">Name of the software that generated the SAF-T</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SoftwareVersion" type="SAFTshorttextType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Audit fájlt előállító szoftver verziószáma</xs:documentation>
+					<xs:documentation xml:lang="en">Version of the software that created the SAF-T</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DataSourceCompanyName" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Azon szoftvergyártó cég neve, amely a számviteli programot, az ERP-t vagy a szoftvert fejlesztette ki, ahonnan az adatok érkeznek</xs:documentation>
+					<xs:documentation xml:lang="en">Name of the software company that developed the accounting program, ERP or software from where the data is coming from</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DataSourceSystem" type="SAFTlongtextType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Könyvelőprogram vagy ERP megnevezése, melyből az adatok származnak</xs:documentation>
+					<xs:documentation xml:lang="en">Accounting program, ERP or software name from where the data is coming from</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DataSourceSystemVersion" type="SAFTshorttextType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Számviteli program, ERP vagy szoftver verziószáma, ahonnan az adatok származnak</xs:documentation>
+					<xs:documentation>Accounting program, ERP or software version from where the data is coming from</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Company" type="SAFTHUCompanyHeaderStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">A társaság neve és a székhely címe</xs:documentation>
+					<xs:documentation xml:lang="en">Company's name and headquarters address details</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DefaultCurrencyCode" type="ISOCurrencyCode">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Könyvelés pénzneme (három karakterből álló pénznemkód az ISO 4217 szerint).
+Pénznem kód, amelyet alapértelmezés szerint az ellenőrzési fájlban használunk a főkönyvi bejegyzés struktúrán. Például a magyar forint esetében - forint.</xs:documentation>
+					<xs:documentation xml:lang="en">Three-character currency code according to ISO 4217.
+Currency code that is used by default in the audit file on the general ledger entries structure. For example, in the case of Hungarian Forint - HUF.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="ExchangeRateMethod">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">A társaság által választott árfolyam meghatározásának módszere. Opciók:
+						„AAHB" - A választott - hitelintézet által meghirdetett devizavételi és devizaeladási árfolyamának átlaga,
+						„OHNB" - A  Magyar Nemzeti Bank által közzétett hivatalos devizaárfolyama,
+						„OMER" - Valuta szabadpiaci árfolyama,
+						„OECB" - Az Európai Központi Bank által közzétett hivatalos devizaárfolyama,
+						„OT" - Egyéb
+					</xs:documentation>
+					<xs:documentation xml:lang="en">Exchange rate method used on the audit file, options:
+						"AAHB" - Average of selling and buying rate of the account holder bank,
+						"OHNB" - Official exchange rate of Hungarian National bank,
+						"OMER" - Open market exchange rate,
+						"OECB" - Official exchange rate of European Central bank,
+						"OT" - Other
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="SAFTcodeType">
+						<xs:enumeration value="AAHB"/>
+						<xs:enumeration value="OHNB"/>
+						<xs:enumeration value="OMER"/>
+						<xs:enumeration value="OECB"/>
+						<xs:enumeration value="OT"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+
+
+			<xs:element minOccurs="1" name="SelectionCriteria"
+				type="SAFTHUSelectionCriteriaStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Audit fájl leválogatásának kritériumai</xs:documentation>
+					<xs:documentation>Criteria for collecting Audit File</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="HeaderComment" type="SAFTlongtextType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Egyéb megjegyzések</xs:documentation>
+					<xs:documentation xml:lang="en">Other comments</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SAFTHUOutstandingInvoiceStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Ki nem egyenlített számla adatai</xs:documentation>
+			<xs:documentation xml:lang="en">Outstanding invoice details</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="1" name="InvoiceType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Számla típusa, opciók:
+						„IN" - Számla,
+						„OD" - Számlával egy tekintet alá eső okirat
+					</xs:documentation>
+					<xs:documentation xml:lang="en">Invoice Type, options:
+						"IN" - Invoice,
+						"OD" - Documents in lieu of an invoice</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="SAFTcodeType">
+						<xs:enumeration value="IN"/>
+						<xs:enumeration value="OD"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="InvoiceNo" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Eredeti bizonylat sorszáma, azonosítója</xs:documentation>
+					<xs:documentation xml:lang="en">Unique invoice number, it should be unique inside the company system(s)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InvoiceDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Eredeti bizonylat kiállítás dátuma</xs:documentation>
+					<xs:documentation xml:lang="en">Invoice issue date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GLPostingDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Főkönyvi feladás dátuma</xs:documentation>
+					<xs:documentation xml:lang="en">Posting date of on the general ledger entry</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="1" name="DueDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Fizetési határidő</xs:documentation>
+					<xs:documentation xml:lang="en">Due date of the invoice</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DeliveryDate" minOccurs="0" type="xs:date">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Teljesítés dátuma</xs:documentation>
+					<xs:documentation xml:lang="en">Date of the delivery of the goods or services</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DeliveryPeriod" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Teljesítés időszaka</xs:documentation>
+					<xs:documentation xml:lang="en">Timeframe of the deliveries</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FromDate" minOccurs="0" type="xs:date">
+							<xs:annotation>
+								<xs:documentation xml:lang="hu">Teljesítés kezdő dátuma</xs:documentation>
+								<xs:documentation xml:lang="en">Start date of the deliveries</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ToDate" minOccurs="0" type="xs:date">
+							<xs:annotation>
+								<xs:documentation xml:lang="hu">Teljesítés vég dátuma</xs:documentation>
+								<xs:documentation xml:lang="en">End date of the deliveries</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="TransactionID" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Könyvelési tranzakció egyedi azonosító</xs:documentation>
+					<xs:documentation xml:lang="en">A unique number assigned to the general ledger entry</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="SAFTlongtextType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Leírás, megjegyzés</xs:documentation>
+					<xs:documentation xml:lang="en">Description or comment</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GrossTotal" type="AmountStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Dokumentum bruttó összesen összege (beleértve az adókat, szállítási költséget is)</xs:documentation>
+					<xs:documentation xml:lang="en">Total gross sales value (including taxes and shipping costs) of the document</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UnpaidAmount" type="AmountStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Ki nem fizetett összeg</xs:documentation>
+					<xs:documentation xml:lang="en">Unpaid ammount</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DebitCreditIndicator">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Tartozik/követel jelző (D - tartozik / C - követel)</xs:documentation>
+					<xs:documentation xml:lang="en">Indicates whether the amounts is a debit or a credit amount (D – debit / C – credit)</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="SAFTcodeType">
+						<xs:enumeration value="D"/>
+						<xs:enumeration value="C"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SAFTHUPersonNameStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Kapcsolattartó személy adatai.</xs:documentation>
+			<xs:documentation>Contact Person details</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="0" name="Title" type="SAFTcodeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Cím (pl. prof, dr.)</xs:documentation>
+					<xs:documentation xml:lang="en">Title (eg. prof, dr.)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirstName" type="SAFTmiddle1textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Keresztnév</xs:documentation>
+					<xs:documentation xml:lang="en">First name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="LastNamePrefix" type="SAFTshorttextType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Családnév előtag, például Id, Ifj, Özv</xs:documentation>
+					<xs:documentation xml:lang="en">Surname prefix (eg. Van, Von)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastName" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Családnév</xs:documentation>
+					<xs:documentation xml:lang="en">Last name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SAFTHUSelectionCriteriaStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Audit fájl időszakának meghatározása</xs:documentation>
+			<xs:documentation xml:lang="en">Selection criteria structure</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element name="FiscalCalendar" type="SAFTHUFiscalCalendarStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">A társaság üzleti év adatai</xs:documentation>
+					<xs:documentation xml:lang="en">Fiscal accounting calendar of the company structure</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SelectionStartDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Adatszolgáltatással érintett időszak kezdő dátuma</xs:documentation>
+					<xs:documentation xml:lang="en">The start date for the reporting period covered by the file data</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SelectionEndDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Adatszolgáltatással érintett időszak befejező dátuma</xs:documentation>
+					<xs:documentation xml:lang="en">The end date for the reporting period covered by the file data</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PeriodStart" type="xs:nonNegativeInteger">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Adatszolgáltatással érintett üzleti év kezdete (periódus)</xs:documentation>
+					<xs:documentation xml:lang="en">The first accounting period covered by the file data</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PeriodEnd" type="xs:nonNegativeInteger">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Adatszolgáltatással érintett üzleti év vége (periódus)</xs:documentation>
+					<xs:documentation xml:lang="en">The last accounting period covered by the file data</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PeriodYear">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Adatszolgáltatással érintett üzleti év</xs:documentation>
+					<xs:documentation xml:lang="en">The accounting year of the file data</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger">
+						<xs:minInclusive value="1970"/>
+						<xs:maxInclusive value="2100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SAFTHUTariffStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">VTSZ</xs:documentation>
+			<xs:documentation xml:lang="en">Tariff Information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TariffCodeType" type="SAFTcodeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">VTSZ-típus</xs:documentation>
+					<xs:documentation xml:lang="en">Tariff code type</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TariffCodeValue" type="SAFTmiddle1textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">VTSZ-érték</xs:documentation>
+					<xs:documentation xml:lang="en">Tariff code value</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- -->
+	<!-- Data Types -->
+	<!-- -->
+
+	<xs:simpleType name="SAFTHUfileName">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Fájlnév (dokumentáció szerinti szerkezetben)</xs:documentation>
+			<xs:documentation xml:lang="en">File Name with restrictions</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern
+				value="(SAFTHU_HU)([0-9]{9})(_)(GEL|SUP|CST|PRD|OWN|AST|OMD|ATB|GLH|GLL|SIH|SIL|PIH|PIL|PYH|PYL|MGH|MGL|ATD|PYS|VAT|COI|COS)(_)([1-9][0-9]{0,1})(_)([1-9][0-9]{0,1})(\.xml)"
+			/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SAFTHUnonNegativeInteger">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Integer > = 0</xs:documentation>
+			<xs:documentation xml:lang="en">Integer number >= 0</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:nonNegativeInteger"> </xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SAFTHUZeroOrOne">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">0 vagy 1 érték</xs:documentation>
+			<xs:documentation xml:lang="en">Value 0 or 1</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:nonNegativeInteger">
+			<xs:maxInclusive value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SAFTHUfiscalPeriod">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Lehetséges periódusok száma az adott üzleti éven belül</xs:documentation>
+			<xs:documentation xml:lang="en">Possible Fiscal Periods within a Fiscal Year</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="48"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SAFTHUcypherKey172">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">172 karakter (bájt) hosszúságú cypher kulcs.</xs:documentation>
+			<xs:documentation xml:lang="en">172 character (bytes) length cypher key.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="172"/>
+			<xs:maxLength value="172"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!-- -->
+	<!-- OECD definitions and types
+         Do not change ! -->
+	<!-- -->
+
+	<xs:complexType name="AnalysisStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Főkönyvi számlaszám különböző kimutatásokhoz, riportokhoz használt kódjai</xs:documentation>
+			<xs:documentation xml:lang="en">General Ledger Accounting Analysis Codes stored by the system for various reports</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AnalysisType" type="SAFTcodeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Egyedi elemzések, kimutatások nézeteinek az adatai, amennyiben a rendszer nyilván tart ilyen adatokat. Ilyen lehet például a költség központ azonosítója, költséghely azonosítója, projektszám, rendelésszám, szerződésszám, munkaszám stb</xs:documentation>
+					<xs:documentation xml:lang="en">Analysis code identifier: cost center, cost unit, cost type, project, etc. Refers to the MasterFile AnalysisTypeTable</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AnalysisID" type="SAFTlongtextType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Elemzés egyedi azonosítója. Pl. 1200-HDOF-TR (treasury költségközpont), P-4800-123 (4800-as részleg 123-as projektje)</xs:documentation>
+					<xs:documentation xml:lang="en">Analysis internal identification code
+                        Eg. number used in the accounting system of the entity, like a center of cost, a profit center, a project code, etc</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="AnalysisAmount" type="AmountStructure">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Adott elemzéshez használt, kimutatott összeg</xs:documentation>
+					<xs:documentation xml:lang="en">Amount for a specific analysis type</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="AmountStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Általános összeg struktúra. Az alapértelmezettől eltérő pénznemek esetén tartalmazhat átváltási árfolyamot</xs:documentation>
+			<xs:documentation xml:lang="en">General Amount Structure. Monetary amount with optional foreign currency exchange rate information.
+                It may contain a conversion rate for currencies other than the default</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Amount" type="SAFTmonetaryType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Összeg a könyvelés pénznemében</xs:documentation>
+					<xs:documentation>Amount in the default currency of the file header</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence minOccurs="0">
+				<xs:element name="CurrencyCode" type="ISOCurrencyCode">
+					<xs:annotation>
+						<xs:documentation xml:lang="hu">Hárombetűs deviza kód az ISO 4217 szabványának megfelelően. Például HUF - magyar forint, EUR - euró</xs:documentation>
+						<xs:documentation xml:lang="en">Three-letter currency code according to ISO 4217 standard. 
+                            Eg. HUF - Hungarian Forint, EUR - EUR</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="CurrencyAmount" type="SAFTmonetaryType">
+					<xs:annotation>
+						<xs:documentation xml:lang="hu">Összeg a könyvelés pénznemétől eltérő pénznemben</xs:documentation>
+						<xs:documentation xml:lang="en">Amount in foreign currency</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element minOccurs="0" name="ExchangeRate" type="SAFTexchangerateType">
+					<xs:annotation>
+						<xs:documentation xml:lang="hu">Használt átváltási árfolyam. CurrencyAmount x ExchangeRate = Amount</xs:documentation>
+						<xs:documentation xml:lang="en">Used exchange rate. CurrencyAmount x ExchangeRate = Amount</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="BankAccountStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Bankszámlaszám információ</xs:documentation>
+			<xs:documentation xml:lang="en">General bank account information</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="IBANNumber" type="SAFTmiddle1textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">IBAN szám az ISO 13616 szabványnak megfelelően</xs:documentation>
+					<xs:documentation xml:lang="en">International Bank Account Number with ISO 13616 table</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="BankAccountNumber" type="SAFTmiddle1textType">
+					<xs:annotation>
+						<xs:documentation xml:lang="hu">Bankszámlaszám</xs:documentation>
+						<xs:documentation xml:lang="en">Bank account number</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element minOccurs="0" name="BankAccountName" type="SAFTmiddle2textType">
+					<xs:annotation>
+						<xs:documentation xml:lang="hu">Bankszámlát vezető bank megnevezése</xs:documentation>
+						<xs:documentation xml:lang="en">Bank account name</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="TaxInformationStructure">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Adózási információ struktúrája</xs:documentation>
+			<xs:documentation xml:lang="en">Tax Information Structure</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="1" name="TaxType" type="SAFTcodeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Adónem kód a dokumentáció szerint.</xs:documentation>
+					<xs:documentation xml:lang="en">Tax Type (should be refered on the TaxTable structure)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="1" name="TaxCode" type="SAFTcodeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Társaság által használt adókód</xs:documentation>
+					<xs:documentation>Tax Code (should be refered on the TaxTable structure)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="TaxPercentage" type="SAFTHUpercentageType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Adókulcs</xs:documentation>
+					<xs:documentation xml:lang="en">Tax Percentage</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="TaxBase" type="SAFTHUtaxbaseType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">A jogszabály szerinti adóalap, amely lehet összeg, vagy mennyiség is (pl. liter a jövedéki adónál)</xs:documentation>
+					<xs:documentation xml:lang="en">The base on which the tax is calculated. This can be an amount, or a quantity, eg. Litres</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="TaxBaseDescription" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Adóalap leírása</xs:documentation>
+					<xs:documentation xml:lang="en">Description of the value in the TaxBase
+                        Eg. Litres for excises on alcoholic bevarages</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TaxAmount" type="SAFTHUAmountStructureTax">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Adó összege</xs:documentation>
+					<xs:documentation xml:lang="en">Tax Amount Structure</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="TaxExemptionReason" type="SAFTmiddle2textType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Adómentesség vagy adókedvezmény oka</xs:documentation>
+					<xs:documentation xml:lang="en">Reason for exemption or tax relief</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="TaxDeclarationPeriodType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Adózási nyilatkozat időszak típusa, lehetőségek:
+„M" - Montly,
+„Q" - Negyedévente,
+„Y" - Évente
+
+</xs:documentation>
+					<xs:documentation xml:lang="en">Tax declaration period type, options:
+"M" - Montly,
+"Q" - Quarterly,
+"Y" - Yearly </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="SAFTcodeType">
+						<xs:enumeration value="M"/>
+						<xs:enumeration value="Q"/>
+						<xs:enumeration value="Y"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element minOccurs="0" name="TaxDeclarationPeriod" type="SAFTshorttextType">
+				<xs:annotation>
+					<xs:documentation xml:lang="hu">Adóelszámolási időszak, amely időszaki bevallásban szerepel az adó összege (eg. 2019-05, 2019, 2019-1Q)</xs:documentation>
+					<xs:documentation xml:lang="en">The identification of the declaration/return period in which the tax amount is reported to the Revenue body (eg.  2019-05, 2019, 2019-1Q)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="SAFTmonetaryType">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Pénzügyi adatok maximum 18 hosszú számjegy lehet, és 2 számjegynyi tizedesszámot tartalmazhatnak.</xs:documentation>
+			<xs:documentation xml:lang="en">Monetary amount, that can have up to 18 digits max and can contain up to 2 decimal places.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="18"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SAFTexchangerateType">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Az átváltási arány maximum 18 hosszú számjegy lehet, és 8 számjegynyi tizedesszámot tartalmazhatnak.</xs:documentation>
+			<xs:documentation xml:lang="en">Exchange rate, that can be up to 18 digits and can contain up to 8 decimal places.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="18"/>
+			<xs:fractionDigits value="8"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SAFTpostalcodeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Irányítószám típus</xs:documentation>
+			<xs:documentation xml:lang="en">ZIP code type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="10"/>
+			<xs:pattern value="[A-Z0-9]{4,10}"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SAFTquantityType">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Mennyiség leírása, mely maximum 22 hosszú számjegy lehet, melyből 8 számjegy tizedesszám.</xs:documentation>
+			<xs:documentation xml:lang="en">Used to describe a quantity, that can be up to 22 digits and can contain up to 8 decimal places.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="22"/>
+			<xs:fractionDigits value="8"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SAFTcodeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Legfeljebb 9 karakter hosszú szöveges adat.</xs:documentation>
+			<xs:documentation xml:lang="en">9 character text.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="9"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SAFTshorttextType">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Legfeljebb 18 karakter hosszú szöveges adat.</xs:documentation>
+			<xs:documentation xml:lang="en">18 character text.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="18"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SAFTmiddle1textType">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Legfeljebb 35 karakter hosszú szöveges adat.</xs:documentation>
+			<xs:documentation xml:lang="en">35 character text.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="35"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SAFTmiddle2textType">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Legfeljebb 70 karakter hosszú szöveges adat.</xs:documentation>
+			<xs:documentation xml:lang="en">70 character text.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="70"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SAFTlongtextType">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Legfeljebb 256 karakter hosszú szöveges adat.</xs:documentation>
+			<xs:documentation xml:lang="en">256 character text.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="256"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ISOCountryCode">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Két karakteres országkód az ISO 3166-1 alpha 2 szabványnak megfelelően. Magyarország például HU.</xs:documentation>
+			<xs:documentation xml:lang="en">Two-letter country code according to ISO 3166-1 alpha 2 standard. Example: HU for Hungary.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ISOCurrencyCode">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Három karakter hosszú pénznemkód az ISO 4217 szabványnak megfelelően. A magyar forint példul HUF, az euró EUR.</xs:documentation>
+			<xs:documentation xml:lang="en">Three-letter currency code according to ISO 4217 standard. Example: HUF for Hungarian forint or EUR for Euros.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SAFTHUYearMonth">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Év és hónap adat. Példa: 2019-06.</xs:documentation>
+			<xs:documentation xml:lang="en">Year and month information. Example: 2019-06.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="7"/>
+			<xs:pattern value="(20[1-9][0-9]-(0[1-9]|1[0-2]))"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SAFTHUtaxbaseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Legfeljebb 22 számjegyet tartalmazó számadat, legfeljebb 6 tizedesjeggyel.</xs:documentation>
+			<xs:documentation xml:lang="en">Numeric value that can be up to 22 digits and can contain up to 6 decimal places.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="22"/>
+			<xs:fractionDigits value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SAFTHUpercentageType">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">Százalékérték típus, legfeljebb 6 számjegy, amiből legfeljebb 3 tizedesjegy.</xs:documentation>
+			<xs:documentation xml:lang="en">Percentage value that can be up to 6 digits and can contain up to 3 decimal places.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="6"/>
+			<xs:fractionDigits value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SAFTHUconversionfactorType">
+		<xs:annotation>
+			<xs:documentation xml:lang="hu">A konverziós tényező értéke legfeljebb 16 számjegyen, amiből legfeljebb 8 tizedesjegy.</xs:documentation>
+			<xs:documentation xml:lang="en">Conversion factor value that can be up to 16 digits and can contain up to 8 decimal places.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="16"/>
+			<xs:fractionDigits value="8"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
