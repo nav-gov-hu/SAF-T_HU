@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2016 sp1 (x64) (http://www.altova.com) by NAV (Hungarian Tax Authority) -->
 <!-- Létrehozta a Nemzeti Adó és Vámhivatal -->
+<!-- Ez egy részsablon. A SAFT_HU__Integrated_mod_0316.xsd szerinti adattartalommal -->
 <xs:schema xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.00" id="SAFT-HU">
 	<!-- SAFTHU definitions, data types and OECD guideline compatibility -->
 	<xs:include schemaLocation="./SAFT_HU_Definitions.xsd"/>
@@ -126,95 +128,6 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 															<xs:documentation xml:lang="en">Date of posting of the movement on the general ledger</xs:documentation>
 														</xs:annotation>
 													</xs:element>
-													<xs:element name="MovementType">
-														<xs:annotation>
-															<xs:documentation xml:lang="hu">A mozgás típusa. Opciók:
-PO - Beszerzés
-SA - Értékesítés
-RE - Visszáru
-CR - Javított visszaküldés
-OU - Felhasználás
-RS - Visszaérkezés bérmunkából
-TS - Bérmunkára történő kiküldés
-RP - Visszavételezés
-SW - Raktárközi készletmozgás
-PR - Gyártás/ Saját termelésű készlet raktárra vétel
-CO - Apportba átadás
-RC - Apport átvétel
-RJ - Selejtezés
-DE - Hiány
-SP - Többlet
-SO - Készletromlás
-IN - Káresemény
-FC - Térítés nélküli átadás
-FR - Térítés nélküli átvétel
-TR - Átsorolás
-TF - Átminősítés tárgyi eszközből
-TT - Átminősítés tárgyi eszközzé
-OT - Egyéb átminősítés
-IT - IFRS értékesítésre tartottá minősítés
-OI - Egyéb növekedés
-OD - Egyéb csökkenés
-</xs:documentation>
-															<xs:documentation xml:lang="en">Stock movement type. Options:
-PO - Purchase
-SA - Sale
-RE - Return
-CR - Corrected return
-OU - Own use
-RS - Return from subcontracting
-TS - Transfer to subcontracting
-RP - Returns for purchase order
-SW - Transfer storage location to storage location
-PR - Producement
-CO - Contribution
-RC - Received contribution
-RJ - Reject
-DE - Deficit
-SP - Surplus
-SO - Stock obsolescence
-IN - Incident
-FC - Free of charge delivery
-FR - Goods receipt free of charge
-TR - Transfer
-TF - Transfer from asset
-TT - Transfer to asset
-OT - Other transfer
-IT - IFRS Transfer to sales
-OI - Other increase
-OD - Other decrease</xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="SAFTcodeType">
-																<xs:enumeration value="PO"/>
-																<xs:enumeration value="SA"/>
-																<xs:enumeration value="RE"/>
-																<xs:enumeration value="CR"/>
-																<xs:enumeration value="OU"/>
-																<xs:enumeration value="RS"/>
-																<xs:enumeration value="TS"/>
-																<xs:enumeration value="RP"/>
-																<xs:enumeration value="SW"/>
-																<xs:enumeration value="PR"/>
-																<xs:enumeration value="CO"/>
-																<xs:enumeration value="RC"/>
-																<xs:enumeration value="RJ"/>
-																<xs:enumeration value="DE"/>
-																<xs:enumeration value="SP"/>
-																<xs:enumeration value="SO"/>
-																<xs:enumeration value="IN"/>
-																<xs:enumeration value="FC"/>
-																<xs:enumeration value="FR"/>
-																<xs:enumeration value="TR"/>
-																<xs:enumeration value="TF"/>
-																<xs:enumeration value="TT"/>
-																<xs:enumeration value="OT"/>
-																<xs:enumeration value="IT"/>
-																<xs:enumeration value="OI"/>
-																<xs:enumeration value="OD"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:element>
 													<xs:element name="SourceID" type="SAFTmiddle1textType">
 														<xs:annotation>
 															<xs:documentation xml:lang="hu">Adatbevitelt végző személy vagy rendszer azonosítója.</xs:documentation>
@@ -284,6 +197,12 @@ OD - Other decrease</xs:documentation>
 																	<xs:annotation>
 																		<xs:documentation xml:lang="hu">Hivatkozott dokumentum tételsorának száma.</xs:documentation>
 																		<xs:documentation xml:lang="en">Line number of the document</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="Description" type="SAFTlongtextType" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Dokumentum megnevezése.</xs:documentation>
+																		<xs:documentation xml:lang="en">Description of the document</xs:documentation>
 																	</xs:annotation>
 																</xs:element>
 															</xs:sequence>

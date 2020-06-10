@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2016 sp1 (x64) (http://www.altova.com) by NAV (Hungarian Tax Authority) -->
 <!-- Létrehozta a Nemzeti Adó és Vámhivatal -->
+<!-- Ez egy részsablon. A SAFT_HU__Integrated_mod_0316.xsd szerinti adattartalommal -->
 <xs:schema xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.00" id="SAFT-HU">
 	<!-- SAFTHU definitions, data types and OECD guideline compatibility -->
 	<xs:include schemaLocation="./SAFT_HU_Definitions.xsd"/>
@@ -95,6 +97,12 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
+										<xs:element name="NumberOfEntries" type="xs:nonNegativeInteger">
+											<xs:annotation>
+												<xs:documentation xml:lang="hu">Bejegyzések száma</xs:documentation>
+												<xs:documentation xml:lang="en">Number of entries</xs:documentation>
+											</xs:annotation>
+										</xs:element>
 										<xs:element name="PhysicalStockEntry" minOccurs="0" maxOccurs="unbounded">
 											<xs:annotation>
 												<xs:documentation xml:lang="hu">Leltár bejegyzés</xs:documentation>
@@ -279,10 +287,10 @@ Eg. Blue, Size XL, etc.</xs:documentation>
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="VATAnalitics" minOccurs="0">
+							<xs:element name="VATAnalytics" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation xml:lang="hu">ÁFA analitika</xs:documentation>
-									<xs:documentation xml:lang="en">VAT Analitics</xs:documentation>
+									<xs:documentation xml:lang="en">VAT Analytics</xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
@@ -314,11 +322,35 @@ Eg. Blue, Size XL, etc.</xs:documentation>
 											<xs:complexType>
 												<xs:sequence>
 													<xs:element name="VATPeriod" maxOccurs="unbounded">
-														<xs:annotation>
-															<xs:documentation>Érintett ÁFA bevallás időszaka Pl: 2001</xs:documentation>
-														</xs:annotation>
 														<xs:complexType>
 															<xs:sequence>
+																<xs:element name="TaxDeclarationPeriodType">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Adózási nyilatkozat időszak típusa, lehetőségek:
+„M" - Havonta,
+„Q" - Negyedévente,
+„Y" - Évente
+
+</xs:documentation>
+																		<xs:documentation xml:lang="en">Tax declaration period type, options:
+"M" - Montly,
+"Q" - Quarterly,
+"Y" - Yearly </xs:documentation>
+																	</xs:annotation>
+																	<xs:simpleType>
+																		<xs:restriction base="SAFTcodeType">
+																			<xs:enumeration value="M"/>
+																			<xs:enumeration value="Q"/>
+																			<xs:enumeration value="Y"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="TaxDeclarationPeriod" type="SAFTshorttextType">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Adóelszámolási időszak, amely időszaki bevallásban szerepel az adó összege (eg. 2019-05, 2019, 2019-1Q)</xs:documentation>
+																		<xs:documentation xml:lang="en">The identification of the declaration/return period in which the tax amount is reported to the Revenue body (eg.  2019-05, 2019, 2019-1Q)</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
 																<xs:element name="Line" maxOccurs="unbounded">
 																	<xs:annotation>
 																		<xs:documentation xml:lang="hu">Sorok</xs:documentation>
@@ -412,17 +444,59 @@ Eg. Blue, Size XL, etc.</xs:documentation>
 								</xs:complexType>
 							</xs:element>
 							<xs:element name="GroupingLedger" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation xml:lang="hu">Csoportos könyvelés kimutatás</xs:documentation>
+									<xs:documentation xml:lang="en">Grouping ledger</xs:documentation>
+								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="TransactionID" maxOccurs="unbounded">
+										<xs:element name="NumberOfEntries" type="xs:nonNegativeInteger">
+											<xs:annotation>
+												<xs:documentation xml:lang="hu">Bejegyzések száma</xs:documentation>
+												<xs:documentation xml:lang="en">Number of entries</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="Transaction" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation xml:lang="hu">Tranzakció</xs:documentation>
+												<xs:documentation xml:lang="en">Transaction</xs:documentation>
+											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
-													<xs:element name="SourceDocumentID" maxOccurs="unbounded">
+													<xs:element name="TransactionID" type="SAFTshorttextType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Tranzakció azonosítója </xs:documentation>
+															<xs:documentation xml:lang="en">Transaction identifier</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="SourceDocument" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Forrásbizonylat </xs:documentation>
+															<xs:documentation xml:lang="en">Source Document</xs:documentation>
+														</xs:annotation>
 														<xs:complexType>
-															<xs:choice>
-																<xs:element name="DebitAmount" type="AmountStructure" minOccurs="0"/>
-																<xs:element name="CreditAmount" type="AmountStructure" minOccurs="0"/>
-															</xs:choice>
+															<xs:sequence>
+																<xs:element name="SourceDocumentID" type="SAFTshorttextType">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Forrásbizonylat sorszáma vagy azonosítója </xs:documentation>
+																		<xs:documentation xml:lang="en">Source document serial number or identifier</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+																<xs:choice>
+																	<xs:element name="DebitAmount" type="AmountStructure">
+																		<xs:annotation>
+																			<xs:documentation xml:lang="hu">Forrásbizonylat tartozik összege</xs:documentation>
+																			<xs:documentation xml:lang="en">Debit amount of source document</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="CreditAmount" type="AmountStructure">
+																		<xs:annotation>
+																			<xs:documentation xml:lang="hu">Forrásbizonylat követel összege</xs:documentation>
+																			<xs:documentation xml:lang="en">Credit amount of source document</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																</xs:choice>
+															</xs:sequence>
 														</xs:complexType>
 													</xs:element>
 												</xs:sequence>
@@ -431,13 +505,20 @@ Eg. Blue, Size XL, etc.</xs:documentation>
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="OutStandingInvoices" minOccurs="0">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="OutStandingInvoice" type="SAFTHUOutstandingInvoiceStructure" maxOccurs="unbounded"/>
-									</xs:sequence>
-								</xs:complexType>
+							<xs:element name="OutStandingInvoices" type="SAFTHUOutstandingInvoiceStructure" minOccurs="0"/>
+							<xs:element name="GeneralLedgerStatement" type="SAFTHUGeneralLedgerStatementSructure" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation xml:lang="hu">Főkönyvi kivonat</xs:documentation>
+									<xs:documentation xml:lang="en">General ledger statement</xs:documentation>
+								</xs:annotation>
 							</xs:element>
+							<xs:element name="CustomerAnalytics" type="SAFTHUCustomerAnalyticsSructure" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation xml:lang="hu">Vevő analitika</xs:documentation>
+									<xs:documentation xml:lang="en">Customer analytics</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="SupplierAnalytics" type="SAFTHUSupplierAnalyticsStructure" minOccurs="0"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>

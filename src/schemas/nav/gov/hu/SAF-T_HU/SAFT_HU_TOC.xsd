@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2016 sp1 (x64) (http://www.altova.com) by NAV (Hungarian Tax Authority) -->
+<!-- Módosítva a SAFT_HU_Integrated_mod0316.xsd tartalmának megfelelően-->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0" targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" elementFormDefault="qualified" version="1.00">
 	<!-- -->
 	<!-- Include global definitions and types -->
@@ -368,7 +370,43 @@
 							<xs:element name="OutstandingInvoices">
 								<xs:annotation>
 									<xs:documentation xml:lang="hu">Ki nem fizetett számlák.</xs:documentation>
-									<xs:documentation xml:lang="en">Non paid invoices.</xs:documentation>
+									<xs:documentation xml:lang="en">Non paid purchase invoices to suppliers.</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="NrOfParts" type="SAFTHUZeroOrOne"/>
+										<xs:element name="MetaData" type="SAFTHUfileMetadata" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="GeneralLedgerStatement">
+								<xs:annotation>
+									<xs:documentation>Főkönyvi kivonat</xs:documentation>
+									<xs:documentation xml:lang="en">General ledger statement</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="NrOfParts" type="SAFTHUZeroOrOne"/>
+										<xs:element name="MetaData" type="SAFTHUfileMetadata" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="CustomerAnalytics">
+								<xs:annotation>
+									<xs:documentation xml:lang="hu">Vevő analitika</xs:documentation>
+									<xs:documentation xml:lang="en">Customer analiytics</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="NrOfParts" type="SAFTHUZeroOrOne"/>
+										<xs:element name="MetaData" type="SAFTHUfileMetadata" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="SupplierAnalytics">
+								<xs:annotation>
+									<xs:documentation xml:lang="hu">Szállító analitika</xs:documentation>
+									<xs:documentation xml:lang="en">Supplier analytics</xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>

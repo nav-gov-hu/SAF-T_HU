@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2016 sp1 (x64) (http://www.altova.com) by NAV (Hungarian Tax Authority) -->
 <!-- Létrehozta a Nemzeti Adó és Vámhivatal -->
+<!-- Ez egy részsablon. A SAFT_HU__Integrated_mod_0316.xsd szerinti adattartalommal -->
 <xs:schema xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.00" id="SAFT-HU">
 	<!-- SAFTHU definitions, data types and OECD guideline compatibility -->
 	<xs:include schemaLocation="./SAFT_HU_Definitions.xsd"/>
@@ -123,7 +125,6 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 													<xs:element name="AssetTransactionType">
 														<xs:annotation>
 															<xs:documentation xml:lang="hu">Befektetett eszköz tranzakció típusa, opciók:
-PU  - Beszerzés
 SA  - Értékesítés
 CA  - Aktiválás
 AC  - Ráaktiválás
@@ -157,7 +158,7 @@ DS  - Megsemmisülés
 TD  - Kedvezményezett eszközátruházás
 DP  - Terv szerinti értékcsökkenés
 ED  - Terven felüli értékcsökkenés 
-RE  - Terven felüli értékcsökkenés visszaírása
+RD  - Terven felüli értékcsökkenés visszaírása
 US  - Felhasznált támogatás
 DR  - Fejlesztési tartalék 
 OR  - Egyéb nyilvántartás módosítás (pl. leírási kulcs változás)
@@ -168,7 +169,6 @@ OD  - Egyéb csökkenés
 
 </xs:documentation>
 															<xs:documentation xml:lang="en">The type of the asset transaction, options:
-PU  -  Purchase
 SA  -  Sale
 CA  -  Capitalisation
 AC  -  Additional Capitalization
@@ -202,7 +202,7 @@ DS  -  Destroyed assets
 TD  -  Transfer of discounted assets
 DP  -  Depreciation according to plan
 ED  -  Extraordinary depreciation
-RE  -  Reversed extraordinary depreciation
+RD  -  Reversed extraordinary depreciation
 US  -  Used subsidies
 DR  -  Developement reserve
 OR  -  Other record adjustement
@@ -213,7 +213,6 @@ OD  -  Other decrease</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
 															<xs:restriction base="SAFTcodeType">
-																<xs:enumeration value="PU"/>
 																<xs:enumeration value="SA"/>
 																<xs:enumeration value="CA"/>
 																<xs:enumeration value="AC"/>
@@ -247,7 +246,7 @@ OD  -  Other decrease</xs:documentation>
 																<xs:enumeration value="TD"/>
 																<xs:enumeration value="DP"/>
 																<xs:enumeration value="ED"/>
-																<xs:enumeration value="RE"/>
+																<xs:enumeration value="RD"/>
 																<xs:enumeration value="US"/>
 																<xs:enumeration value="DR"/>
 																<xs:enumeration value="OR"/>

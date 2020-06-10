@@ -33,7 +33,7 @@
 												„TR” - fizetési adatok, 
 												„PS” - készlet adatok,
 												„MG” - készletmozgás adatok,
-												„AS” - gazdasági események adatai, 
+												„AT” - gazdasági események adatai, 
 												„VA” - ÁFA analitika,
 												„RD" - egyéb jelentési adatok</xs:documentation>
 											<xs:documentation xml:lang="en">Type of content that the file contains. Options: 
@@ -172,7 +172,7 @@ Eg. Sales, Purchases, stock movements, financial transactions, etc.</xs:document
 															<xs:documentation xml:lang="en">Description of the individual ledger account.</xs:documentation>
 														</xs:annotation>
 													</xs:element>
-													<xs:element name="StandardAccountID" type="SAFTmiddle1textType">
+													<xs:element name="StandardAccountID" type="SAFTmiddle1textType" minOccurs="0">
 														<xs:annotation>
 															<xs:documentation xml:lang="hu">Magyar számviteli törvény szerinti standard alkalmazása esetén a dokumentácó mellékletében szereplő számlatükör megfelelő számlaszáma. IFRS alkalmazása esetén a dokumentáció mellékletében szereplő mérleg- és eredménykimutatás sor azonosítója.</xs:documentation>
 															<xs:documentation xml:lang="en">Account number according to the Accounting Act if the company does not manage its books primarily on the basis of Hungarian accounting rules.
@@ -184,14 +184,14 @@ Only the movement accounts should be mapped. All the other accounts should have 
 															<xs:documentation xml:lang="hu">A főkönyvi számla fő kategóriája, opciók:
 														„S" - Számlaosztály,
 														„A" - Aggregált számla,
-														„M" - Mozgásfiók,
-														„O" - egyéb (pl. Analitikus számla)
+														„M" - Főkönyvi tranzakciók, főkönyvi mozgások számlája
+														„O" - technikai számla
 													</xs:documentation>
 															<xs:documentation xml:lang="en">The main category of the ledger account, options:
 													"S" - Sections,
 													"A" - Aggregated Account,
-													"M" - Movement Account,
-													"O" - Other (eg. Analytical Account)
+													"M" - General ledger transactions, general ledger movements account
+													"O" - Technical account
 												</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
@@ -214,46 +214,6 @@ For eg. The parent account of 6001 would be 600.</xs:documentation>
 														<xs:annotation>
 															<xs:documentation xml:lang="hu">Főkönyvi számla létrehozásának dátuma. </xs:documentation>
 															<xs:documentation>General Ledger account creation date.</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:choice>
-														<xs:element name="OpeningDebitBalance" type="SAFTmonetaryType">
-															<xs:annotation>
-																<xs:documentation xml:lang="hu">Nyitó tartozik egyenleg a könyvelés pénznemében.</xs:documentation>
-																<xs:documentation xml:lang="en">Debit balance at the start date of the selection period in the header's default currency.</xs:documentation>
-															</xs:annotation>
-														</xs:element>
-														<xs:element name="OpeningCreditBalance" type="SAFTmonetaryType">
-															<xs:annotation>
-																<xs:documentation xml:lang="hu">Nyitó követel egyenleg a könyvelés pénznemében.</xs:documentation>
-																<xs:documentation xml:lang="en">Credit balance at the start date of the selection period in the header's default currency.</xs:documentation>
-															</xs:annotation>
-														</xs:element>
-													</xs:choice>
-													<xs:choice>
-														<xs:element name="ClosingDebitBalance" type="SAFTmonetaryType">
-															<xs:annotation>
-																<xs:documentation xml:lang="hu">Záró tartozik egyenleg a könyvelés pénznemében.</xs:documentation>
-																<xs:documentation xml:lang="en">Debit balance at the end date of the selection period in the header's default currency.</xs:documentation>
-															</xs:annotation>
-														</xs:element>
-														<xs:element name="ClosingCreditBalance" type="SAFTmonetaryType">
-															<xs:annotation>
-																<xs:documentation xml:lang="hu">Záró követel egyenleg a könyvelés pénznemében.</xs:documentation>
-																<xs:documentation xml:lang="en">Credit balance at the end date of the selection period in the header's default currency.</xs:documentation>
-															</xs:annotation>
-														</xs:element>
-													</xs:choice>
-													<xs:element name="TotalDebit" type="SAFTmonetaryType">
-														<xs:annotation>
-															<xs:documentation xml:lang="hu">Összesített tartozik forgalom a könyvelés pénznemében.</xs:documentation>
-															<xs:documentation>Total debit of all the transactions in the header's default currency.</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:element name="TotalCredit" type="SAFTmonetaryType">
-														<xs:annotation>
-															<xs:documentation xml:lang="hu">Összesített követel forgalom a könyvelés pénznemében.</xs:documentation>
-															<xs:documentation xml:lang="en">Total credit of all the transactions in the header's default currency.</xs:documentation>
 														</xs:annotation>
 													</xs:element>
 												</xs:sequence>
@@ -386,8 +346,8 @@ It should be filled with "1" or "true" if there is agreement and with "0" (zero)
 												<xs:sequence>
 													<xs:element name="TaxType" type="SAFTcodeType">
 														<xs:annotation>
-															<xs:documentation xml:lang="hu">Adónem kód a dokumentáció szerint</xs:documentation>
-															<xs:documentation xml:lang="en">Tax Type Code according to the documentation</xs:documentation>
+															<xs:documentation xml:lang="hu">Adónem kód a dokumentáció szerint, értéke csak „104” lehet.</xs:documentation>
+															<xs:documentation xml:lang="en">Tax Type (value should be „104” according to documentation)</xs:documentation>
 														</xs:annotation>
 													</xs:element>
 													<xs:element name="Description" type="SAFTlongtextType">
@@ -550,7 +510,7 @@ Eg. "Headoffice-Treasury".</xs:documentation>
 															<xs:documentation xml:lang="en">Description of the Warehouse</xs:documentation>
 														</xs:annotation>
 													</xs:element>
-													<xs:element name="Address" type="SAFTHUAddressStructure" maxOccurs="unbounded">
+													<xs:element name="Address" type="SAFTHUAddressStructure" minOccurs="0" maxOccurs="unbounded">
 														<xs:annotation>
 															<xs:documentation xml:lang="hu">Raktár címe</xs:documentation>
 															<xs:documentation xml:lang="en">Warehouse address</xs:documentation>
@@ -621,52 +581,70 @@ Eg. "Headoffice-Treasury".</xs:documentation>
 											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
-													<xs:element name="CompanyMovementType" type="SAFTcodeType">
+													<xs:element name="MovementType" type="SAFTcodeType">
 														<xs:annotation>
 															<xs:documentation xml:lang="hu">A vállalatnál használt árukészlet mozgás típus kód</xs:documentation>
 															<xs:documentation xml:lang="en">Identification of the type of movement, used on the company system</xs:documentation>
 														</xs:annotation>
 													</xs:element>
-													<xs:element name="MovementType">
+													<xs:element name="StandardMovementType" type="SAFTHUmovementType">
 														<xs:annotation>
-															<xs:documentation xml:lang="hu">Az árukészlet mozgás típus kód. Értéklista:
-„OD" - Egyéb csökkenés,
-„OI" - Egyéb növekedés,
-„OU" - Saját felhasználás,
-„PO" - Beszerzés,
-„PR" - Gyártás,
-„RE" - Visszáru,
-„RJ" - Selejtezés,
-„SA" - Értékesítés,
-„TR" - Átsorolás
-
+															<xs:documentation xml:lang="hu">A mozgás típusa. Opciók:
+PO - Beszerzés
+SA - Értékesítés
+RE - Visszáru
+CR - Javított visszaküldés
+OU - Felhasználás
+RS - Visszaérkezés bérmunkából
+TS - Bérmunkára történő kiküldés
+RP - Visszavételezés
+SW - Raktárközi készletmozgás
+PR - Gyártás/ Saját termelésű készlet raktárra vétel
+CO - Apportba átadás
+RC - Apport átvétel
+RJ - Selejtezés
+DE - Hiány
+SP - Többlet
+SO - Készletromlás
+IN - Káresemény
+FC - Térítés nélküli átadás
+FR - Térítés nélküli átvétel
+TR - Átsorolás
+TF - Átminősítés tárgyi eszközből
+TT - Átminősítés tárgyi eszközzé
+OT - Egyéb átminősítés
+IT - IFRS értékesítésre tartottá minősítés
+OI - Egyéb növekedés
+OD - Egyéb csökkenés
 </xs:documentation>
-															<xs:documentation xml:lang="en">Identification of the type of movement. Options:
-"OD" - Other decrease,
-"OI" - Other increase,
-"OU" - Own use,
-"PO" - Purchase,
-"PR" - Production,
-"RE" - Return,
-"RJ" - Reject,
-"SA" - Sale,
-"TR" - Transfer
-
-</xs:documentation>
+															<xs:documentation xml:lang="en">Stock movement type. Options:
+PO - Purchase
+SA - Sale
+RE - Return
+CR - Corrected return
+OU - Own use
+RS - Return from subcontracting
+TS - Transfer to subcontracting
+RP - Returns for purchase order
+SW - Transfer storage location to storage location
+PR - Producement
+CO - Contribution
+RC - Received contribution
+RJ - Reject
+DE - Deficit
+SP - Surplus
+SO - Stock obsolescence
+IN - Incident
+FC - Free of charge delivery
+FR - Goods receipt free of charge
+TR - Transfer
+TF - Transfer from asset
+TT - Transfer to asset
+OT - Other transfer
+IT - IFRS Transfer to sales
+OI - Other increase
+OD - Other decrease</xs:documentation>
 														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="SAFTcodeType">
-																<xs:enumeration value="OD"/>
-																<xs:enumeration value="OI"/>
-																<xs:enumeration value="OU"/>
-																<xs:enumeration value="PO"/>
-																<xs:enumeration value="PR"/>
-																<xs:enumeration value="RE"/>
-																<xs:enumeration value="RJ"/>
-																<xs:enumeration value="SA"/>
-																<xs:enumeration value="TR"/>
-															</xs:restriction>
-														</xs:simpleType>
 													</xs:element>
 													<xs:element name="Description" type="SAFTlongtextType">
 														<xs:annotation>
@@ -767,6 +745,7 @@ Eg. Family of the Product</xs:documentation>
 „AAP" - Éves átlagár,
 „AMP" - Gördülő átlagár,
 „CAP" - Halmozott átlagár,
+"CLP" - Elszámoló ár,
 „FIFO" - FIFO (first in – first out),
 „HIFO" - HIFO (highest in – first out),
 „LIFO" - LIFO (last in – first out),
@@ -774,11 +753,13 @@ Eg. Family of the Product</xs:documentation>
 „OAP" - Egyéb átlagár,
 „OME" - Egyéb módszer,
 „PRI" - PRI (priority),
-„RND" - RND (random)</xs:documentation>
-															<xs:documentation>Evaluation method of the product. Options:
+„RND" - RND (random)
+"SRV" - Szolgáltatás</xs:documentation>
+															<xs:documentation xml:lang="en">Evaluation method of the product. Options:
 "AAP" - Annual average price,
 "AMP" - Average moving price,
 "CAP" - Cumulative average price,
+"CLP" -  Clearing price
 "FIFO" - FIFO (first in – first out),
 "HIFO" - HIFO (highest in – first out),
 "LIFO" - LIFO (last in – first out),
@@ -786,13 +767,15 @@ Eg. Family of the Product</xs:documentation>
 "OAP" - Other average price,
 "OME" - Other method,
 "PRI" - PRI (priority),
-"RND" - RND (random)</xs:documentation>
+"RND" - RND (random)
+"SRV" - Service</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
 															<xs:restriction base="SAFTcodeType">
 																<xs:enumeration value="AAP"/>
 																<xs:enumeration value="AMP"/>
 																<xs:enumeration value="CAP"/>
+																<xs:enumeration value="CLP"/>
 																<xs:enumeration value="FIFO"/>
 																<xs:enumeration value="HIFO"/>
 																<xs:enumeration value="LIFO"/>
@@ -801,6 +784,7 @@ Eg. Family of the Product</xs:documentation>
 																<xs:enumeration value="OME"/>
 																<xs:enumeration value="PRI"/>
 																<xs:enumeration value="RND"/>
+																<xs:enumeration value="SRV"/>
 															</xs:restriction>
 														</xs:simpleType>
 													</xs:element>
@@ -847,9 +831,8 @@ Eg. if the standard unit of measurement is Kg (kilo) and a basis one is g (gram)
 															<xs:sequence minOccurs="0">
 																<xs:element name="TaxType" type="SAFTcodeType">
 																	<xs:annotation>
-																		<xs:documentation xml:lang="hu">Adónem a TaxTable struktúra alapján.</xs:documentation>
-																		<xs:documentation xml:lang="en">Tax type used in the accounting system of the entity.
-It should exist on the TaxTable structure.</xs:documentation>
+																		<xs:documentation xml:lang="hu">Adónem kód a dokumentáció szerint, értéke csak „104” lehet</xs:documentation>
+																		<xs:documentation xml:lang="en">Tax Type (value should be „104” according to documentation</xs:documentation>
 																	</xs:annotation>
 																</xs:element>
 																<xs:element name="TaxCode" type="SAFTcodeType">
@@ -960,12 +943,6 @@ It should exists on the TaxTable structure.</xs:documentation>
 															</xs:sequence>
 														</xs:complexType>
 													</xs:element>
-													<xs:element name="DateOfAcquisition" type="xs:date" minOccurs="0">
-														<xs:annotation>
-															<xs:documentation xml:lang="hu">Eszköz beszerzésének dátuma</xs:documentation>
-															<xs:documentation xml:lang="en">Date of the acquisition of the fixed asset</xs:documentation>
-														</xs:annotation>
-													</xs:element>
 													<xs:element name="StartUpDate" type="xs:date" minOccurs="1" maxOccurs="unbounded">
 														<xs:annotation>
 															<xs:documentation xml:lang="hu">Eszköz aktiválásának dátuma, IFRS esetében használatra kész dátum</xs:documentation>
@@ -986,14 +963,30 @@ It should exists on the TaxTable structure.</xs:documentation>
 																				<xs:annotation>
 																					<xs:documentation xml:lang="hu">A vagyonértékelési módszerek alá tartozó befektetett eszközök osztályai, csoportjai:
 
-"FV" - Valós értéken
-"AV" - Bekerülési értéken</xs:documentation>
-																					<xs:documentation xml:lang="en">Classes of the fixed assets that are subject to the asset valuation methods</xs:documentation>
+„AV”  Bekerülési érték módszer (HAS, IFRS)
+„MV”  Piaci érték módszer (HAS)
+„RV”  Átértékelési modell módszer (IFRS)
+„FV”  Valós érték modell módszer (IFRS)
+„TL”  Adótörvény szerinti értékelés
+„OT” Egyéb módszer
+</xs:documentation>
+																					<xs:documentation xml:lang="en">Classes of the fixed assets that are subject to the asset valuation methods
+„AV” – Acquisition value method (HAS, IFRS)
+„MV” – Market value (HAS)•	„RV” – Revaluation model method (IFRS)
+"RV" -  Revaluation model method (IFRS)
+„FV” – Fair value model method (IFRS)
+„TL” – According to tax law
+„OT” – Other method
+</xs:documentation>
 																				</xs:annotation>
 																				<xs:simpleType>
 																					<xs:restriction base="SAFTcodeType">
-																						<xs:enumeration value="FV"/>
 																						<xs:enumeration value="AV"/>
+																						<xs:enumeration value="MV"/>
+																						<xs:enumeration value="RV"/>
+																						<xs:enumeration value="FV"/>
+																						<xs:enumeration value="TL"/>
+																						<xs:enumeration value="OT"/>
 																					</xs:restriction>
 																				</xs:simpleType>
 																			</xs:element>
@@ -1001,12 +994,6 @@ It should exists on the TaxTable structure.</xs:documentation>
 																				<xs:annotation>
 																					<xs:documentation xml:lang="hu">Eszköz bekerülési értéke a könyvelés pénznemében az adatszolgáltatással érintett időszak elején (bruttó érték)</xs:documentation>
 																					<xs:documentation xml:lang="en">Total value of the fixed asset at SelectionStartDate in the header's default currency</xs:documentation>
-																				</xs:annotation>
-																			</xs:element>
-																			<xs:element name="AcquisitionAndProductionCostsEnd" type="SAFTmonetaryType">
-																				<xs:annotation>
-																					<xs:documentation xml:lang="hu">Eszköz könyv szerinti (valós) értéke a könyvelés pénznemében az adatszolgáltatással érintett időszak végén (bruttó érték)</xs:documentation>
-																					<xs:documentation xml:lang="en">Total value of the fixed asset at SelectionEndDate in the header's default currency</xs:documentation>
 																				</xs:annotation>
 																			</xs:element>
 																			<xs:element name="InvestmentSupport" type="SAFTmonetaryType" minOccurs="0">
@@ -1022,7 +1009,7 @@ It should exists on the TaxTable structure.</xs:documentation>
 																						<xs:documentation xml:lang="en">Periode of useful life in years</xs:documentation>
 																					</xs:annotation>
 																				</xs:element>
-																				<xs:element name="AssetLifeMonth" type="xs:nonNegativeInteger">
+																				<xs:element name="AssetLifeMonth" type="SAFTquantityType">
 																					<xs:annotation>
 																						<xs:documentation xml:lang="hu">Hasznos élettartam hónapokban</xs:documentation>
 																						<xs:documentation xml:lang="en">Periode of useful life in months</xs:documentation>
@@ -1054,12 +1041,6 @@ It should exists on the TaxTable structure.</xs:documentation>
 																				<xs:annotation>
 																					<xs:documentation xml:lang="hu">Selejtezés könyv szerinti értéke a könyvelés pénznemében.</xs:documentation>
 																					<xs:documentation xml:lang="en">Book value of the disposals/write-off of the asset during the Selectionperiod in the header's default currency.</xs:documentation>
-																				</xs:annotation>
-																			</xs:element>
-																			<xs:element name="BookValueBegin" type="SAFTmonetaryType" minOccurs="0">
-																				<xs:annotation>
-																					<xs:documentation xml:lang="hu">Befektetett eszköz könyv szerinti értéke az adatszolgáltatással érintett időszak elején a könyvelés pénznemében.</xs:documentation>
-																					<xs:documentation xml:lang="en">Book value at the beginning of the Selectionperiod in the header's default currency.</xs:documentation>
 																				</xs:annotation>
 																			</xs:element>
 																			<xs:element name="DepreciationMethod" minOccurs="0">
@@ -1104,13 +1085,13 @@ It should exists on the TaxTable structure.</xs:documentation>
 																			<xs:element name="AccumulatedDepreciation" type="SAFTmonetaryType" minOccurs="0">
 																				<xs:annotation>
 																					<xs:documentation xml:lang="hu">Adott befektetett eszköznél elszámolt felhalmozott összes értékcsökkenési leírás összege a könyvelés pénznemében.</xs:documentation>
-																					<xs:documentation xml:lang="en">Total amount of depreciation for this fixed asset in the header's default currency.</xs:documentation>
+																					<xs:documentation xml:lang="en">Total amount of depreciation (accumulated until the end of Selectionperiod) for this fixed asset in the header's default currency</xs:documentation>
 																				</xs:annotation>
 																			</xs:element>
 																			<xs:element name="BookValueEnd" type="SAFTmonetaryType">
 																				<xs:annotation>
-																					<xs:documentation xml:lang="hu">Befektetett eszköz könyv szerinti értéke az adatszolgáltatással érintett időszak végén a könyvelés pénznemben.</xs:documentation>
-																					<xs:documentation xml:lang="en">Bookvalue at the end of the Selectionperiod in the header's default currency.</xs:documentation>
+																					<xs:documentation xml:lang="hu">Eszköz könyv szerinti értéke (vagy átértékelt/valós értéke) az adatszolgáltatással érintett időszak végén a könyvelés pénznemben.</xs:documentation>
+																					<xs:documentation xml:lang="en">Book value (or revaluated / fair value) at the end of the Selectionperiod in the header's default currency</xs:documentation>
 																				</xs:annotation>
 																			</xs:element>
 																		</xs:sequence>
@@ -1167,7 +1148,7 @@ It should exists on the TaxTable structure.</xs:documentation>
 															<xs:documentation xml:lang="en">A unique number assigned to the general ledger entry</xs:documentation>
 														</xs:annotation>
 													</xs:element>
-													<xs:element name="Period" type="xs:nonNegativeInteger">
+													<xs:element name="Period" type="SAFTshorttextType">
 														<xs:annotation>
 															<xs:documentation xml:lang="hu">Könyvelési időszak (hónap)</xs:documentation>
 															<xs:documentation xml:lang="en">Accounting Period (month) of the transaction
@@ -1459,12 +1440,6 @@ Eg. Username</xs:documentation>
 </xs:documentation>
 											</xs:annotation>
 										</xs:element>
-										<xs:element name="SumNetTotal" type="SAFTmonetaryType">
-											<xs:annotation>
-												<xs:documentation xml:lang="hu">A fizetési fejlécek összes nettó összege a könyvelés pénznemében az adatszolgáltatással érintett időszak alatt.</xs:documentation>
-												<xs:documentation xml:lang="en">The total of all Net total amounts of the payment headers during the Selectionperiod on the file header's default currency.</xs:documentation>
-											</xs:annotation>
-										</xs:element>
 										<xs:element name="SumGrossTotal" type="SAFTmonetaryType">
 											<xs:annotation>
 												<xs:documentation xml:lang="hu">A fizetési fejlécek összes bruttó összege a könyvelés pénznemében az adatszolgáltatással érintett időszak alatt.</xs:documentation>
@@ -1484,7 +1459,7 @@ Eg. Username</xs:documentation>
 															<xs:documentation xml:lang="en">Unique reference number for the payment</xs:documentation>
 														</xs:annotation>
 													</xs:element>
-													<xs:element name="Period" type="xs:nonNegativeInteger" minOccurs="0">
+													<xs:element name="Period" type="SAFTshorttextType" minOccurs="0">
 														<xs:annotation>
 															<xs:documentation xml:lang="hu">Könyvelési időszak</xs:documentation>
 															<xs:documentation xml:lang="en">Accounting Period</xs:documentation>
@@ -1513,6 +1488,23 @@ Eg. Username</xs:documentation>
 															<xs:documentation xml:lang="hu">Egyedi azonosító szám, melyet a rendszer a dokumentumra generált.</xs:documentation>
 															<xs:documentation xml:lang="en">Unique number created by the system for the document</xs:documentation>
 														</xs:annotation>
+													</xs:element>
+													<xs:element name="DebitCreditIndicator">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Tartozik vagy követel adat jelzése. A bejegyzésnek a főkönyvi könyvelés tételhez kell kapcsolódnia. Lehetséges értékei:
+D - Tartozik
+C - Követel
+												</xs:documentation>
+															<xs:documentation xml:lang="en">Indicates whether the amounts on line-level are debit or credit amounts. Entry must correspond to entry reflected in General Ledger Entry. Signing of lineamounts is relative to this indicator. E.g. a return can lead to a negative amount.
+D - debit 
+C - credit</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="SAFTcodeType">
+																<xs:enumeration value="D"/>
+																<xs:enumeration value="C"/>
+															</xs:restriction>
+														</xs:simpleType>
 													</xs:element>
 													<xs:element name="GrossTotal" type="SAFTmonetaryType">
 														<xs:annotation>
@@ -1645,29 +1637,17 @@ C - credit</xs:documentation>
 </xs:documentation>
 														</xs:annotation>
 													</xs:element>
-													<xs:element name="Settlement" minOccurs="0">
+													<xs:element name="Settlements" minOccurs="0">
 														<xs:annotation>
-															<xs:documentation xml:lang="hu">Elszámolás</xs:documentation>
-															<xs:documentation xml:lang="en">Settlement</xs:documentation>
+															<xs:documentation xml:lang="hu">Elszámolások</xs:documentation>
+															<xs:documentation xml:lang="en">Settlements</xs:documentation>
 														</xs:annotation>
 														<xs:complexType>
 															<xs:sequence>
-																<xs:element name="SettlementDiscount" type="SAFTmiddle1textType" minOccurs="0">
+																<xs:element name="Settlement" type="SAFTHUSettlementStructure" maxOccurs="unbounded">
 																	<xs:annotation>
-																		<xs:documentation xml:lang="hu">Elszámolás vagy más árengedmény leírása</xs:documentation>
-																		<xs:documentation xml:lang="en">Settlement or other discount description </xs:documentation>
-																	</xs:annotation>
-																</xs:element>
-																<xs:element name="SettlementAmount" type="AmountStructure" minOccurs="0">
-																	<xs:annotation>
-																		<xs:documentation xml:lang="hu">Elszámolt összeg</xs:documentation>
-																		<xs:documentation xml:lang="en">Settlement amount</xs:documentation>
-																	</xs:annotation>
-																</xs:element>
-																<xs:element name="SettlementDate" type="xs:date" minOccurs="0">
-																	<xs:annotation>
-																		<xs:documentation xml:lang="hu">Elszámolás dátuma</xs:documentation>
-																		<xs:documentation xml:lang="en">Date settled</xs:documentation>
+																		<xs:documentation xml:lang="hu">Elszámolás</xs:documentation>
+																		<xs:documentation xml:lang="en">Settlement</xs:documentation>
 																	</xs:annotation>
 																</xs:element>
 															</xs:sequence>
@@ -1728,95 +1708,6 @@ C - credit</xs:documentation>
 															<xs:documentation xml:lang="hu">Árukészlet mozgás főkönyvi feladásának dátuma</xs:documentation>
 															<xs:documentation xml:lang="en">Date of posting of the movement on the general ledger</xs:documentation>
 														</xs:annotation>
-													</xs:element>
-													<xs:element name="MovementType">
-														<xs:annotation>
-															<xs:documentation xml:lang="hu">A mozgás típusa. Opciók:
-PO - Beszerzés
-SA - Értékesítés
-RE - Visszáru
-CR - Javított visszaküldés
-OU - Felhasználás
-RS - Visszaérkezés bérmunkából
-TS - Bérmunkára történő kiküldés
-RP - Visszavételezés
-SW - Raktárközi készletmozgás
-PR - Gyártás/ Saját termelésű készlet raktárra vétel
-CO - Apportba átadás
-RC - Apport átvétel
-RJ - Selejtezés
-DE - Hiány
-SP - Többlet
-SO - Készletromlás
-IN - Káresemény
-FC - Térítés nélküli átadás
-FR - Térítés nélküli átvétel
-TR - Átsorolás
-TF - Átminősítés tárgyi eszközből
-TT - Átminősítés tárgyi eszközzé
-OT - Egyéb átminősítés
-IT - IFRS értékesítésre tartottá minősítés
-OI - Egyéb növekedés
-OD - Egyéb csökkenés
-</xs:documentation>
-															<xs:documentation xml:lang="en">Stock movement type. Options:
-PO - Purchase
-SA - Sale
-RE - Return
-CR - Corrected return
-OU - Own use
-RS - Return from subcontracting
-TS - Transfer to subcontracting
-RP - Returns for purchase order
-SW - Transfer storage location to storage location
-PR - Producement
-CO - Contribution
-RC - Received contribution
-RJ - Reject
-DE - Deficit
-SP - Surplus
-SO - Stock obsolescence
-IN - Incident
-FC - Free of charge delivery
-FR - Goods receipt free of charge
-TR - Transfer
-TF - Transfer from asset
-TT - Transfer to asset
-OT - Other transfer
-IT - IFRS Transfer to sales
-OI - Other increase
-OD - Other decrease</xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="SAFTcodeType">
-																<xs:enumeration value="PO"/>
-																<xs:enumeration value="SA"/>
-																<xs:enumeration value="RE"/>
-																<xs:enumeration value="CR"/>
-																<xs:enumeration value="OU"/>
-																<xs:enumeration value="RS"/>
-																<xs:enumeration value="TS"/>
-																<xs:enumeration value="RP"/>
-																<xs:enumeration value="SW"/>
-																<xs:enumeration value="PR"/>
-																<xs:enumeration value="CO"/>
-																<xs:enumeration value="RC"/>
-																<xs:enumeration value="RJ"/>
-																<xs:enumeration value="DE"/>
-																<xs:enumeration value="SP"/>
-																<xs:enumeration value="SO"/>
-																<xs:enumeration value="IN"/>
-																<xs:enumeration value="FC"/>
-																<xs:enumeration value="FR"/>
-																<xs:enumeration value="TR"/>
-																<xs:enumeration value="TF"/>
-																<xs:enumeration value="TT"/>
-																<xs:enumeration value="OT"/>
-																<xs:enumeration value="IT"/>
-																<xs:enumeration value="OI"/>
-																<xs:enumeration value="OD"/>
-															</xs:restriction>
-														</xs:simpleType>
 													</xs:element>
 													<xs:element name="SourceID" type="SAFTmiddle1textType" minOccurs="1">
 														<xs:annotation>
@@ -1889,6 +1780,12 @@ OD - Other decrease</xs:documentation>
 																		<xs:documentation xml:lang="en">Line number of the document</xs:documentation>
 																	</xs:annotation>
 																</xs:element>
+																<xs:element name="Description" type="SAFTlongtextType" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Dokumentum megnevezése.</xs:documentation>
+																		<xs:documentation xml:lang="en">Description of the document</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
 															</xs:sequence>
 														</xs:complexType>
 													</xs:element>
@@ -1898,7 +1795,7 @@ OD - Other decrease</xs:documentation>
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="StockMovementLines" minOccurs="0" maxOccurs="1">
+							<xs:element name="StockMovementLines" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation xml:lang="hu">Árukészlet mozgás sorok</xs:documentation>
 									<xs:documentation xml:lang="en">Stock Movement document lines</xs:documentation>
@@ -1932,9 +1829,8 @@ OD - Other decrease</xs:documentation>
 												<xs:sequence>
 													<xs:element name="MovementReference" type="SAFTmiddle1textType">
 														<xs:annotation>
-															<xs:documentation xml:lang="hu">Mozgás egyedi azonosítója a fejléc alapján (FK- StockMovementHeaders.Header.MovementReference)</xs:documentation>
-															<xs:documentation xml:lang="en">(FK- StockMovementHeaders.Header.MovementReference)
-Unique reference id to the movement</xs:documentation>
+															<xs:documentation xml:lang="hu">Mozgás egyedi azonosítója a fejléc alapján (FK- StockMovementHeaders.Header.SystemID)</xs:documentation>
+															<xs:documentation xml:lang="en">Unique reference id to the movement (FK- StockMovementHeaders.Header.SystemID)</xs:documentation>
 														</xs:annotation>
 													</xs:element>
 													<xs:element name="LineNumber" type="SAFTshorttextType">
@@ -1986,13 +1882,6 @@ Unique reference id to the movement</xs:documentation>
 															<xs:documentation xml:lang="en">Goods/Services Code</xs:documentation>
 														</xs:annotation>
 													</xs:element>
-													<xs:element name="StockAccountNo" type="SAFTmiddle2textType" minOccurs="0" maxOccurs="unbounded">
-														<xs:annotation>
-															<xs:documentation xml:lang="hu">Termék/szolgáltatás egyéb azonosítója, amennyiben az árukód nem egyértelműen írná le az árut (pl. áruköteg, gyártási szám, sorozatszám).</xs:documentation>
-															<xs:documentation xml:lang="hu">Termék/szolgáltatás egyéb azonosítója, amennyiben az árukód nem egyértelműen írná le az árut (pl. áruköteg, gyártási szám, sorozatszám).</xs:documentation>
-															<xs:documentation xml:lang="en">Stock batch, lot, serial identification.</xs:documentation>
-														</xs:annotation>
-													</xs:element>
 													<xs:element name="ProductInformation" maxOccurs="unbounded">
 														<xs:annotation>
 															<xs:documentation>Termék mennyiségének, és mennyiség egységének jelölése</xs:documentation>
@@ -2011,6 +1900,13 @@ Unique reference id to the movement</xs:documentation>
 																		<xs:documentation xml:lang="en">Unit of measure (ex. Kg, Un, To, etc)</xs:documentation>
 																	</xs:annotation>
 																</xs:element>
+																<xs:element name="StockAccountNo" type="SAFTmiddle2textType" minOccurs="0" maxOccurs="unbounded">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Termék/szolgáltatás egyéb azonosítója, amennyiben az árukód nem egyértelműen írná le az árut (pl. áruköteg, gyártási szám, sorozatszám).</xs:documentation>
+																		<xs:documentation xml:lang="hu">Termék/szolgáltatás egyéb azonosítója, amennyiben az árukód nem egyértelműen írná le az árut (pl. áruköteg, gyártási szám, sorozatszám).</xs:documentation>
+																		<xs:documentation xml:lang="en">Stock batch, lot, serial identification.</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
 																<xs:element name="UOMToUOMPhysicalStockConversionFactor" type="SAFTHUconversionfactorType" minOccurs="0">
 																	<xs:annotation>
 																		<xs:documentation xml:lang="hu">Mennyiségi egység átváltási értéke UOM-re</xs:documentation>
@@ -2025,6 +1921,21 @@ Unique reference id to the movement</xs:documentation>
 															<xs:documentation xml:lang="hu">Tranzakció könyv szerinti értéke a könyvelés pénznemében.</xs:documentation>
 															<xs:documentation xml:lang="en">Transaction book value in the default currency of the header.</xs:documentation>
 														</xs:annotation>
+													</xs:element>
+													<xs:element name="SalesValue" type="SAFTmonetaryType" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Tranzakció értéke eladási áron a könyvelés pénznemében.</xs:documentation>
+															<xs:documentation xml:lang="en">Transaction selling value in the default currency of the header</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="MovementType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Társaság által használt mozgástípus kód</xs:documentation>
+															<xs:documentation xml:lang="en">Company’s own movement type code</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="SAFTcodeType"/>
+														</xs:simpleType>
 													</xs:element>
 													<xs:element name="MovementSubType">
 														<xs:annotation>
@@ -2089,7 +2000,6 @@ Unique reference id to the movement</xs:documentation>
 													<xs:element name="AssetTransactionType">
 														<xs:annotation>
 															<xs:documentation xml:lang="hu">Befektetett eszköz tranzakció típusa, opciók:
-PU  - Beszerzés
 SA  - Értékesítés
 CA  - Aktiválás
 AC  - Ráaktiválás
@@ -2123,7 +2033,7 @@ DS  - Megsemmisülés
 TD  - Kedvezményezett eszközátruházás
 DP  - Terv szerinti értékcsökkenés
 ED  - Terven felüli értékcsökkenés 
-RE  - Terven felüli értékcsökkenés visszaírása
+RD  - Terven felüli értékcsökkenés visszaírása
 US  - Felhasznált támogatás
 DR  - Fejlesztési tartalék 
 OR  - Egyéb nyilvántartás módosítás (pl. leírási kulcs változás)
@@ -2134,7 +2044,6 @@ OD  - Egyéb csökkenés
 
 </xs:documentation>
 															<xs:documentation xml:lang="en">The type of the asset transaction, options:
-PU  -  Purchase
 SA  -  Sale
 CA  -  Capitalisation
 AC  -  Additional Capitalization
@@ -2168,7 +2077,7 @@ DS  -  Destroyed assets
 TD  -  Transfer of discounted assets
 DP  -  Depreciation according to plan
 ED  -  Extraordinary depreciation
-RE  -  Reversed extraordinary depreciation
+RD  -  Reversed extraordinary depreciation
 US  -  Used subsidies
 DR  -  Developement reserve
 OR  -  Other record adjustement
@@ -2179,7 +2088,6 @@ OD  -  Other decrease</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
 															<xs:restriction base="SAFTcodeType">
-																<xs:enumeration value="PU"/>
 																<xs:enumeration value="SA"/>
 																<xs:enumeration value="CA"/>
 																<xs:enumeration value="AC"/>
@@ -2213,7 +2121,7 @@ OD  -  Other decrease</xs:documentation>
 																<xs:enumeration value="TD"/>
 																<xs:enumeration value="DP"/>
 																<xs:enumeration value="ED"/>
-																<xs:enumeration value="RE"/>
+																<xs:enumeration value="RD"/>
 																<xs:enumeration value="US"/>
 																<xs:enumeration value="DR"/>
 																<xs:enumeration value="OR"/>
@@ -2365,6 +2273,12 @@ OD  -  Other decrease</xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
+										<xs:element name="NumberOfEntries" type="xs:nonNegativeInteger">
+											<xs:annotation>
+												<xs:documentation xml:lang="hu">Bejegyzések száma</xs:documentation>
+												<xs:documentation xml:lang="en">Number of entries</xs:documentation>
+											</xs:annotation>
+										</xs:element>
 										<xs:element name="PhysicalStockEntry" minOccurs="0" maxOccurs="unbounded">
 											<xs:annotation>
 												<xs:documentation xml:lang="hu">Leltár bejegyzés</xs:documentation>
@@ -2549,10 +2463,10 @@ Eg. Blue, Size XL, etc.</xs:documentation>
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="VATAnalitics" minOccurs="0">
+							<xs:element name="VATAnalytics" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation xml:lang="hu">ÁFA analitika</xs:documentation>
-									<xs:documentation xml:lang="en">VAT Analitics</xs:documentation>
+									<xs:documentation xml:lang="en">VAT Analytics</xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
@@ -2584,11 +2498,35 @@ Eg. Blue, Size XL, etc.</xs:documentation>
 											<xs:complexType>
 												<xs:sequence>
 													<xs:element name="VATPeriod" maxOccurs="unbounded">
-														<xs:annotation>
-															<xs:documentation>Érintett ÁFA bevallás időszaka Pl: 2001</xs:documentation>
-														</xs:annotation>
 														<xs:complexType>
 															<xs:sequence>
+																<xs:element name="TaxDeclarationPeriodType">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Adózási nyilatkozat időszak típusa, lehetőségek:
+„M" - Havonta,
+„Q" - Negyedévente,
+„Y" - Évente
+
+</xs:documentation>
+																		<xs:documentation xml:lang="en">Tax declaration period type, options:
+"M" - Montly,
+"Q" - Quarterly,
+"Y" - Yearly </xs:documentation>
+																	</xs:annotation>
+																	<xs:simpleType>
+																		<xs:restriction base="SAFTcodeType">
+																			<xs:enumeration value="M"/>
+																			<xs:enumeration value="Q"/>
+																			<xs:enumeration value="Y"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="TaxDeclarationPeriod" type="SAFTshorttextType">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Adóelszámolási időszak, amely időszaki bevallásban szerepel az adó összege (eg. 2019-05, 2019, 2019-1Q)</xs:documentation>
+																		<xs:documentation xml:lang="en">The identification of the declaration/return period in which the tax amount is reported to the Revenue body (eg.  2019-05, 2019, 2019-1Q)</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
 																<xs:element name="Line" maxOccurs="unbounded">
 																	<xs:annotation>
 																		<xs:documentation xml:lang="hu">Sorok</xs:documentation>
@@ -2682,17 +2620,59 @@ Eg. Blue, Size XL, etc.</xs:documentation>
 								</xs:complexType>
 							</xs:element>
 							<xs:element name="GroupingLedger" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation xml:lang="hu">Csoportos könyvelés kimutatás</xs:documentation>
+									<xs:documentation xml:lang="en">Grouping ledger</xs:documentation>
+								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="TransactionID" maxOccurs="unbounded">
+										<xs:element name="NumberOfEntries" type="xs:nonNegativeInteger">
+											<xs:annotation>
+												<xs:documentation xml:lang="hu">Bejegyzések száma</xs:documentation>
+												<xs:documentation xml:lang="en">Number of entries</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="Transaction" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation xml:lang="hu">Tranzakció</xs:documentation>
+												<xs:documentation xml:lang="en">Transaction</xs:documentation>
+											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
-													<xs:element name="SourceDocumentID" maxOccurs="unbounded">
+													<xs:element name="TransactionID" type="SAFTshorttextType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Tranzakció azonosítója </xs:documentation>
+															<xs:documentation xml:lang="en">Transaction identifier</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="SourceDocument" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Forrásbizonylat </xs:documentation>
+															<xs:documentation xml:lang="en">Source Document</xs:documentation>
+														</xs:annotation>
 														<xs:complexType>
-															<xs:choice>
-																<xs:element name="DebitAmount" type="AmountStructure" minOccurs="0"/>
-																<xs:element name="CreditAmount" type="AmountStructure" minOccurs="0"/>
-															</xs:choice>
+															<xs:sequence>
+																<xs:element name="SourceDocumentID" type="SAFTshorttextType">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Forrásbizonylat sorszáma vagy azonosítója </xs:documentation>
+																		<xs:documentation xml:lang="en">Source document serial number or identifier</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+																<xs:choice>
+																	<xs:element name="DebitAmount" type="AmountStructure">
+																		<xs:annotation>
+																			<xs:documentation xml:lang="hu">Forrásbizonylat tartozik összege</xs:documentation>
+																			<xs:documentation xml:lang="en">Debit amount of source document</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="CreditAmount" type="AmountStructure">
+																		<xs:annotation>
+																			<xs:documentation xml:lang="hu">Forrásbizonylat követel összege</xs:documentation>
+																			<xs:documentation xml:lang="en">Credit amount of source document</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																</xs:choice>
+															</xs:sequence>
 														</xs:complexType>
 													</xs:element>
 												</xs:sequence>
@@ -2701,13 +2681,20 @@ Eg. Blue, Size XL, etc.</xs:documentation>
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="OutSatndingInvoices" minOccurs="0">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="OutStandingInvoice" type="SAFTHUOutstandingInvoiceStructure" maxOccurs="unbounded"/>
-									</xs:sequence>
-								</xs:complexType>
+							<xs:element name="OutStandingInvoices" type="SAFTHUOutstandingInvoiceStructure" minOccurs="0"/>
+							<xs:element name="GeneralLedgerStatement" type="SAFTHUGeneralLedgerStatementSructure" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation xml:lang="hu">Főkönyvi kivonat</xs:documentation>
+									<xs:documentation xml:lang="en">General ledger statement</xs:documentation>
+								</xs:annotation>
 							</xs:element>
+							<xs:element name="CustomerAnalytics" type="SAFTHUCustomerAnalyticsSructure" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation xml:lang="hu">Vevő analitika</xs:documentation>
+									<xs:documentation xml:lang="en">Customer analytics</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="SupplierAnalytics" type="SAFTHUSupplierAnalyticsStructure" minOccurs="0"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>

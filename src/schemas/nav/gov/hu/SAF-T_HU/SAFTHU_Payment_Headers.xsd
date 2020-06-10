@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2016 sp1 (x64) (http://www.altova.com) by NAV (Hungarian Tax Authority) -->
 <!-- Létrehozta a Nemzeti Adó és Vámhivatal -->
+<!-- Ez egy részsablon. A SAFT_HU__Integrated_mod_0316.xsd szerinti adattartalommal -->
 <xs:schema xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.00" id="SAFT-HU">
 	<!-- SAFTHU definitions, data types and OECD guideline compatibility -->
 	<xs:include schemaLocation="./SAFT_HU_Definitions.xsd"/>
@@ -102,12 +104,6 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 </xs:documentation>
 											</xs:annotation>
 										</xs:element>
-										<xs:element name="SumNetTotal" type="SAFTmonetaryType">
-											<xs:annotation>
-												<xs:documentation xml:lang="hu">A fizetési fejlécek összes nettó összege a könyvelés pénznemében az adatszolgáltatással érintett időszak alatt.</xs:documentation>
-												<xs:documentation xml:lang="en">The total of all Net total amounts of the payment headers during the Selectionperiod on the file header's default currency.</xs:documentation>
-											</xs:annotation>
-										</xs:element>
 										<xs:element name="SumGrossTotal" type="SAFTmonetaryType">
 											<xs:annotation>
 												<xs:documentation xml:lang="hu">A fizetési fejlécek összes bruttó összege a könyvelés pénznemében az adatszolgáltatással érintett időszak alatt.</xs:documentation>
@@ -127,7 +123,7 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 															<xs:documentation xml:lang="en">Unique reference number for the payment</xs:documentation>
 														</xs:annotation>
 													</xs:element>
-													<xs:element name="Period" type="xs:nonNegativeInteger" minOccurs="0">
+													<xs:element name="Period" type="SAFTshorttextType" minOccurs="0">
 														<xs:annotation>
 															<xs:documentation xml:lang="hu">Könyvelési időszak</xs:documentation>
 															<xs:documentation xml:lang="en">Accounting Period</xs:documentation>
@@ -156,6 +152,23 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 															<xs:documentation xml:lang="hu">Egyedi azonosító szám, melyet a rendszer a dokumentumra generált.</xs:documentation>
 															<xs:documentation xml:lang="en">Unique number created by the system for the document</xs:documentation>
 														</xs:annotation>
+													</xs:element>
+													<xs:element name="DebitCreditIndicator">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Tartozik vagy követel adat jelzése. A bejegyzésnek a főkönyvi könyvelés tételhez kell kapcsolódnia. Lehetséges értékei:
+D - Tartozik
+C - Követel
+												</xs:documentation>
+															<xs:documentation xml:lang="en">Indicates whether the amounts on line-level are debit or credit amounts. Entry must correspond to entry reflected in General Ledger Entry. Signing of lineamounts is relative to this indicator. E.g. a return can lead to a negative amount.
+D - debit 
+C - credit</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="SAFTcodeType">
+																<xs:enumeration value="D"/>
+																<xs:enumeration value="C"/>
+															</xs:restriction>
+														</xs:simpleType>
 													</xs:element>
 													<xs:element name="GrossTotal" type="SAFTmonetaryType">
 														<xs:annotation>
