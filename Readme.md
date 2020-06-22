@@ -6,7 +6,7 @@
 
 A tárhely az adózási célú egységes audit állomány (Standard Audit File – Tax; SAF-T) NAV által a magyar jogszabályi környezetre és az adóellenőrzési elvárásoknak megfelelően kialakított adatstruktúra tervezetét (továbbiakban SAF-T_HU) tartalmazza. A tárhely célja, hogy a NAV SAF-T_HU bevezetésével kapcsolatos elképzeléseit minél szélesebb szakmai közvélemény érje el és tudja véleményezni.
 
-A GitHub tárhelyen elhelyezett dokumentumokkal (adatstruktúrákat, leírások) kapcsolatban 2020. július 1-ig várja az adóhivatal a javaslatokat, véleményeket. A folyamatosan érkező észrevételek alapján az adatstruktúrákat, leírásokat a NAV várhatóan többször frissíti, az új verziót közzéteszi.
+A GitHub tárhelyen elhelyezett dokumentumokkal (adatstruktúrákat, leírások) kapcsolatban 2020. december 31-ig várja az adóhivatal a javaslatokat, véleményeket. A folyamatosan érkező észrevételek alapján az adatstruktúrákat, leírásokat a NAV várhatóan többször frissíti, az új verziót közzéteszi.
 
 A véleményezéssel párhuzamosan a NAV egy pilot projekt keretén belül is tapasztalatokat gyűjt a SAF-T_HU adatstruktúra és a dokumentumok gyakorlati felhasználásáról. A NAV fenntartja magának a jogot, hogy a pilot haladásával, valamint a GitHub-on felmerült javaslatokkal az adatstruktúrákat, leírásokat folyamatosan változtatja. Ahol a NAV nagyobb bizonytalanságokat, számos kérdést tapasztal, a megfelelő információk összegyűjtése és értékelését követően fog változtatásokat végrehajtani.
 
