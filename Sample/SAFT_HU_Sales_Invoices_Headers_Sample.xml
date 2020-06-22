@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<AuditFile xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://schemas.nav.gov.hu/SAFT_HU/1.0 SAFTHU_Sales_Invoices_Headers.xsd"
+ xmlns:doc="urn:schemas-OECD:schema-extensions:documentation">
+    <Header>
+        <AuditFileVersion>1_00</AuditFileVersion>
+        <AuditFileDateCreated>2020-02-01</AuditFileDateCreated>
+        
+        <!-- Refers an existing AuditID (audit case from central systems) and TOC (submission "wave") -->
+        <AuditID>NAV_2019_2983</AuditID>
+        <TOCID>NAV_TOC_12981273</TOCID>
+        
+        <!-- Name of the software company that GENERATED the SAFT -->
+        <SoftwareCompanyName>MAGSOFT</SoftwareCompanyName>
+        <SoftwareID>MAGSOFT SAFT Generator</SoftwareID>
+        <SoftwareVersion>1.5</SoftwareVersion>
+        
+        <!-- Name of the software company that developed the accounting program, 
+             ERP or software from where the data is coming from -->
+        <DataSourceCompanyName>SAPHIRE</DataSourceCompanyName>
+        <DataSourceSystem>SAPHIRE ERP</DataSourceSystem>
+        <DataSourceSystemVersion>3.1</DataSourceSystemVersion>
+        
+        <Company>
+            <Name>MAGYAR RETAIL</Name>
+            <Address>
+                <DetailedAddress>
+                    <CountryCode>HU</CountryCode>
+                    <PostalCode>1007</PostalCode>
+                    <City>Budapest</City>
+                    <StreetName>Kárpát</StreetName>
+                    <PublicPlaceCategory>utca</PublicPlaceCategory>
+                    <Number>999</Number>
+                    <Building>1</Building>
+                    <Staircase>2</Staircase>
+                    <Floor>3</Floor>
+                    <Door>6</Door>
+                    <LotNumber>12</LotNumber>
+                    <Website>www.magyarretail.hu</Website>
+                </DetailedAddress>
+            </Address>
+            <Contact>
+                <ContactPerson>Mr. Viktor Nagy Barko</ContactPerson>
+                <Telephone>+36 80 400-400</Telephone>
+                <Fax>+36 80 400-500</Fax>
+                <Email>viktor.barko@magyarretail.hu</Email>
+            </Contact>
+            <DocumentationAddress>
+                <SimpleAddress>
+                    <CountryCode>HU</CountryCode>
+                    <PostalCode>1007</PostalCode>
+                    <City>Budapest</City>
+                    <AdditionalAddressDetail>Kárpát utca 999</AdditionalAddressDetail>
+                </SimpleAddress>
+            </DocumentationAddress>
+            <BankAccount>
+                <BankAccountNumber>111110180000000</BankAccountNumber>
+                <BankAccountName>BANKACC11111</BankAccountName>
+            </BankAccount>
+            <TaxNumber>1887654467</TaxNumber>
+            <EUVATNumber>HU887654467</EUVATNumber>
+            <GroupVATNumber>1887654467</GroupVATNumber>
+            <GroupCorpTaxNumber>1887654467</GroupCorpTaxNumber>
+        </Company>
+        
+        <DefaultCurrencyCode>HUF</DefaultCurrencyCode>
+        
+        <!-- The selection criteria used to generate the data set -->
+        <SelectionCriteria>
+            
+            <!-- Fiscal Calendar of the company on the moment of the file generation -->
+            <FiscalCalendar>
+                <FiscalCalendarStartDate>2019-01-01</FiscalCalendarStartDate>
+                <FiscalCalendarEndDate>2019-12-31</FiscalCalendarEndDate>
+            </FiscalCalendar>
+            
+            <SelectionStartDate>2019-01-01</SelectionStartDate>
+            <SelectionEndDate>2019-12-31</SelectionEndDate>
+            
+            <PeriodStart>N1 01</PeriodStart>
+            <PeriodEnd>N1 12</PeriodEnd>
+            <PeriodYear>2019</PeriodYear>
+            
+        </SelectionCriteria>
+        
+        <HeaderComment>Some remarks</HeaderComment>
+        
+        <TaxEntity>Budapest</TaxEntity>
+        
+        <FileContentType>SI</FileContentType>
+        
+        <NumberOfParts>1</NumberOfParts>
+        <PartNumber>1</PartNumber>
+        
+    </Header>
+    
+    <!--  -->
+    <!-- Transactional Data -->
+    <!--  -->
+    
+    
+    <TransactionalData>
+        
+        <!-- Sales Invoice -->
+        <!--  -->
+        
+        <!-- SI Headers -->
+        
+        <SalesInvoicesHeaders>
+            
+            <NumberOfHeaderEntries>2</NumberOfHeaderEntries>
+            
+            <Header>
+                
+                <InvoiceNo>INV001</InvoiceNo>
+                <Period>N1 01</Period>
+                <InvoiceDate>2019-01-14</InvoiceDate>
+                <InvoiceCategoryType>N</InvoiceCategoryType>
+                <InvoiceType>IN</InvoiceType>
+                <SourceBilling>P</SourceBilling>
+                
+                <ShipTo>
+                    <DeliveryID>DEL001</DeliveryID>
+                    <DeliveryDate>2019-01-14</DeliveryDate>
+                    <WarehouseID>NA</WarehouseID>
+                    <Address>
+                        <SimpleAddress>
+                            <CountryCode>HU</CountryCode>
+                            <PostalCode>1007</PostalCode>
+                            <City>Budapest</City>
+                            <AdditionalAddressDetail>Kárpát utca 999</AdditionalAddressDetail>
+                        </SimpleAddress>
+                    </Address>
+                </ShipTo>
+                
+                <ShipFrom>
+                    <DeliveryID>DEL001</DeliveryID>
+                    <DeliveryDate>2019-01-14</DeliveryDate>
+                    <WarehouseID>WH001</WarehouseID>
+                    <Address>
+                        <SimpleAddress>
+                            <CountryCode>HU</CountryCode>
+                            <PostalCode>1007</PostalCode>
+                            <City>Budapest</City>
+                            <AdditionalAddressDetail>Kárpát utca 999</AdditionalAddressDetail>
+                        </SimpleAddress>
+                    </Address>
+                </ShipFrom>
+                
+                <DueDate>
+                    <DueDateDate>2019-01-14</DueDateDate>
+                </DueDate>
+                <SelfBillingIndicator>NS</SelfBillingIndicator>
+                <SourceID>USER001</SourceID>
+                
+                <Settlements>
+                    <Settlement>
+                        <SettlementDiscount>Downpayment</SettlementDiscount>
+                        <SettlementAmount>
+                            <Amount>10</Amount>
+                            <CurrencyCode>HUF</CurrencyCode>
+                            <CurrencyAmount>10</CurrencyAmount>
+                        </SettlementAmount>
+                        <SettlementDate>2019-01-14</SettlementDate>
+                    </Settlement>
+                </Settlements>
+                
+                <DocumentTotals>
+                    <NetTotal>
+                        <Amount>100</Amount>
+                        <CurrencyCode>HUF</CurrencyCode>
+                        <CurrencyAmount>100</CurrencyAmount>
+                    </NetTotal>
+                    
+                    <GrossTotal>
+                        <Amount>127</Amount>
+                        <CurrencyCode>HUF</CurrencyCode>
+                        <CurrencyAmount>127</CurrencyAmount>
+                    </GrossTotal>
+                    
+                    <TaxInformationTotals>
+                        <TaxType>104</TaxType>
+                        <TaxCode>VAT27</TaxCode>
+                        <TaxAmount>
+                            <AmountHUF>27</AmountHUF>
+                            <Amount>27</Amount>
+                            <CurrencyCode>HUF</CurrencyCode>
+                            <CurrencyAmount>27</CurrencyAmount>
+                        </TaxAmount>
+                    </TaxInformationTotals>
+                </DocumentTotals>
+                
+                <CustomerInfo>
+                    <CustomerID>CST001</CustomerID>
+                </CustomerInfo>
+                
+            </Header>
+            
+            <Header>
+                
+                <InvoiceNo>INV002</InvoiceNo>
+                <Period>N1 01</Period>
+                <InvoiceDate>2019-01-14</InvoiceDate>
+                <InvoiceCategoryType>N</InvoiceCategoryType>
+                <InvoiceType>IN</InvoiceType>
+                <!-- The SourceBilling Indicator, refers the system that is generating the transaction. -->
+                <SourceBilling>P</SourceBilling>
+                
+                <ShipTo>
+                    <DeliveryID>DEL002</DeliveryID>
+                    <DeliveryDate>2019-01-14</DeliveryDate>
+                    <WarehouseID>NA</WarehouseID>
+                    <Address>
+                        <SimpleAddress>
+                            <CountryCode>HU</CountryCode>
+                            <PostalCode>1007</PostalCode>
+                            <City>Budapest</City>
+                            <AdditionalAddressDetail>Kárpát utca 999</AdditionalAddressDetail>
+                        </SimpleAddress>
+                    </Address>
+                </ShipTo>
+                
+                <ShipFrom>
+                    <DeliveryID>DEL002</DeliveryID>
+                    <DeliveryDate>2019-01-14</DeliveryDate>
+                    <WarehouseID>WH001</WarehouseID>
+                    <Address>
+                        <SimpleAddress>
+                            <CountryCode>HU</CountryCode>
+                            <PostalCode>1007</PostalCode>
+                            <City>Budapest</City>
+                            <AdditionalAddressDetail>Kárpát utca 999</AdditionalAddressDetail>
+                        </SimpleAddress>
+                    </Address>
+                </ShipFrom>
+                
+                <DueDate>
+                    <DueDateDate>2019-01-14</DueDateDate>
+                </DueDate>
+                <SelfBillingIndicator>NS</SelfBillingIndicator>
+                <SourceID>USER001</SourceID>
+                
+                <!-- No Settlement on this invoice -->
+                
+                <DocumentTotals>
+                    <NetTotal>
+                        <Amount>100</Amount>
+                        <CurrencyCode>HUF</CurrencyCode>
+                        <CurrencyAmount>100</CurrencyAmount>
+                    </NetTotal>
+                    
+                    <GrossTotal>
+                        <Amount>127</Amount>
+                        <CurrencyCode>HUF</CurrencyCode>
+                        <CurrencyAmount>127</CurrencyAmount>
+                    </GrossTotal>
+                    
+                    <TaxInformationTotals>
+                        <TaxType>104</TaxType>
+                        <TaxCode>VAT27</TaxCode>
+                        <TaxAmount>
+                            <AmountHUF>27</AmountHUF>
+                            <Amount>27</Amount>
+                            <CurrencyCode>HUF</CurrencyCode>
+                            <CurrencyAmount>27</CurrencyAmount>
+                        </TaxAmount>
+                    </TaxInformationTotals>
+                </DocumentTotals>
+                
+                <CustomerInfo>
+                    <Name>SuperMarkets of Pest</Name>
+                    <BillingAddress>
+                        <SimpleAddress>
+                            <CountryCode>HU</CountryCode>
+                            <PostalCode>1007</PostalCode>
+                            <City>Budapest</City>
+                            <AdditionalAddressDetail>Kárpát utca 999</AdditionalAddressDetail>
+                        </SimpleAddress>
+                    </BillingAddress>
+                    <TaxNumber>1887654461</TaxNumber>
+                </CustomerInfo>
+                
+            </Header>
+             
+        </SalesInvoicesHeaders>
+        
+    </TransactionalData>
+</AuditFile>

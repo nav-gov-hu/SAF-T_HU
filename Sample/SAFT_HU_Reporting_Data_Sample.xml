@@ -1,0 +1,693 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<AuditFile xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://schemas.nav.gov.hu/SAFT_HU/1.0 SAFTHU_Reporting_Data.xsd"
+ xmlns:doc="urn:schemas-OECD:schema-extensions:documentation">
+    <Header>
+        <AuditFileVersion>1_00</AuditFileVersion>
+        <AuditFileDateCreated>2020-02-01</AuditFileDateCreated>
+        
+        <!-- Refers an existing AuditID (audit case from central systems) and TOC (submission "wave") -->
+        <AuditID>NAV_2019_2983</AuditID>
+        <TOCID>NAV_TOC_12981273</TOCID>
+        
+        <!-- Name of the software company that GENERATED the SAFT -->
+        <SoftwareCompanyName>MAGSOFT</SoftwareCompanyName>
+        <SoftwareID>MAGSOFT SAFT Generator</SoftwareID>
+        <SoftwareVersion>1.5</SoftwareVersion>
+        
+        <!-- Name of the software company that developed the accounting program, 
+             ERP or software from where the data is coming from -->
+        <DataSourceCompanyName>SAPHIRE</DataSourceCompanyName>
+        <DataSourceSystem>SAPHIRE ERP</DataSourceSystem>
+        <DataSourceSystemVersion>3.1</DataSourceSystemVersion>
+        
+        <Company>
+            <Name>MAGYAR RETAIL</Name>
+            <Address>
+                <DetailedAddress>
+                    <CountryCode>HU</CountryCode>
+                    <PostalCode>1007</PostalCode>
+                    <City>Budapest</City>
+                    <StreetName>Kárpát</StreetName>
+                    <PublicPlaceCategory>utca</PublicPlaceCategory>
+                    <Number>999</Number>
+                    <Building>1</Building>
+                    <Staircase>2</Staircase>
+                    <Floor>3</Floor>
+                    <Door>6</Door>
+                    <LotNumber>12</LotNumber>
+                    <Website>www.magyarretail.hu</Website>
+                </DetailedAddress>
+            </Address>
+            <Contact>
+                <ContactPerson>Mr. Viktor Nagy Barko</ContactPerson>
+                <Telephone>+36 80 400-400</Telephone>
+                <Fax>+36 80 400-500</Fax>
+                <Email>viktor.barko@magyarretail.hu</Email>
+            </Contact>
+            <DocumentationAddress>
+                <SimpleAddress>
+                    <CountryCode>HU</CountryCode>
+                    <PostalCode>1007</PostalCode>
+                    <City>Budapest</City>
+                    <AdditionalAddressDetail>Kárpát utca 999</AdditionalAddressDetail>
+                </SimpleAddress>
+            </DocumentationAddress>
+            <BankAccount>
+                <BankAccountNumber>111110180000000</BankAccountNumber>
+                <BankAccountName>BANKACC11111</BankAccountName>
+            </BankAccount>
+            <TaxNumber>1887654467</TaxNumber>
+            <EUVATNumber>HU887654467</EUVATNumber>
+            <GroupVATNumber>1887654467</GroupVATNumber>
+            <GroupCorpTaxNumber>1887654467</GroupCorpTaxNumber>
+        </Company>
+        
+        <DefaultCurrencyCode>HUF</DefaultCurrencyCode>
+        
+        <!-- The selection criteria used to generate the data set -->
+        <SelectionCriteria>
+            
+            <!-- Fiscal Calendar of the company on the moment of the file generation -->
+            <FiscalCalendar>
+                <FiscalCalendarStartDate>2019-01-01</FiscalCalendarStartDate>
+                <FiscalCalendarEndDate>2019-12-31</FiscalCalendarEndDate>
+            </FiscalCalendar>
+            
+            <SelectionStartDate>2019-01-01</SelectionStartDate>
+            <SelectionEndDate>2019-12-31</SelectionEndDate>
+            
+            <PeriodStart>N1 01</PeriodStart>
+            <PeriodEnd>N1 12</PeriodEnd>
+            <PeriodYear>2019</PeriodYear>
+            
+        </SelectionCriteria>
+        
+        <HeaderComment>Some remarks</HeaderComment>
+        
+        <TaxEntity>Budapest</TaxEntity>
+        
+        <FileContentType>RD</FileContentType>
+        
+        <NumberOfParts>1</NumberOfParts>
+        <PartNumber>1</PartNumber>
+        
+    </Header>
+    <!-- -->
+    <!-- Reporting Data -->
+    <!-- -->
+    
+    <ReportingData>
+        
+        <!-- -->
+        <!-- Physical Stock -->
+        <!-- -->
+        
+        <PhysicalStock>
+            
+            <NumberOfEntries>1</NumberOfEntries>
+            
+            <PhysicalStockEntry>
+                
+                <WarehouseID>WH001</WarehouseID>
+                <ProductCode>PRD001</ProductCode>
+                <StockAccountNos>
+                    <StockAccountNo>23000</StockAccountNo>
+                </StockAccountNos>
+                <StandardProductType>PS</StandardProductType>
+                <CompanyProductTypes>
+                    <CompanyProductType>DAIRYPROD</CompanyProductType>
+                </CompanyProductTypes>           
+                <ProductStatus>ACTIVE</ProductStatus>
+                
+                <!-- If there is any consignment, and the Owner is not the company. The supplier must be on Master Data -->
+                <OwnerSupplierID>SUP001</OwnerSupplierID>
+                
+                <ProductInformation>
+                    <Quantity>5</Quantity>
+                    <UnitOfMeasure>LTR</UnitOfMeasure>
+                    <UOMToUOMPhysicalStockConversionFactor>-1</UOMToUOMPhysicalStockConversionFactor>
+                </ProductInformation>
+                
+                <Price>10</Price>
+                
+                <StockCharacteristics>
+                    <StockCharacteristic>Pack</StockCharacteristic>
+                    <StockCharacteristicValue>XL</StockCharacteristicValue>
+                </StockCharacteristics>
+                
+            </PhysicalStockEntry>
+        
+        </PhysicalStock>
+        
+        <!-- -->
+        <!-- VAT Analytics -->
+        <!-- -->   
+        
+        <VATAnalytics>
+            
+            <NumberOfEntries>2</NumberOfEntries>
+            <TotalInputTaxAmount>27</TotalInputTaxAmount>
+            <TotalOutputTaxAmount>54</TotalOutputTaxAmount>
+            <VATBalance>27</VATBalance>
+            
+            <VATPeriods>
+            
+                <VATPeriod>
+                
+                    <TaxDeclarationPeriodType>M</TaxDeclarationPeriodType>
+                    <TaxDeclarationPeriod>1901</TaxDeclarationPeriod>
+                    
+                    <Line>
+                    
+                        <LineNumber>1</LineNumber>
+                        <VATAccountID>467</VATAccountID>
+                        
+                        <!-- Unique source document or the aggregated posting -->
+                        <SourceDocumentID>AGR001</SourceDocumentID>
+                        <SourceDocumentDate>2019-01-11</SourceDocumentDate>
+                        <TaxPointDate>2019-01-11</TaxPointDate>
+                        <GLPostingDate>2019-01-11</GLPostingDate>
+                        
+                        <Taxinformation>
+                        
+                            <TaxType>104</TaxType>
+                            <TaxCode>VAT27</TaxCode>
+                            <TaxPercentage>27</TaxPercentage>
+                            <TaxBase>200</TaxBase>
+                            
+                            <TaxAmount>
+                                <AmountHUF>54</AmountHUF>
+                                <Amount>54</Amount>
+                                <CurrencyCode>HUF</CurrencyCode>
+                                <CurrencyAmount>54</CurrencyAmount>
+                            </TaxAmount>
+                            
+                        </Taxinformation>
+                        
+                        <TransactionID>TR0001</TransactionID>
+                        <CustomerID>CST001</CustomerID>
+                        
+                    </Line>
+                    
+                    <Line>
+                        
+                        <LineNumber>2</LineNumber>
+                        <VATAccountID>466</VATAccountID>
+                        
+                        <!-- Unique source document or the aggregated posting -->
+                        <SourceDocumentID>AGR002</SourceDocumentID>
+                        <SourceDocumentDate>2019-01-11</SourceDocumentDate>
+                        <TaxPointDate>2019-01-11</TaxPointDate>
+                        <GLPostingDate>2019-01-11</GLPostingDate>
+                        
+                        <Taxinformation>
+                        
+                            <TaxType>104</TaxType>
+                            <TaxCode>VAT27</TaxCode>
+                            <TaxPercentage>27</TaxPercentage>
+                            <TaxBase>100</TaxBase>
+                            
+                            <TaxAmount>
+                                <AmountHUF>27</AmountHUF>
+                                <Amount>27</Amount>
+                                <CurrencyCode>HUF</CurrencyCode>
+                                <CurrencyAmount>27</CurrencyAmount>
+                            </TaxAmount>
+                            
+                        </Taxinformation>
+                        
+                        <TransactionID>TR0002</TransactionID>
+                        <SupplierID>SUP001</SupplierID>
+                        
+                    </Line>
+                    
+                </VATPeriod>
+                
+            </VATPeriods>
+            
+        </VATAnalytics>
+        
+        <!-- -->
+        <!-- Grouping Ledger -->
+        <!-- -->   
+        
+        <GroupingLedger>
+        
+            <NumberOfEntries>2</NumberOfEntries>
+            
+            <Transaction>
+            
+                <TransactionID>AGR001</TransactionID>
+                
+                <SourceDocument>
+                
+                    <SourceDocumentID>INV001</SourceDocumentID>
+                    <CreditAmount>
+                        <Amount>120</Amount>
+                    </CreditAmount>
+                    
+                </SourceDocument>
+                
+                <SourceDocument>
+                
+                    <SourceDocumentID>INV002</SourceDocumentID>
+                    <CreditAmount>
+                        <Amount>80</Amount>
+                    </CreditAmount>
+                    
+                </SourceDocument>
+                
+            </Transaction>
+            
+            <Transaction>
+            
+                <TransactionID>AGR002</TransactionID>
+                
+                <SourceDocument>
+                
+                    <SourceDocumentID>INDOC01</SourceDocumentID>
+                    <DebitAmount>
+                        <Amount>30</Amount>
+                    </DebitAmount>
+                    
+                </SourceDocument>
+                
+                <SourceDocument>
+                
+                    <SourceDocumentID>INDOC02</SourceDocumentID>
+                    <DebitAmount>
+                        <Amount>70</Amount>
+                    </DebitAmount>
+                    
+                </SourceDocument>
+                
+            </Transaction>
+            
+        </GroupingLedger>
+        
+        <!-- -->
+        <!-- OutStanding Invoices -->
+        <!-- -->   
+        
+        <OutStandingInvoices>
+        
+            <NumberOfEntries>2</NumberOfEntries>
+            
+            <OutStandingInvoice>
+            
+                <SystemID>CUSTOUT001</SystemID>
+                
+                <InvoicePartnerData>
+                    <CustomerSupplierCode>C</CustomerSupplierCode>
+                    <CustomerID>CST001</CustomerID>
+                </InvoicePartnerData>
+                
+                <SourceDocumentDate>2019-12-19</SourceDocumentDate>
+                <GLPostingDate>2020-10-09</GLPostingDate>
+                <DueDate>
+                    <DueDateDate>2020-10-09</DueDateDate>
+                </DueDate>
+                <PaymentDate>2020-01-20</PaymentDate>
+                <PaymentDelay>32</PaymentDelay>
+                <Description>Invoice Posting</Description>
+                
+                <DebitAmount>
+                    <Amount>1375999138.08</Amount>
+                    <CurrencyCode>HUF</CurrencyCode>
+                    <CurrencyAmount>1375999138.08</CurrencyAmount>
+                </DebitAmount>
+                
+                <CreditAmount>
+                    <Amount>635157355.84</Amount>
+                    <CurrencyCode>HUF</CurrencyCode>
+                    <CurrencyAmount>635157355.84</CurrencyAmount>
+                </CreditAmount>
+                
+                <Balance>
+                    <Amount>740841782.24</Amount>
+                    <CurrencyCode>HUF</CurrencyCode>
+                    <CurrencyAmount>740841782.24</CurrencyAmount>
+                </Balance>
+                
+            </OutStandingInvoice>
+            
+            <OutStandingInvoice>
+            
+                <SystemID>SUPPOUT001</SystemID>
+                
+                <InvoicePartnerData>
+                    <CustomerSupplierCode>S</CustomerSupplierCode>
+                    <SupplierID>SUP001</SupplierID>
+                </InvoicePartnerData>
+                
+                <SourceDocumentDate>2021-02-04</SourceDocumentDate>
+                <GLPostingDate>2021-03-08</GLPostingDate>
+                <DueDate>
+                    <DueDateDate>2020-10-28</DueDateDate>
+                </DueDate>
+                <PaymentDate>2021-05-20</PaymentDate>
+                <PaymentDelay>105</PaymentDelay>
+                <Description>Invoice Posting</Description>
+                
+                <DebitAmount>
+                    <Amount>1626821567.85</Amount>
+                    <CurrencyCode>HUF</CurrencyCode>
+                    <CurrencyAmount>1626821567.85</CurrencyAmount>
+                </DebitAmount>
+                
+                <CreditAmount>
+                    <Amount>1024400026.07</Amount>
+                    <CurrencyCode>HUF</CurrencyCode>
+                    <CurrencyAmount>1024400026.07</CurrencyAmount>
+                </CreditAmount>
+                
+                <Balance>
+                    <Amount>602421541.78</Amount>
+                    <CurrencyCode>HUF</CurrencyCode>
+                    <CurrencyAmount>602421541.78</CurrencyAmount>
+                </Balance>
+                
+            </OutStandingInvoice>
+            
+        </OutStandingInvoices>
+        
+        <!-- -->
+        <!-- General Ledger Statement -->
+        <!-- -->   
+        
+        <GeneralLedgerStatement>
+        
+            <NumberOfEntries>2</NumberOfEntries>
+            
+            <Accounts>
+            
+                <AccountID>1</AccountID>
+                <OpeningDebitBalance>5727.16</OpeningDebitBalance>
+                <ClosingDebitBalance>3509228.87</ClosingDebitBalance>
+                <TotalDebit>3503501.71</TotalDebit>
+                <TotalCredit>0</TotalCredit>
+                
+            </Accounts>
+            
+            <Accounts>
+            
+                <AccountID>11</AccountID>
+                <OpeningDebitBalance>5727.16</OpeningDebitBalance>
+                <ClosingDebitBalance>3509228.87</ClosingDebitBalance>
+                <TotalDebit>3503501.71</TotalDebit>
+                <TotalCredit>0</TotalCredit>
+                
+            </Accounts>
+            
+            <Accounts>
+            
+                <AccountID>115</AccountID>
+                <OpeningDebitBalance>5727.16</OpeningDebitBalance>
+                <ClosingDebitBalance>3509228.87</ClosingDebitBalance>
+                <TotalDebit>3503501.71</TotalDebit>
+                <TotalCredit>0</TotalCredit>
+                
+            </Accounts>
+            
+            <Accounts>
+            
+                <AccountID>115001</AccountID>
+                <OpeningDebitBalance>5727.16</OpeningDebitBalance>
+                <ClosingDebitBalance>3509228.87</ClosingDebitBalance>
+                <TotalDebit>3503501.71</TotalDebit>
+                <TotalCredit>0</TotalCredit>
+                
+            </Accounts>
+            
+            <Accounts>
+            
+                <AccountID>21</AccountID>
+                <OpeningDebitBalance>5727.16</OpeningDebitBalance>
+                <ClosingDebitBalance>3509228.87</ClosingDebitBalance>
+                <TotalDebit>3503501.71</TotalDebit>
+                <TotalCredit>0</TotalCredit>
+                
+            </Accounts>
+            
+            <Accounts>
+            
+                <AccountID>211</AccountID>
+                <OpeningDebitBalance>5727.16</OpeningDebitBalance>
+                <ClosingDebitBalance>3509228.87</ClosingDebitBalance>
+                <TotalDebit>3503501.71</TotalDebit>
+                <TotalCredit>0</TotalCredit>
+                
+            </Accounts>
+            
+            <Accounts>
+            
+                <AccountID>2111</AccountID>
+                <OpeningDebitBalance>5727.16</OpeningDebitBalance>
+                <ClosingDebitBalance>3509228.87</ClosingDebitBalance>
+                <TotalDebit>3503501.71</TotalDebit>
+                <TotalCredit>0</TotalCredit>
+                
+            </Accounts>
+            
+            <Accounts>
+            
+                <AccountID>22</AccountID>
+                <OpeningDebitBalance>5727.16</OpeningDebitBalance>
+                <ClosingDebitBalance>3509228.87</ClosingDebitBalance>
+                <TotalDebit>3503501.71</TotalDebit>
+                <TotalCredit>0</TotalCredit>
+                
+            </Accounts>
+            
+            <Accounts>
+            
+                <AccountID>221</AccountID>
+                <OpeningDebitBalance>5727.16</OpeningDebitBalance>
+                <ClosingDebitBalance>3509228.87</ClosingDebitBalance>
+                <TotalDebit>3503501.71</TotalDebit>
+                <TotalCredit>0</TotalCredit>
+                
+            </Accounts>
+            
+            <Accounts>
+            
+                <AccountID>2211</AccountID>
+                <OpeningDebitBalance>5727.16</OpeningDebitBalance>
+                <ClosingDebitBalance>3509228.87</ClosingDebitBalance>
+                <TotalDebit>3503501.71</TotalDebit>
+                <TotalCredit>0</TotalCredit>
+                
+            </Accounts>
+            
+            <Accounts>
+            
+                <AccountID>71</AccountID>
+                <OpeningDebitBalance>11454.32</OpeningDebitBalance>
+                <ClosingDebitBalance>7018457.74</ClosingDebitBalance>
+                <TotalDebit>7007003.42</TotalDebit>
+                <TotalCredit>0</TotalCredit>
+                
+            </Accounts>
+            
+            <Accounts>
+            
+                <AccountID>711</AccountID>
+                <OpeningDebitBalance>5727.16</OpeningDebitBalance>
+                <ClosingDebitBalance>3509228.87</ClosingDebitBalance>
+                <TotalDebit>3503501.71</TotalDebit>
+                <TotalCredit>0</TotalCredit>
+                
+            </Accounts>
+            
+            <Accounts>
+            
+                <AccountID>712</AccountID>
+                <OpeningDebitBalance>5727.16</OpeningDebitBalance>
+                <ClosingDebitBalance>3509228.87</ClosingDebitBalance>
+                <TotalDebit>3503501.71</TotalDebit>
+                <TotalCredit>0</TotalCredit>
+                
+            </Accounts>
+            
+        </GeneralLedgerStatement>
+        
+        <!-- -->
+        <!-- Customer Analytics -->
+        <!-- -->   
+        
+        <CustomerAnalytics>
+        
+            <NumberOfEntries>2</NumberOfEntries>
+            
+            <CustomerAnalyticsEntry>
+            
+                <CustomerInfo>
+                    <CustomerID>CST001</CustomerID>
+                </CustomerInfo>
+                
+                <SourceDocument>
+                
+                    <SystemID>DOCNUM001</SystemID>
+                    <SourceDocumentID>INV001</SourceDocumentID>
+                    <SourceDocumentDate>2019-01-14</SourceDocumentDate>
+                    <DueDate>
+                        <DueDateDate>2019-01-14</DueDateDate>
+                    </DueDate>
+                    <PaymentDate>2019-01-14</PaymentDate>
+                    <DocumentTotals>
+                        <NetTotal>
+                            <Amount>100</Amount>
+                            <CurrencyCode>HUF</CurrencyCode>
+                            <CurrencyAmount>100</CurrencyAmount>
+                        </NetTotal>
+                        <GrossTotal>
+                            <Amount>127</Amount>
+                            <CurrencyCode>HUF</CurrencyCode>
+                            <CurrencyAmount>127</CurrencyAmount>
+                        </GrossTotal>
+                    </DocumentTotals>
+                    
+                </SourceDocument>
+                
+                <OpeningDebitBalance>97125</OpeningDebitBalance>
+                <ClosingDebitBalance>97225</ClosingDebitBalance>
+                
+            </CustomerAnalyticsEntry>
+            
+            <CustomerAnalyticsEntry>
+            
+                <CustomerInfo>
+                    <Name>SuperMarkets of Pest</Name>
+                    <BillingAddress>
+                        <SimpleAddress>
+                            <CountryCode>HU</CountryCode>
+                            <PostalCode>1007</PostalCode>
+                            <City>Budapest</City>
+                            <AdditionalAddressDetail>Kárpát utca 999</AdditionalAddressDetail>
+                        </SimpleAddress>
+                    </BillingAddress>
+                    <TaxNumber>1887654461</TaxNumber>
+                </CustomerInfo>
+                
+                <SourceDocument>
+                
+                    <SystemID>DOCNUM002</SystemID>
+                    <SourceDocumentID>INV002</SourceDocumentID>
+                    <SourceDocumentDate>2019-01-14</SourceDocumentDate>
+                    <DueDate>
+                        <DueDateDate>2019-01-14</DueDateDate>
+                    </DueDate>
+                    <PaymentDate>2019-01-14</PaymentDate>
+                    <DocumentTotals>
+                        <NetTotal>
+                            <Amount>100</Amount>
+                            <CurrencyCode>HUF</CurrencyCode>
+                            <CurrencyAmount>100</CurrencyAmount>
+                        </NetTotal>
+                        <GrossTotal>
+                            <Amount>127</Amount>
+                            <CurrencyCode>HUF</CurrencyCode>
+                            <CurrencyAmount>127</CurrencyAmount>
+                        </GrossTotal>
+                    </DocumentTotals>
+                    
+                </SourceDocument>
+                
+                <OpeningDebitBalance>678523</OpeningDebitBalance>
+                <ClosingDebitBalance>678623</ClosingDebitBalance>
+                
+            </CustomerAnalyticsEntry>
+            
+        </CustomerAnalytics>
+        
+        <!-- -->
+        <!-- Supplier Analytics -->
+        <!-- -->   
+        
+        <SupplierAnalytics>
+        
+            <NumberOfEntries>2</NumberOfEntries>
+            
+            <SupplierAnalyticsEntry>
+            
+                <SupplierInfo>
+                    <SupplierID>SUP001</SupplierID>
+                </SupplierInfo>
+                
+                <SourceDocuments>
+                
+                    <SystemID>INDOC001</SystemID>
+                    <SourceDocumentID>INV001</SourceDocumentID>
+                    <DueDate>
+                        <DueDateDate>2019-01-14</DueDateDate>
+                    </DueDate>
+                    <PaymentDate>2019-01-14</PaymentDate>
+                    <DocumentTotals>
+                        <NetTotal>
+                            <Amount>100</Amount>
+                            <CurrencyCode>HUF</CurrencyCode>
+                            <CurrencyAmount>100</CurrencyAmount>
+                        </NetTotal>
+                        <GrossTotal>
+                            <Amount>127</Amount>
+                            <CurrencyCode>HUF</CurrencyCode>
+                            <CurrencyAmount>127</CurrencyAmount>
+                        </GrossTotal>
+                    </DocumentTotals>
+                    
+                </SourceDocuments>
+                
+                <OpeningCreditBalance>97125</OpeningCreditBalance>
+                <ClosingCreditBalance>97225</ClosingCreditBalance>
+                
+            </SupplierAnalyticsEntry>
+            
+            <SupplierAnalyticsEntry>
+            
+                <SupplierInfo>
+                    <Name>SpartacusMarkets</Name>
+                    <BillingAddress>
+                        <SimpleAddress>
+                            <CountryCode>HU</CountryCode>
+                            <PostalCode>1133</PostalCode>
+                            <City>Budapest</City>
+                            <AdditionalAddressDetail>Hóvirág utca 15</AdditionalAddressDetail>
+                        </SimpleAddress>
+                    </BillingAddress>
+                </SupplierInfo>
+                
+                <SourceDocuments>
+                
+                    <SystemID>INDOC002</SystemID>
+                    <SourceDocumentID>INV002</SourceDocumentID>
+                    <DueDate>
+                        <DueDateDate>2019-01-14</DueDateDate>
+                    </DueDate>
+                    <PaymentDate>2019-01-14</PaymentDate>
+                    <DocumentTotals>
+                        <NetTotal>
+                            <Amount>100</Amount>
+                            <CurrencyCode>HUF</CurrencyCode>
+                            <CurrencyAmount>100</CurrencyAmount>
+                        </NetTotal>
+                        <GrossTotal>
+                            <Amount>127</Amount>
+                            <CurrencyCode>HUF</CurrencyCode>
+                            <CurrencyAmount>127</CurrencyAmount>
+                        </GrossTotal>
+                    </DocumentTotals>
+                    
+                </SourceDocuments>
+                
+                <OpeningCreditBalance>678523</OpeningCreditBalance>
+                <ClosingCreditBalance>678623</ClosingCreditBalance>
+                
+            </SupplierAnalyticsEntry>
+            
+        </SupplierAnalytics>
+        
+    </ReportingData>
+    
+</AuditFile>

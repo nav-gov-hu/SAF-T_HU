@@ -1,0 +1,767 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<AuditFile xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://schemas.nav.gov.hu/SAFT_HU/1.0 SAFTHU_Master_Data.xsd"
+ xmlns:doc="urn:schemas-OECD:schema-extensions:documentation">
+    <Header>
+        <AuditFileVersion>1_00</AuditFileVersion>
+        <AuditFileDateCreated>2020-02-01</AuditFileDateCreated>
+        
+        <!-- Refers an existing AuditID (audit case from central systems) and TOC (submission "wave") -->
+        <AuditID>NAV_2019_2983</AuditID>
+        <TOCID>NAV_TOC_12981273</TOCID>
+        
+        <!-- Name of the software company that GENERATED the SAFT -->
+        <SoftwareCompanyName>MAGSOFT</SoftwareCompanyName>
+        <SoftwareID>MAGSOFT SAFT Generator</SoftwareID>
+        <SoftwareVersion>1.5</SoftwareVersion>
+        
+        <!-- Name of the software company that developed the accounting program, 
+             ERP or software from where the data is coming from -->
+        <DataSourceCompanyName>SAPHIRE</DataSourceCompanyName>
+        <DataSourceSystem>SAPHIRE ERP</DataSourceSystem>
+        <DataSourceSystemVersion>3.1</DataSourceSystemVersion>
+        
+        <Company>
+            <Name>MAGYAR RETAIL</Name>
+            <Address>
+                <DetailedAddress>
+                    <CountryCode>HU</CountryCode>
+                    <PostalCode>1007</PostalCode>
+                    <City>Budapest</City>
+                    <StreetName>Kárpát</StreetName>
+                    <PublicPlaceCategory>utca</PublicPlaceCategory>
+                    <Number>999</Number>
+                    <Building>1</Building>
+                    <Staircase>2</Staircase>
+                    <Floor>3</Floor>
+                    <Door>6</Door>
+                    <LotNumber>12</LotNumber>
+                    <Website>www.magyarretail.hu</Website>
+                </DetailedAddress>
+            </Address>
+            <Contact>
+                <ContactPerson>Mr. Viktor Nagy Barko</ContactPerson>
+                <Telephone>+36 80 400-400</Telephone>
+                <Fax>+36 80 400-500</Fax>
+                <Email>viktor.barko@magyarretail.hu</Email>
+            </Contact>
+            <DocumentationAddress>
+                <SimpleAddress>
+                    <CountryCode>HU</CountryCode>
+                    <PostalCode>1007</PostalCode>
+                    <City>Budapest</City>
+                    <AdditionalAddressDetail>Kárpát utca 999</AdditionalAddressDetail>
+                </SimpleAddress>
+            </DocumentationAddress>
+            <BankAccount>
+                <BankAccountNumber>111110180000000</BankAccountNumber>
+                <BankAccountName>BANKACC11111</BankAccountName>
+            </BankAccount>
+            <TaxNumber>1887654467</TaxNumber>
+            <EUVATNumber>HU887654467</EUVATNumber>
+            <GroupVATNumber>1887654467</GroupVATNumber>
+            <GroupCorpTaxNumber>1887654467</GroupCorpTaxNumber>
+        </Company>
+        
+        <DefaultCurrencyCode>HUF</DefaultCurrencyCode>
+        
+        <!-- The selection criteria used to generate the data set -->
+        <SelectionCriteria>
+            
+            <!-- Fiscal Calendar of the company on the moment of the file generation -->
+            <FiscalCalendar>
+                <FiscalCalendarStartDate>2019-01-01</FiscalCalendarStartDate>
+                <FiscalCalendarEndDate>2019-12-31</FiscalCalendarEndDate>
+            </FiscalCalendar>
+            
+            <SelectionStartDate>2019-01-01</SelectionStartDate>
+            <SelectionEndDate>2019-12-31</SelectionEndDate>
+            
+            <PeriodStart>N1 01</PeriodStart>
+            <PeriodEnd>N1 12</PeriodEnd>
+            <PeriodYear>2019</PeriodYear>
+            
+        </SelectionCriteria>
+        
+        <HeaderComment>Some remarks</HeaderComment>
+        
+        <TaxEntity>Budapest</TaxEntity>
+        
+        <FileContentType>MD</FileContentType>
+        
+        <NumberOfParts>1</NumberOfParts>
+        <PartNumber>1</PartNumber>
+        
+    </Header>
+    
+    <!-- -->
+    <!-- MASTER DATA -->
+    <!-- -->
+    
+    <MasterData>
+        
+        <!-- Journal IDs Definitions -->
+        
+        <Journals>
+            <Journal>
+                <JournalID>CC</JournalID>
+                <Description>Cost Code</Description>
+                <Type>CostAcc</Type>
+            </Journal>
+            <Journal>
+                <JournalID>GE</JournalID>
+                <Description>General Ledger Entry</Description>
+                <Type>GLEAcc</Type>
+            </Journal>
+            <Journal>
+                <JournalID>RE</JournalID>
+                <Description>Revenues</Description>
+                <Type>GLEAcc</Type>
+            </Journal>
+        </Journals>
+        
+        <!-- Chart of Accounts - General Ledger accounts definition -->
+        
+        <GeneralLedgerAccounts>
+            <AccountingReference>HUCOA</AccountingReference>
+            
+            <Account>
+                <AccountID>1</AccountID>
+                <AccountDescription>FIXED ASSETS</AccountDescription>
+                <GroupingCategory>S</GroupingCategory>
+                <GroupingCode>ROOT</GroupingCode>
+                <AccountCreationDate>2019-01-02</AccountCreationDate>
+            </Account>
+            
+                
+            <Account>
+                <AccountID>11</AccountID>
+                <AccountDescription>INTANGIBLE ASSETS</AccountDescription>
+                <GroupingCategory>A</GroupingCategory>
+                <GroupingCode>1</GroupingCode>
+                <AccountCreationDate>2019-01-02</AccountCreationDate>
+            </Account>
+            
+            <Account>
+                <AccountID>115</AccountID>
+                <AccountDescription>Goodwill</AccountDescription>
+                <StandardAccountID>1151</StandardAccountID>
+                <GroupingCategory>A</GroupingCategory>
+                <GroupingCode>11</GroupingCode>
+                <AccountCreationDate>2019-01-02</AccountCreationDate>
+            </Account>
+            
+            <Account>
+                <AccountID>115001</AccountID>
+                <AccountDescription>Goodwill Details</AccountDescription>
+                <StandardAccountID>1151</StandardAccountID>
+                <GroupingCategory>M</GroupingCategory>
+                <GroupingCode>115</GroupingCode>
+                <AccountCreationDate>2019-01-02</AccountCreationDate>
+            </Account>
+            
+            <Account>
+                <AccountID>21</AccountID>
+                <AccountDescription>Customers</AccountDescription>
+                <GroupingCategory>S</GroupingCategory>
+                <GroupingCode>ROOT</GroupingCode>
+                <AccountCreationDate>2019-01-02</AccountCreationDate>
+            </Account>
+            
+            <Account>
+                <AccountID>211</AccountID>
+                <AccountDescription>European Customers</AccountDescription>
+                <StandardAccountID>3114</StandardAccountID>
+                <GroupingCategory>A</GroupingCategory>
+                <GroupingCode>21</GroupingCode>
+                <AccountCreationDate>2019-01-02</AccountCreationDate>
+            </Account>
+            
+            <Account>
+                <AccountID>2111</AccountID>
+                <AccountDescription>Czabolin</AccountDescription>
+                <StandardAccountID>3114</StandardAccountID>
+                <GroupingCategory>M</GroupingCategory>
+                <GroupingCode>211</GroupingCode>
+                <AccountCreationDate>2020-01-02</AccountCreationDate>
+            </Account>
+            
+            <Account>
+                <AccountID>22</AccountID>
+                <AccountDescription>Suppliers</AccountDescription>
+                <GroupingCategory>S</GroupingCategory>
+                <GroupingCode>ROOT</GroupingCode>
+                <AccountCreationDate>2019-01-02</AccountCreationDate>
+            </Account>
+            
+            <Account>
+                <AccountID>221</AccountID>
+                <AccountDescription>Hungarian Suppliers</AccountDescription>
+                <StandardAccountID>4541</StandardAccountID>
+                <GroupingCategory>A</GroupingCategory>
+                <GroupingCode>22</GroupingCode>
+                <AccountCreationDate>2019-01-02</AccountCreationDate>
+            </Account>
+            
+            <Account>
+                <AccountID>2211</AccountID>
+                <AccountDescription>Gergelini</AccountDescription>
+                <StandardAccountID>4541</StandardAccountID>
+                <GroupingCategory>M</GroupingCategory>
+                <GroupingCode>221</GroupingCode>
+                <AccountCreationDate>2020-01-02Z</AccountCreationDate>
+            </Account>
+            
+            <Account>
+                <AccountID>71</AccountID>
+                <AccountDescription>Revenues</AccountDescription>
+                <GroupingCategory>A</GroupingCategory>
+                <GroupingCode>ROOT</GroupingCode>
+                <AccountCreationDate>2019-01-02</AccountCreationDate>
+            </Account>
+            
+            <Account>
+                <AccountID>711</AccountID>
+                <AccountDescription>Product Revenue</AccountDescription>
+                <StandardAccountID>9110</StandardAccountID>
+                <GroupingCategory>M</GroupingCategory>
+                <GroupingCode>71</GroupingCode>
+                <AccountCreationDate>2019-01-02</AccountCreationDate>
+            </Account>
+            
+            <Account>
+                <AccountID>712</AccountID>
+                <AccountDescription>Services Revenue</AccountDescription>
+                <StandardAccountID>9110</StandardAccountID>
+                <GroupingCategory>M</GroupingCategory>
+                <GroupingCode>71</GroupingCode>
+                <AccountCreationDate>2019-01-02</AccountCreationDate>
+            </Account>
+            
+            <Account>
+                <AccountID>61</AccountID>
+                <AccountDescription>Costs</AccountDescription>
+                <GroupingCategory>A</GroupingCategory>
+                <GroupingCode>ROOT</GroupingCode>
+                <AccountCreationDate>2019-01-02</AccountCreationDate>
+            </Account>
+            
+            <Account>
+                <AccountID>611</AccountID>
+                <AccountDescription>Manufacturing Costs</AccountDescription>
+                <StandardAccountID>5130</StandardAccountID>
+                <GroupingCategory>M</GroupingCategory>
+                <GroupingCode>71</GroupingCode>
+                <AccountCreationDate>2019-01-02</AccountCreationDate>
+            </Account>
+            
+            <Account>
+                <AccountID>612</AccountID>
+                <AccountDescription>Raw Materials</AccountDescription>
+                <StandardAccountID>5110</StandardAccountID>
+                <GroupingCategory>M</GroupingCategory>
+                <GroupingCode>71</GroupingCode>
+                <AccountCreationDate>2019-01-02</AccountCreationDate>
+            </Account>
+              
+        </GeneralLedgerAccounts>
+        
+        <!-- Customer master Data -->
+        
+        <Customers>
+            
+            <Customer>
+                <Name>SuperMarkets of Pest KFT</Name>
+                <Address>
+                    <SimpleAddress>
+                        <CountryCode>HU</CountryCode>
+                        <PostalCode>1007</PostalCode>
+                        <City>Budapest</City>
+                        <AdditionalAddressDetail>Kárpát utca 999</AdditionalAddressDetail>
+                    </SimpleAddress>
+                </Address>
+                <Contact>
+                    <ContactPerson>Atila Nagy</ContactPerson>
+                    <Telephone>+36 80 400-401</Telephone>
+                    <Fax>+36 80 400-501</Fax>
+                    <Email>atila.nagy@superpest.hu</Email>
+                </Contact>
+               
+                <BankAccount>
+                    <IBANNumber>HU42 1177 3016 1111 2018 0000 0000</IBANNumber>
+                </BankAccount>
+                
+                <TaxNumber>1887654461</TaxNumber>
+                <EUVATNumber>HU887654461</EUVATNumber>
+                <GroupVATNumber>1887654461</GroupVATNumber>
+                <GroupCorpTaxNumber>1887654461</GroupCorpTaxNumber>
+                
+                <CustomerID>CST001</CustomerID>
+                <SelfBillingIndicator>false</SelfBillingIndicator>
+                
+            </Customer>
+            
+            <Customer>
+                <Name>SuperMarkets of Buda KFT</Name>
+                <Address>
+                    <SimpleAddress>
+                        <CountryCode>HU</CountryCode>
+                        <PostalCode>1007</PostalCode>
+                        <City>Budapest</City>
+                        <AdditionalAddressDetail>Kárpát utca 777</AdditionalAddressDetail>
+                    </SimpleAddress>
+                </Address>
+                <Contact>
+                    <ContactPerson>Orsi Nagy</ContactPerson>
+                    <Telephone>+36 80 400-403</Telephone>
+                    <Fax>+36 80 400-503</Fax>
+                    <Email>orsi.nagy@superbuda.hu</Email>
+                </Contact>
+                
+                <BankAccount>
+                    <IBANNumber>HU42 1177 3016 1111 1018 1000 0000</IBANNumber>
+                </BankAccount>
+                
+                <TaxNumber>18876544</TaxNumber>
+                <EUVATNumber>HU18876544</EUVATNumber>
+                <GroupVATNumber>1887654461</GroupVATNumber>
+                <GroupCorpTaxNumber>1887654461</GroupCorpTaxNumber>
+                
+                <CustomerID>CST002</CustomerID>
+                <SelfBillingIndicator>false</SelfBillingIndicator>
+                
+            </Customer>
+            
+        </Customers>  
+            
+        <!-- Supplier master Data -->     
+            
+        <Suppliers>
+            
+            <Supplier>
+                <Name>SuperWine Pest ZRT</Name>
+                <Address>
+                    <SimpleAddress>
+                        <CountryCode>HU</CountryCode>
+                        <PostalCode>1007</PostalCode>
+                        <City>Budapest</City>
+                        <AdditionalAddressDetail>Kárpát utca 999</AdditionalAddressDetail>
+                    </SimpleAddress>
+                </Address>
+                <Contact>
+                    <ContactPerson>Bela Antos</ContactPerson>
+                    <Telephone>+36 80 400-401</Telephone>
+                    <Fax>+36 80 400-501</Fax>
+                    <Email>bela.antos@superwine.hu</Email>
+                </Contact>
+                
+                <BankAccount>
+                    <IBANNumber>HU42 1177 3016 1111 2018 0800 0000</IBANNumber>
+                </BankAccount>
+                
+                <TaxNumber>18876544</TaxNumber>
+                <EUVATNumber>HU18876544</EUVATNumber>
+                <GroupVATNumber>1887654468</GroupVATNumber>
+                <GroupCorpTaxNumber>1887654468</GroupCorpTaxNumber>
+                
+                <SupplierID>SUP001</SupplierID>
+                <SelfBillingIndicator>false</SelfBillingIndicator>
+                
+            </Supplier>
+            
+            <Supplier>
+                <Name>Groc Buda KFT</Name>
+                <Address>
+                    <SimpleAddress>
+                        <CountryCode>HU</CountryCode>
+                        <PostalCode>1007</PostalCode>
+                        <City>Budapest</City>
+                        <AdditionalAddressDetail>Kárpát utca 999</AdditionalAddressDetail>
+                    </SimpleAddress>
+                </Address>
+                <Contact>
+                    <ContactPerson>Janos Andor</ContactPerson>
+                    <Telephone>+36 80 400-409</Telephone>
+                    <Fax>+36 80 400-509</Fax>
+                    <Email>janos.andor@grocbuda.hu</Email>
+                </Contact>
+                
+                <BankAccount>
+                    <IBANNumber>HU42 1177 3016 1111 2018 0000 0000</IBANNumber>
+                </BankAccount>
+                
+                <TaxNumber>1887654464</TaxNumber>
+                <EUVATNumber>HU887654464</EUVATNumber>
+                <GroupVATNumber>1887654464</GroupVATNumber>
+                <GroupCorpTaxNumber>1887654464</GroupCorpTaxNumber>
+                
+                <SupplierID>SUP002</SupplierID>
+                <SelfBillingIndicator>false</SelfBillingIndicator>
+                  
+            </Supplier>
+            
+        </Suppliers>
+                      
+        <!-- Tax Table -->      
+                 
+        <TaxTable>
+            
+            <TaxTableEntry>
+                
+                <TaxType>104</TaxType>
+                <Description>Value added tax</Description>
+                
+                <TaxCodeDetails>
+                    <TaxCode>VAT27</TaxCode>
+                    <EffectiveDate>2016-01-01</EffectiveDate>
+                    <ExpirationDate>2090-12-31</ExpirationDate>
+                    <Description>Normal VAT 27%</Description>
+                    <TaxPercentage>27.00</TaxPercentage>
+                    <Country>HU</Country>
+                    <TaxDeclarationInfo>
+                        <TaxDeclarationRowID>C0007CA</TaxDeclarationRowID>
+                        <TaxDeclarationRowDescription>27 %-os kulcs alá tartozó értékesítés</TaxDeclarationRowDescription>
+                    </TaxDeclarationInfo>
+                </TaxCodeDetails>
+                
+                <TaxCodeDetails>
+                    <TaxCode>FLATVAT</TaxCode>
+                    <EffectiveDate>2019-12-29</EffectiveDate>
+                    <ExpirationDate>2020-01-12</ExpirationDate>
+                    <Description>Flat VAT tax</Description>
+                    <FlatTaxRate>
+                        <Amount>100.00</Amount>
+                        <CurrencyCode>HUF</CurrencyCode>
+                        <CurrencyAmount>100.00</CurrencyAmount>
+                    </FlatTaxRate>
+                    <Country>HU</Country>
+                    <TaxDeclarationInfo>
+                        <TaxDeclarationRowID>C0007CA</TaxDeclarationRowID>
+                        <TaxDeclarationRowDescription>27 %-os kulcs alá tartozó értékesítés</TaxDeclarationRowDescription>
+                    </TaxDeclarationInfo>
+                </TaxCodeDetails>
+                
+                <TaxCodeDetails>
+                    <TaxCode>VAT18</TaxCode>
+                    <EffectiveDate>2016-01-01</EffectiveDate>
+                    <ExpirationDate>2090-12-31</ExpirationDate>
+                    <Description>Normal VAT 18%</Description>
+                    <TaxPercentage>9.00</TaxPercentage>
+                    <Country>HU</Country>
+                    <TaxDeclarationInfo>
+                        <TaxDeclarationRowID>C0013CA</TaxDeclarationRowID>
+                        <TaxDeclarationRowDescription>18 %-os kulcs alá tartozó értékesítés</TaxDeclarationRowDescription>
+                    </TaxDeclarationInfo>
+                </TaxCodeDetails>
+                
+            </TaxTableEntry>
+            
+        </TaxTable>
+        
+        <!-- Analysis Type Table --> 
+        
+        <AnalysisTypeTable>
+            
+            <AnalysisTypeTableEntry>
+                <AnalysisType>CSTHR</AnalysisType>
+                <AnalysisTypeDescription>Cost Center HR</AnalysisTypeDescription>
+                <AnalysisID>HRDIR</AnalysisID>
+                <AnalysisIDDescription>Human Resources Direct Costs</AnalysisIDDescription>
+            </AnalysisTypeTableEntry>
+            
+            <AnalysisTypeTableEntry>
+                <AnalysisType>CSTHR</AnalysisType>
+                <AnalysisTypeDescription>Cost Center HR</AnalysisTypeDescription>
+                <AnalysisID>HRIND</AnalysisID>
+                <AnalysisIDDescription>Human Resources Indirect Costs</AnalysisIDDescription>
+            </AnalysisTypeTableEntry>
+            
+            <AnalysisTypeTableEntry>
+                <AnalysisType>PRO</AnalysisType>
+                <AnalysisTypeDescription>Profit Center</AnalysisTypeDescription>
+                <AnalysisID>PRWIN</AnalysisID>
+                <AnalysisIDDescription>Revenues Wine</AnalysisIDDescription>
+            </AnalysisTypeTableEntry>
+            
+            <AnalysisTypeTableEntry>
+                <AnalysisType>PRO</AnalysisType>
+                <AnalysisTypeDescription>Profit Center</AnalysisTypeDescription>
+                <AnalysisID>PRGRC</AnalysisID>
+                <AnalysisIDDescription>Revenues Groceries</AnalysisIDDescription>
+            </AnalysisTypeTableEntry>
+            
+            <AnalysisTypeTableEntry>
+                <AnalysisType>PRJ</AnalysisType>
+                <AnalysisTypeDescription>Project Building</AnalysisTypeDescription>
+                <AnalysisID>PRBUL</AnalysisID>
+                <AnalysisIDDescription>Building Project</AnalysisIDDescription>
+            </AnalysisTypeTableEntry>
+            
+        </AnalysisTypeTable>
+        
+        <!-- Warehouses definition --> 
+        
+        <Warehouses>
+            
+            <WarehouseEntry>
+                <WarehouseID>MAINWH</WarehouseID>
+                <Description>Main Warehouse</Description>
+                <Address>
+                    <SimpleAddress>
+                        <CountryCode>HU</CountryCode>
+                        <PostalCode>1007</PostalCode>
+                        <City>Budapest</City>
+                        <AdditionalAddressDetail>Kárpát utca 123</AdditionalAddressDetail>
+                    </SimpleAddress>
+                </Address>
+                <OwnForeignStock>O</OwnForeignStock>
+            </WarehouseEntry>
+            
+            <WarehouseEntry>
+                <WarehouseID>SECWH</WarehouseID>
+                <Description>Secondary Warehouse</Description>
+                <Address>
+                    <SimpleAddress>
+                        <CountryCode>HU</CountryCode>
+                        <Region>Pest</Region>
+                        <PostalCode>1007</PostalCode>
+                        <City>Budapest</City>
+                        <AdditionalAddressDetail>Kárpát utca 321</AdditionalAddressDetail>
+                    </SimpleAddress>
+                </Address>
+                <OwnForeignStock>O</OwnForeignStock>
+            </WarehouseEntry>
+            
+        </Warehouses>
+        
+        <!-- Unit of Measures table definition --> 
+        
+        <UOMTable>
+            
+            <UOMTableEntry>
+                <UnitOfMeasure>KG</UnitOfMeasure>
+                <Description>Kilograms</Description>
+            </UOMTableEntry>
+            
+            <UOMTableEntry>
+                <UnitOfMeasure>LTR</UnitOfMeasure>
+                <Description>Litres</Description>
+            </UOMTableEntry>
+            
+            <UOMTableEntry>
+                <UnitOfMeasure>CL</UnitOfMeasure>
+                <Description>Centiliters</Description>
+            </UOMTableEntry>
+            
+            <UOMTableEntry>
+                <UnitOfMeasure>HR</UnitOfMeasure>
+                <Description>Hours</Description>
+            </UOMTableEntry>
+            
+        </UOMTable>
+        
+        <!-- Movement types table definition --> 
+        
+        <MovementTypeTable>
+            
+            <MovementTypeTableEntry>
+                <MovementType>101</MovementType>
+                <StandardMovementType>PO</StandardMovementType>
+                <Description>Goods receipt for purchase order or order</Description>
+            </MovementTypeTableEntry>
+            
+            <MovementTypeTableEntry>
+                <MovementType>301</MovementType>
+                <StandardMovementType>TR</StandardMovementType>
+                <Description>Transfer</Description>
+            </MovementTypeTableEntry>
+            
+        </MovementTypeTable>
+        
+        <!-- Products --> 
+        
+        <Products>
+            
+            <Product>
+                <ProductCode>PRD001</ProductCode>
+                <GoodsServicesID>P</GoodsServicesID>
+                <ProductGroup>DAIRY</ProductGroup>
+                <Description>Milk Milky 50cl</Description>
+                <ProductCommodityCode>Import</ProductCommodityCode>
+                <ProductNumberCode>PRD001DMM01</ProductNumberCode>
+                
+                <Tariff>
+                    <TariffCodeType>NORMALTAR</TariffCodeType>
+                    <TariffCodeValue>10.2</TariffCodeValue>
+                </Tariff>
+                
+                <StandardValuationMethod>CAP</StandardValuationMethod>
+                <CompanyValuationMethod>CAP</CompanyValuationMethod>
+                
+                <UOMBase>CL</UOMBase>
+                <UOMStandard>LTR</UOMStandard>
+                <UOMToUOMBaseConversionFactor>0.1</UOMToUOMBaseConversionFactor>
+                
+                <TaxIndicator>
+                    <TaxType>104</TaxType>
+                    <TaxCode>VAT27</TaxCode>
+                </TaxIndicator>
+                
+            </Product>
+            
+            <Product>
+                <ProductCode>SRV001</ProductCode>
+                <GoodsServicesID>S</GoodsServicesID>
+                <ProductGroup>CONSULTING</ProductGroup>
+                <Description>Brand Management</Description>
+                <ProductNumberCode>PRD001DMM01</ProductNumberCode>
+                
+                <Tariff>
+                    <TariffCodeType>NORMALTAR</TariffCodeType>
+                    <TariffCodeValue>5.5</TariffCodeValue>
+                </Tariff>
+                
+                <StandardValuationMethod>OME</StandardValuationMethod>
+                <CompanyValuationMethod>STDPR</CompanyValuationMethod>
+                
+                <UOMBase>HR</UOMBase>
+                <UOMStandard>HR</UOMStandard>
+                <UOMToUOMBaseConversionFactor>1</UOMToUOMBaseConversionFactor>
+                
+                <TaxIndicator>
+                    <TaxType>104</TaxType>
+                    <TaxCode>VAT27</TaxCode>
+                </TaxIndicator>
+                
+            </Product>
+            
+        </Products>
+        
+        <!-- Owners --> 
+        
+        <Owners>
+            <Owner>
+                <Name>Ferenc Puskás</Name>
+                <Address>
+                    <SimpleAddress>
+                        <CountryCode>HU</CountryCode>
+                        <PostalCode>1007</PostalCode>
+                        <City>Budapest</City>
+                        <AdditionalAddressDetail>Kárpát utca 23 999</AdditionalAddressDetail>
+                    </SimpleAddress>
+                </Address>
+                <Contact>
+                    <ContactPerson>Ferenc Puskás</ContactPerson>
+                    <Telephone>+36 80 488-401</Telephone>
+                    <Fax>+36 80 488-501</Fax>
+                    <Email>ferenc.Puskás@something.hu</Email>
+                </Contact>
+                <BankAccount>
+                    <IBANNumber>HU42 1177 3016 1111 2018 0000 0000</IBANNumber>
+                </BankAccount>
+                
+                <TaxNumber>1887654468</TaxNumber>
+                <EUVATNumber>HU887654468</EUVATNumber>
+                <GroupVATNumber>1887654468</GroupVATNumber>
+                <GroupCorpTaxNumber>1887654468</GroupCorpTaxNumber>
+                <OwnerID>OWN01</OwnerID>
+                
+            </Owner>
+            
+            <Owner>
+                <Name>Sándor Kocsis</Name>
+                <Address>
+                    <SimpleAddress>
+                        <CountryCode>HU</CountryCode>
+                        <PostalCode>1007</PostalCode>
+                        <City>Budapest</City>
+                        <AdditionalAddressDetail>Kárpát utca 23 999</AdditionalAddressDetail>
+                    </SimpleAddress>
+                </Address>
+                <Contact>
+                    <ContactPerson>Ferenc Puskás</ContactPerson>
+                    <Telephone>+36 80 488-401</Telephone>
+                    <Fax>+36 80 488-501</Fax>
+                    <Email>sandor.kocsis@something.hu</Email>
+                </Contact>
+                <BankAccount>
+                    <IBANNumber>HU42 1177 3016 1111 2018 0000 0000</IBANNumber>
+                </BankAccount>
+                
+                <TaxNumber>1887654468</TaxNumber>
+                <EUVATNumber>HU887654468</EUVATNumber>
+                <GroupVATNumber>1887654468</GroupVATNumber>
+                <GroupCorpTaxNumber>1887654468</GroupCorpTaxNumber>
+                <OwnerID>OWN02</OwnerID>
+                
+            </Owner>
+        </Owners>
+        
+        <!-- Assets -->
+        
+        <Assets>
+            
+            <Asset>
+                <AssetID>BMW520_1</AssetID>
+                <AccountID>131001</AccountID>
+                <Description>Management Assets</Description>
+                <Supplier>
+                    <SupplierName>BMW</SupplierName>
+                    <SupplierID>1092</SupplierID>
+                    <PostalAddress>
+                        <SimpleAddress>
+                            <CountryCode>HU</CountryCode>
+                            <PostalCode>1007</PostalCode>
+                            <City>Budapest</City>
+                            <AdditionalAddressDetail>Kárpát utca 23 999</AdditionalAddressDetail>
+                        </SimpleAddress>
+                    </PostalAddress>
+                </Supplier>
+                <StartUpDate>2010-10-10</StartUpDate>
+                
+                <Valuations>
+                    <Valuation>
+                        <ValuationClass>FV</ValuationClass>
+                        <AcquisitionAndProductionCostsBegin>50000</AcquisitionAndProductionCostsBegin>
+                        <AssetLifeYear>10</AssetLifeYear>
+                        <DepreciationForPeriod>4000</DepreciationForPeriod>
+                        <BookValueEnd>14000</BookValueEnd>
+                    </Valuation>
+                </Valuations>
+            </Asset>
+            
+            <Asset>
+                <AssetID>FRG01</AssetID>
+                <AccountID>131001</AccountID>
+                <Description>Frigo</Description>
+                <Supplier>
+                    <SupplierName>Philips</SupplierName>
+                    <SupplierID>1093</SupplierID>
+                    <PostalAddress>
+                        <SimpleAddress>
+                            <CountryCode>HU</CountryCode>
+                            <PostalCode>1007</PostalCode>
+                            <City>Budapest</City>
+                            <AdditionalAddressDetail>Kárpát utca 2837 999</AdditionalAddressDetail>
+                        </SimpleAddress>
+                    </PostalAddress>
+                </Supplier>
+                <StartUpDate>2017-01-02</StartUpDate>
+                
+                <Valuations>
+                    <Valuation>
+                        <ValuationClass>FV</ValuationClass>
+                        <AcquisitionAndProductionCostsBegin>5000</AcquisitionAndProductionCostsBegin>
+                        <AssetLifeYear>5</AssetLifeYear>
+                        <DepreciationForPeriod>800</DepreciationForPeriod>
+                        <BookValueEnd>3400</BookValueEnd>
+                    </Valuation>
+                </Valuations>
+            </Asset>
+            
+        </Assets>
+        
+    </MasterData>
+    
+    </AuditFile>

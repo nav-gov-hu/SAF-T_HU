@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<AuditFile xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://schemas.nav.gov.hu/SAFT_HU/1.0 SAFTHU_General_Ledger_Entries_Lines.xsd"
+ xmlns:doc="urn:schemas-OECD:schema-extensions:documentation">
+    <Header>
+        <AuditFileVersion>1_00</AuditFileVersion>
+        <AuditFileDateCreated>2020-02-01</AuditFileDateCreated>
+        
+        <!-- Refers an existing AuditID (audit case from central systems) and TOC (submission "wave") -->
+        <AuditID>NAV_2019_2983</AuditID>
+        <TOCID>NAV_TOC_12981273</TOCID>
+        
+        <!-- Name of the software company that GENERATED the SAFT -->
+        <SoftwareCompanyName>MAGSOFT</SoftwareCompanyName>
+        <SoftwareID>MAGSOFT SAFT Generator</SoftwareID>
+        <SoftwareVersion>1.5</SoftwareVersion>
+        
+        <!-- Name of the software company that developed the accounting program, 
+             ERP or software from where the data is coming from -->
+        <DataSourceCompanyName>SAPHIRE</DataSourceCompanyName>
+        <DataSourceSystem>SAPHIRE ERP</DataSourceSystem>
+        <DataSourceSystemVersion>3.1</DataSourceSystemVersion>
+        
+        <Company>
+            <Name>MAGYAR RETAIL</Name>
+            <Address>
+                <DetailedAddress>
+                    <CountryCode>HU</CountryCode>
+                    <PostalCode>1007</PostalCode>
+                    <City>Budapest</City>
+                    <StreetName>Kárpát</StreetName>
+                    <PublicPlaceCategory>utca</PublicPlaceCategory>
+                    <Number>999</Number>
+                    <Building>1</Building>
+                    <Staircase>2</Staircase>
+                    <Floor>3</Floor>
+                    <Door>6</Door>
+                    <LotNumber>12</LotNumber>
+                    <Website>www.magyarretail.hu</Website>
+                </DetailedAddress>
+            </Address>
+            <Contact>
+                <ContactPerson>Mr. Viktor Nagy Barko</ContactPerson>
+                <Telephone>+36 80 400-400</Telephone>
+                <Fax>+36 80 400-500</Fax>
+                <Email>viktor.barko@magyarretail.hu</Email>
+            </Contact>
+            <DocumentationAddress>
+                <SimpleAddress>
+                    <CountryCode>HU</CountryCode>
+                    <PostalCode>1007</PostalCode>
+                    <City>Budapest</City>
+                    <AdditionalAddressDetail>Kárpát utca 999</AdditionalAddressDetail>
+                </SimpleAddress>
+            </DocumentationAddress>
+            <BankAccount>
+                <BankAccountNumber>111110180000000</BankAccountNumber>
+                <BankAccountName>BANKACC11111</BankAccountName>
+            </BankAccount>
+            <TaxNumber>1887654467</TaxNumber>
+            <EUVATNumber>HU887654467</EUVATNumber>
+            <GroupVATNumber>1887654467</GroupVATNumber>
+            <GroupCorpTaxNumber>1887654467</GroupCorpTaxNumber>
+        </Company>
+        
+        <DefaultCurrencyCode>HUF</DefaultCurrencyCode>
+        
+        <!-- The selection criteria used to generate the data set -->
+        <SelectionCriteria>
+            
+            <!-- Fiscal Calendar of the company on the moment of the file generation -->
+            <FiscalCalendar>
+                <FiscalCalendarStartDate>2019-01-01</FiscalCalendarStartDate>
+                <FiscalCalendarEndDate>2019-12-31</FiscalCalendarEndDate>
+            </FiscalCalendar>
+            
+            <SelectionStartDate>2019-01-01</SelectionStartDate>
+            <SelectionEndDate>2019-12-31</SelectionEndDate>
+            
+            <PeriodStart>N1 01</PeriodStart>
+            <PeriodEnd>N1 12</PeriodEnd>
+            <PeriodYear>2019</PeriodYear>
+            
+        </SelectionCriteria>
+        
+        <HeaderComment>Some remarks</HeaderComment>
+        
+        <TaxEntity>Budapest</TaxEntity>
+        
+        <FileContentType>GL</FileContentType>
+        
+        <NumberOfParts>1</NumberOfParts>
+        <PartNumber>1</PartNumber>
+        
+    </Header>
+    
+    <!--  -->
+    <!-- Transactional Data -->
+    <!--  -->
+    
+    
+    <TransactionalData>
+        
+        
+           
+        <!-- GLE Lines -->
+        
+        <GeneralLedgerEntriesLines>
+            <NumberOfLineEntries>4</NumberOfLineEntries>
+            <TotalDebitOfLines>20</TotalDebitOfLines>
+            <TotalCreditOfLines>20</TotalCreditOfLines>
+            
+            <Line>
+                <!-- FK: GeneralLedgerEntriesHeaders.Header.TransactionID -->
+                <TransactionID>GLE001</TransactionID>
+                <RecordID>GLE001.1</RecordID>
+                <AccountID>11.1</AccountID>
+                <Analysis>
+                    <AnalysisType>PRO</AnalysisType>
+                    <AnalysisID>PRWIN</AnalysisID>
+                    <AnalysisAmount>
+                        <Amount>10</Amount>
+                        <CurrencyCode>HUF</CurrencyCode>
+                        <CurrencyAmount>10</CurrencyAmount>
+                        <CreditDebitIndicator>D</CreditDebitIndicator> 
+                    </AnalysisAmount>
+                </Analysis>
+                <ValueDate>2019-01-19</ValueDate>
+                <SourceDocumentID>INV001</SourceDocumentID>
+                <Description>Receivables</Description>
+                <DebitAmount>
+                    <Amount>10</Amount>
+                    <CurrencyCode>HUF</CurrencyCode>
+                    <CurrencyAmount>10</CurrencyAmount>
+                    <ExchangeRate>1</ExchangeRate>
+                </DebitAmount>
+                <TaxInformation>
+                    <TaxType>104</TaxType>
+                    <TaxCode>VAT27</TaxCode>
+                    <TaxPercentage>27.00</TaxPercentage>
+                    <TaxBase>10</TaxBase>
+                    <TaxAmount>
+                        <AmountHUF>2.7</AmountHUF>
+                        <Amount>2.7</Amount>
+                        <CurrencyCode>HUF</CurrencyCode>
+                        <CurrencyAmount>2.7</CurrencyAmount>
+                    </TaxAmount>
+                    <TaxExemptionReason>NONE</TaxExemptionReason>
+                </TaxInformation>
+                <CustomerID>CST001</CustomerID>
+                <SourceID>ERPUSERJOHN</SourceID>
+                <SystemEntryDate>2019-01-31T10:10:02</SystemEntryDate>
+            </Line>
+             
+            <Line>
+                <!-- FK: GeneralLedgerEntriesHeaders.Header.TransactionID -->
+                <TransactionID>GLE001</TransactionID>
+                <RecordID>GLE001.2</RecordID>
+                <AccountID>61.1</AccountID>
+                <Analysis>
+                    <AnalysisType>PRO</AnalysisType>
+                    <AnalysisID>PRWIN</AnalysisID>
+                    <AnalysisAmount>
+                        <Amount>10</Amount>
+                        <CurrencyCode>HUF</CurrencyCode>
+                        <CurrencyAmount>10</CurrencyAmount>
+                        <CreditDebitIndicator>C</CreditDebitIndicator>
+                    </AnalysisAmount>
+                </Analysis>
+                <ValueDate>2019-01-19</ValueDate>
+                <SourceDocumentID>INV001</SourceDocumentID>
+                <Description>Others</Description>
+                <CreditAmount>
+                    <Amount>10</Amount>
+                    <CurrencyCode>HUF</CurrencyCode>
+                    <CurrencyAmount>10</CurrencyAmount>
+                    <ExchangeRate>1</ExchangeRate>
+                </CreditAmount>
+                <TaxInformation>
+                    <TaxType>104</TaxType>
+                    <TaxCode>VAT27</TaxCode>
+                    <TaxPercentage>27.00</TaxPercentage>
+                    <TaxBase>10</TaxBase>
+                    <TaxAmount>
+                        <AmountHUF>2.7</AmountHUF>
+                        <Amount>2.7</Amount>
+                        <CurrencyCode>HUF</CurrencyCode>
+                        <CurrencyAmount>2.7</CurrencyAmount>
+                    </TaxAmount>
+                    <TaxExemptionReason>NONE</TaxExemptionReason>
+                </TaxInformation>
+                <CustomerID>CST001</CustomerID>
+                <SourceID>ERPUSERJOHN</SourceID>
+                <SystemEntryDate>2019-01-31T10:10:02</SystemEntryDate>
+            </Line>
+            
+            <Line>
+                <!-- FK: GeneralLedgerEntriesHeaders.Header.TransactionID -->
+                <TransactionID>GLE002</TransactionID>
+                <RecordID>GLE002.1</RecordID>
+                <AccountID>11.1</AccountID>
+                <Analysis>
+                    <AnalysisType>PRO</AnalysisType>
+                    <AnalysisID>PRWIN</AnalysisID>
+                    <AnalysisAmount>
+                        <Amount>10</Amount>
+                        <CurrencyCode>HUF</CurrencyCode>
+                        <CurrencyAmount>10</CurrencyAmount>
+                        <CreditDebitIndicator>D</CreditDebitIndicator>
+                    </AnalysisAmount>
+                </Analysis>
+                <ValueDate>2019-01-19</ValueDate>
+                <SourceDocumentID>INV001</SourceDocumentID>
+                <Description>Receivables</Description>
+                <DebitAmount>
+                    <Amount>10</Amount>
+                    <CurrencyCode>HUF</CurrencyCode>
+                    <CurrencyAmount>10</CurrencyAmount>
+                    <ExchangeRate>1</ExchangeRate>
+                </DebitAmount>
+                <TaxInformation>
+                    <TaxType>104</TaxType>
+                    <TaxCode>VAT27</TaxCode>
+                    <TaxPercentage>27.00</TaxPercentage>
+                    <TaxBase>10</TaxBase>
+                    <TaxAmount>
+                        <AmountHUF>2.7</AmountHUF>
+                        <Amount>2.7</Amount>
+                        <CurrencyCode>HUF</CurrencyCode>
+                        <CurrencyAmount>2.7</CurrencyAmount>
+                    </TaxAmount>
+                    <TaxExemptionReason>NONE</TaxExemptionReason>
+                </TaxInformation>
+                <CustomerID>CST001</CustomerID>
+                <SourceID>ERPUSERJOHN</SourceID>
+                <SystemEntryDate>2019-01-31T20:09:02</SystemEntryDate>
+            </Line>
+            
+            <Line>
+                <!-- FK: GeneralLedgerEntriesHeaders.Header.TransactionID -->
+                <TransactionID>GLE002</TransactionID>
+                <RecordID>GLE002.2</RecordID>
+                <AccountID>71.1</AccountID>
+                <Analysis>
+                    <AnalysisType>PRO</AnalysisType>
+                    <AnalysisID>PRWIN</AnalysisID>
+                    <AnalysisAmount>
+                        <Amount>10</Amount>
+                        <CurrencyCode>HUF</CurrencyCode>
+                        <CurrencyAmount>10</CurrencyAmount>
+                        <CreditDebitIndicator>C</CreditDebitIndicator>
+                    </AnalysisAmount>
+                </Analysis>
+                <ValueDate>2019-01-19</ValueDate>
+                <SourceDocumentID>INV001</SourceDocumentID>
+                <Description>Receivables</Description>
+                <CreditAmount>
+                    <Amount>10</Amount>
+                    <CurrencyCode>HUF</CurrencyCode>
+                    <CurrencyAmount>10</CurrencyAmount>
+                    <ExchangeRate>1</ExchangeRate>
+                </CreditAmount>
+                <TaxInformation>
+                    <TaxType>104</TaxType>
+                    <TaxCode>VAT27</TaxCode>
+                    <TaxPercentage>27.00</TaxPercentage>
+                    <TaxBase>10</TaxBase>
+                    <TaxAmount>
+                        <AmountHUF>2.7</AmountHUF>
+                        <Amount>2.7</Amount>
+                        <CurrencyCode>HUF</CurrencyCode>
+                        <CurrencyAmount>2.7</CurrencyAmount>
+                    </TaxAmount>
+                    <TaxExemptionReason>NONE</TaxExemptionReason>
+                </TaxInformation>
+                <CustomerID>CST001</CustomerID>
+                <SourceID>ERPUSERJOHN</SourceID>
+                <SystemEntryDate>2019-01-31T20:09:02</SystemEntryDate>
+            </Line>
+            
+        </GeneralLedgerEntriesLines>
+               
+    </TransactionalData>
+    
+</AuditFile>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuditFile xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://schemas.nav.gov.hu/SAFT_HU/1.0 SAFTHU_Stock_Movement_Lines.xsd"
+ xmlns:doc="urn:schemas-OECD:schema-extensions:documentation">
+    <Header>
+        <AuditFileVersion>1_00</AuditFileVersion>
+        <AuditFileDateCreated>2020-02-01</AuditFileDateCreated>
+        
+        <!-- Refers an existing AuditID (audit case from central systems) and TOC (submission "wave") -->
+        <AuditID>NAV_2019_2983</AuditID>
+        <TOCID>NAV_TOC_12981273</TOCID>
+        
+        <!-- Name of the software company that GENERATED the SAFT -->
+        <SoftwareCompanyName>MAGSOFT</SoftwareCompanyName>
+        <SoftwareID>MAGSOFT SAFT Generator</SoftwareID>
+        <SoftwareVersion>1.5</SoftwareVersion>
+        
+        <!-- Name of the software company that developed the accounting program, 
+             ERP or software from where the data is coming from -->
+        <DataSourceCompanyName>SAPHIRE</DataSourceCompanyName>
+        <DataSourceSystem>SAPHIRE ERP</DataSourceSystem>
+        <DataSourceSystemVersion>3.1</DataSourceSystemVersion>
+        
+        <Company>
+            <Name>MAGYAR RETAIL</Name>
+            <Address>
+                <DetailedAddress>
+                    <CountryCode>HU</CountryCode>
+                    <PostalCode>1133</PostalCode>
+                    <City>Budapest</City>
+                    <StreetName>Kárpát</StreetName>
+                    <PublicPlaceCategory>utca</PublicPlaceCategory>
+                    <Number>999</Number>
+                    <Building>1</Building>
+                    <Staircase>2</Staircase>
+                    <Floor>3</Floor>
+                    <Door>6</Door>
+                    <LotNumber>33891</LotNumber>
+                    <Website>www.magyarretail.hu</Website>
+                </DetailedAddress>
+            </Address>
+            <Contact>
+                <ContactPerson>Mr. Viktor Nagy Barko</ContactPerson>
+                <Telephone>+36 80 400-400</Telephone>
+                <Fax>+36 80 400-500</Fax>
+                <Email>viktor.barko@magyarretail.hu</Email>
+            </Contact>
+            <DocumentationAddress>
+                <SimpleAddress>
+                    <CountryCode>HU</CountryCode>
+                    <PostalCode>1133</PostalCode>
+                    <City>Budapest</City>
+                    <AdditionalAddressDetail>Kárpát utca 999</AdditionalAddressDetail>
+                </SimpleAddress>
+            </DocumentationAddress>
+            <BankAccount>
+                <BankAccountNumber>1111110180000000</BankAccountNumber>
+                <BankAccountName>BANKACC11111</BankAccountName>
+            </BankAccount>
+            <TaxNumber>18876544</TaxNumber>
+            <EUVATNumber>HU18876544</EUVATNumber>
+            <GroupVATNumber>18876544</GroupVATNumber>
+            <GroupCorpTaxNumber>18876544</GroupCorpTaxNumber>
+        </Company>
+        
+        <DefaultCurrencyCode>HUF</DefaultCurrencyCode>
+        
+        <!-- The selection criteria used to generate the data set -->
+        <SelectionCriteria>
+            
+            <!-- Fiscal Calendar of the company on the moment of the file generation -->
+            <FiscalCalendar>
+                <FiscalCalendarStartDate>2019-01-01</FiscalCalendarStartDate>
+                <FiscalCalendarEndDate>2019-12-31</FiscalCalendarEndDate>
+            </FiscalCalendar>
+            
+            <SelectionStartDate>2019-01-01</SelectionStartDate>
+            <SelectionEndDate>2019-12-31</SelectionEndDate>
+            
+            <PeriodStart>N1 01</PeriodStart>
+            <PeriodEnd>N1 12</PeriodEnd>
+            <PeriodYear>2019</PeriodYear>
+            
+        </SelectionCriteria>
+        
+        <HeaderComment>Some remarks</HeaderComment>
+        <TaxEntity>Budapest</TaxEntity>
+        
+        <FileContentType>MG</FileContentType>
+        
+        <NumberOfParts>1</NumberOfParts>
+        <PartNumber>1</PartNumber>
+        
+    </Header>
+    
+    <!--  -->
+    <!-- Transactional Data -->
+    <!--  -->
+    
+    <TransactionalData>
+        
+        <!-- Stock Movement Lines -->
+        
+        <StockMovementLines>
+            
+            <NumberOfMovementLines>2</NumberOfMovementLines>
+            <TotalQuantityReceived>10</TotalQuantityReceived>
+            <TotalQuantityIssued>20</TotalQuantityIssued>
+            
+            <Line>
+                <MovementReference>STK001</MovementReference>
+                <LineNumber>1</LineNumber>
+                <TransactionID>TR002</TransactionID>
+                <CustomerID>CST001</CustomerID>
+                
+                <ShipTo>
+                    
+                    <DeliveryID>DELID001</DeliveryID>
+                    <DeliveryDate>2019-01-23</DeliveryDate>
+                    
+                    <!--- We don't have the Warehouse ID as it is from the customer. Populated with NULL if we dont have info ??? -->
+                    <WarehouseID>NULL</WarehouseID>
+                    
+                    <Address>
+                        <SimpleAddress>
+                            <CountryCode>HU</CountryCode>
+                            <PostalCode>1133</PostalCode>
+                            <City>Budapest</City>
+                            <AdditionalAddressDetail>Kárpát utca 999</AdditionalAddressDetail>
+                        </SimpleAddress>
+                    </Address>
+                    
+                </ShipTo>
+                
+                <ShipFrom>
+                    
+                    <DeliveryID>DELID001</DeliveryID>
+                    <DeliveryDate>2019-01-23</DeliveryDate>
+                    
+                    <!--- As we are issuing an item from stock, our source Warehouse ID must be posted -->
+                    <WarehouseID>WH001</WarehouseID>
+                    
+                    <Address>
+                        <SimpleAddress>
+                            <CountryCode>HU</CountryCode>
+                            <PostalCode>1133</PostalCode>
+                            <City>Budapest</City>
+                            <AdditionalAddressDetail>Zoltán utca 100</AdditionalAddressDetail>
+                        </SimpleAddress>
+                    </Address>
+                    
+                </ShipFrom> 
+                <ProductCode>PRD001</ProductCode>
+                
+                <ProductInformation>
+                    <Quantity>20</Quantity>
+                    <UnitOfMeasure>KG</UnitOfMeasure>
+                    <StockAccountNo>23000</StockAccountNo>
+                    <UOMToUOMPhysicalStockConversionFactor>1</UOMToUOMPhysicalStockConversionFactor>
+                </ProductInformation>
+                
+                <BookValue>100</BookValue>
+                <MovementType>301</MovementType>
+                <MovementSubType>O</MovementSubType>
+                <MovementComments>Delivery Note from INV001</MovementComments>
+                
+            </Line>
+            
+            <Line>
+                <MovementReference>STK002</MovementReference>
+                <LineNumber>1</LineNumber>
+                <TransactionID>TR00123</TransactionID>
+                <SupplierID>SUP001</SupplierID>
+                
+                <ShipTo>
+                    
+                    <DeliveryID>DELID001</DeliveryID>
+                    <DeliveryDate>2019-01-23</DeliveryDate>
+                    
+                    <WarehouseID>WH001</WarehouseID>
+                    
+                    <Address>
+                        <SimpleAddress>
+                            <CountryCode>HU</CountryCode>
+                            <PostalCode>1133</PostalCode>
+                            <City>Budapest</City>
+                            <AdditionalAddressDetail>Kárpát utca 100</AdditionalAddressDetail>
+                        </SimpleAddress>
+                    </Address>
+                    
+                </ShipTo>
+                
+                <ShipFrom>
+                    
+                    <DeliveryID>DELID001</DeliveryID>
+                    <DeliveryDate>2019-01-23</DeliveryDate>
+                    
+                    <!--- We don't have the Warehouse ID as it is from the supplier -->
+                    <WarehouseID>WH001</WarehouseID>
+                    
+                    <Address>
+                        <SimpleAddress>
+                            <CountryCode>HU</CountryCode>
+                            <PostalCode>1133</PostalCode>
+                            <City>Budapest</City>
+                            <AdditionalAddressDetail>Kárpát utca 999</AdditionalAddressDetail>
+                        </SimpleAddress>
+                    </Address>
+                    
+                </ShipFrom> 
+                <ProductCode>PRD002</ProductCode>
+                
+                <ProductInformation>
+                    <Quantity>10</Quantity>
+                    <UnitOfMeasure>KG</UnitOfMeasure>
+                    <StockAccountNo>23000</StockAccountNo>
+                    <UOMToUOMPhysicalStockConversionFactor>1</UOMToUOMPhysicalStockConversionFactor>
+                </ProductInformation>
+                
+                <BookValue>50</BookValue>
+                <MovementType>101</MovementType>
+                <MovementSubType>I</MovementSubType>
+                <MovementComments>Supplier Delivery Note from PO001</MovementComments>
+                
+            </Line>
+            
+        </StockMovementLines>
+    </TransactionalData>
+    
+</AuditFile>
