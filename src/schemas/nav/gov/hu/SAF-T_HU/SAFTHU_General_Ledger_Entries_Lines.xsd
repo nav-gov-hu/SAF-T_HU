@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2016 sp1 (x64) (http://www.altova.com) by NAV (Hungarian Tax Authority) -->
+<!-- Létrehozta a Nemzeti Adó és Vámhivatal -->
+<xs:schema xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.00" id="SAFT-HU">
+	<!-- SAFTHU definitions, data types and OECD guideline compatibility -->
+	<xs:include schemaLocation="./SAFT_HU_Definitions.xsd"/>
+	<!-- -->
+	<xs:element name="AuditFile">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Header">
+					<xs:annotation>
+						<xs:documentation xml:lang="hu">Általános információk a szoftverről, melyből az adatok származnak, valamint a vizsgálat alá vont társaság adatai.</xs:documentation>
+						<xs:documentation xml:lang="en">Holds general information about the file including the name of the software which produced it; the company on whose behalf the SAF-T is being submitted; and the selection criteria used.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SAFTHUHeaderStructure">
+								<xs:sequence>
+									<xs:element name="TaxEntity" type="SAFTmiddle2textType">
+										<xs:annotation>
+											<xs:documentation xml:lang="hu">Az egység / divízió / ág hivatkozás egyedi azonosítója, amennyiben az adózó adatai több különálló rendszerből származnak. Pl. 1-es raktár</xs:documentation>
+											<xs:documentation xml:lang="en">Unique identifier of unit / Division / Branch reference E.g. Warehouse 1</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="FileContentType">
+										<xs:annotation>
+											<xs:documentation xml:lang="hu">A fájl tartalma. Opciók: 
+												„GL” - főkönyvi adatok, 
+												„MD” - törzsadatok,
+												„SI” - kimenő számla adatok, 
+												„PI” - bejövő számla adatok, 
+												„TR” - fizetési adatok, 
+												„PS” - készlet adatok,
+												„MG” - készletmozgás adatok,
+												„AT” - gazdasági események adatai, 
+												„VA” - ÁFA analitika,
+												„RD" - egyéb jelentési adatok</xs:documentation>
+											<xs:documentation xml:lang="en">Type of content that the file contains. Options: 
+												“GL” – the data of a general ledger, 
+												“MD” – master data, 
+												"SI” – sales information, 
+												“PI” – purchase information, 
+												“TR” – payment data, 
+												“PS” – physical stock, 
+												“MG” – movement of goods, 
+												“AT” – data of economic transactions or economic asset events,
+												"VA" - VAT Analytics Data,
+												"RD" - other reporting data</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="SAFTcodeType">
+												<xs:enumeration value="GL"/>
+												<xs:enumeration value="MD"/>
+												<xs:enumeration value="SI"/>
+												<xs:enumeration value="PI"/>
+												<xs:enumeration value="TR"/>
+												<xs:enumeration value="PS"/>
+												<xs:enumeration value="MG"/>
+												<xs:enumeration value="AT"/>
+												<xs:enumeration value="VA"/>
+												<xs:enumeration value="RD"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="NumberOfParts" type="xs:nonNegativeInteger">
+										<xs:annotation>
+											<xs:documentation xml:lang="hu">A fájldarabok száma.</xs:documentation>
+											<xs:documentation xml:lang="en">Total of number of parts of the file.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="PartNumber" type="xs:nonNegativeInteger">
+										<xs:annotation>
+											<xs:documentation xml:lang="hu">A fájldarab sorszáma (például 1, 2, 3, ...), ha egy SAF-T fájl több darabra van tagolva.
+Az entitás, a fájltartalom (DataType) és az időszak (PeriodStart - PeriodEnd) értékei minden fájlrészben egybeesnek.</xs:documentation>
+											<xs:documentation xml:lang="en">Number of the file part (e.g. 1, 2, 3,...), when a SAF-T file is divided in parts. 
+The values of the Entity , File Content (DataType) and period (PeriodStart – PeriodEnd) must coincide in all file parts.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="TransactionalData" minOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="hu">Tranzakciós adatok és jelentések</xs:documentation>
+						<xs:documentation xml:lang="en">Transactional data and reports</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="GeneralLedgerEntriesLines" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation xml:lang="hu">A főkönyvi könyvelés sorok részletező adatai</xs:documentation>
+									<xs:documentation xml:lang="en">General ledger transaction lines details</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="NumberOfLineEntries" type="xs:nonNegativeInteger">
+											<xs:annotation>
+												<xs:documentation xml:lang="hu">Főkönyvi könyvelés sorainak száma</xs:documentation>
+												<xs:documentation xml:lang="en">Number of entries on the general ledger lines</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="TotalDebitOfLines" type="SAFTmonetaryType">
+											<xs:annotation>
+												<xs:documentation xml:lang="hu">A főkönyvi könyvelés sorainak tartozik oldali összegzése az adatszolgáltatással érintett időszakban a könyvelés pénznenmében. </xs:documentation>
+												<xs:documentation xml:lang="en">The total of all debit amounts of the transaction lines during the Selectionperiod in the file header's default currency.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="TotalCreditOfLines" type="SAFTmonetaryType">
+											<xs:annotation>
+												<xs:documentation xml:lang="hu">A főkönyvi könyvelés sorainak követel oldali összegzése az adatszolgáltatással érintett időszakban a könyvelés pénznenmében.</xs:documentation>
+												<xs:documentation xml:lang="en">The total of all credit amounts of the transaction lines during the Selectionperiod in the file header's default currency</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="Line" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation xml:lang="hu">Főkönyvi könyvelés sorainak részletezése</xs:documentation>
+												<xs:documentation xml:lang="en">General Ledger transaction line details</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="TransactionID" type="SAFTmiddle2textType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Könyvelési tranzakció egyedi azonosítója a fejléc alapján
+(FK: GeneralLedgerEntriesHeaders.Header.TransactionID)</xs:documentation>
+															<xs:documentation xml:lang="en">A unique number assigned to the general ledger entry header
+(FK: GeneralLedgerEntriesHeaders.Header.TransactionID) 
+
+</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="RecordID" type="SAFTshorttextType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Adott könyvelési tétel egyedi sorazonosítója.</xs:documentation>
+															<xs:documentation xml:lang="en">Unique identifier of the accounting entry line.</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AccountID" type="SAFTmiddle2textType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Főkönyvi számlaszám, beleértve az alszámla számát is. Több szintet is tartalmazhat.</xs:documentation>
+															<xs:documentation xml:lang="en">General ledger account number including sub-account number. It may contain several levels.</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Analysis" type="AnalysisStructure" minOccurs="0" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Főkönyvi elemzési kódok</xs:documentation>
+															<xs:documentation xml:lang="en">General ledger analysis codes</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="ValueDate" type="xs:date" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Értéknap</xs:documentation>
+															<xs:documentation xml:lang="en">Value date to be reported when this date differs from the transactiondate</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="SourceDocumentID" type="SAFTmiddle1textType" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Adott sorhoz tartozó alapbizonylat azonosítója</xs:documentation>
+															<xs:documentation xml:lang="en">Source document number to which line it relates</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Description" type="SAFTlongtextType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Napló sorhoz tartozó leírás</xs:documentation>
+															<xs:documentation xml:lang="en">Description of the transaction line</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:choice>
+														<xs:element name="DebitAmount" type="AmountStructure">
+															<xs:annotation>
+																<xs:documentation xml:lang="hu">Naplósor tartozik összege</xs:documentation>
+																<xs:documentation>Debit amount information for the transaction line</xs:documentation>
+															</xs:annotation>
+														</xs:element>
+														<xs:element name="CreditAmount" type="AmountStructure">
+															<xs:annotation>
+																<xs:documentation xml:lang="hu">Naplósor követel összege</xs:documentation>
+																<xs:documentation xml:lang="en">Credit amount information for the transaction line</xs:documentation>
+															</xs:annotation>
+														</xs:element>
+													</xs:choice>
+													<xs:element name="TaxInformation" type="TaxInformationStructure" minOccurs="0" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Adózási információk</xs:documentation>
+															<xs:documentation xml:lang="en">Tax Information Structure</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="PartnerInfo" type="SAFTHUPartnerInfoStructure" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Partneradat </xs:documentation>
+															<xs:documentation xml:lang="en">PArtner data</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="SourceID" type="SAFTmiddle1textType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Rögzítést végző személy vagy rendszer adatai.</xs:documentation>
+															<xs:documentation xml:lang="en">Details of the person or application that entered the transaction.
+Eg. Username</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="SystemEntryDate" type="xs:dateTime">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Számviteli rendszerben történő rögzítés dátuma és időpontja</xs:documentation>
+															<xs:documentation xml:lang="en">Date and time when the transaction was entered in the accounting system.</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
