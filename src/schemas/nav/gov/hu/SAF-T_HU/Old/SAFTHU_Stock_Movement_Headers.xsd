@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2016 sp1 (x64) (http://www.altova.com) by NAV (Hungarian Tax Authority) -->
+<!-- Létrehozta a Nemzeti Adó és Vámhivatal -->
+<!-- Ez egy részsablon. A SAFT_HU__Integrated_mod_0316.xsd szerinti adattartalommal -->
+<xs:schema xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.00" id="SAFT-HU">
+	<!-- SAFTHU definitions, data types and OECD guideline compatibility -->
+	<xs:include schemaLocation="./SAFT_HU_Definitions.xsd"/>
+	<!-- -->
+	<xs:element name="AuditFile">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Header">
+					<xs:annotation>
+						<xs:documentation xml:lang="hu">Általános információk a szoftverről, melyből az adatok származnak, valamint a vizsgálat alá vont társaság adatai.</xs:documentation>
+						<xs:documentation xml:lang="en">Holds general information about the file including the name of the software which produced it; the company on whose behalf the SAF-T is being submitted; and the selection criteria used.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SAFTHUHeaderStructure">
+								<xs:sequence>
+									<xs:element name="TaxEntity" type="SAFTmiddle2textType">
+										<xs:annotation>
+											<xs:documentation xml:lang="hu">Az egység / divízió / ág hivatkozás egyedi azonosítója, amennyiben az adózó adatai több különálló rendszerből származnak. Pl. 1-es raktár</xs:documentation>
+											<xs:documentation xml:lang="en">Unique identifier of unit / Division / Branch reference E.g. Warehouse 1</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="FileContentType">
+										<xs:annotation>
+											<xs:documentation xml:lang="hu">A fájl tartalma. Opciók: 
+												„GL” - főkönyvi adatok, 
+												„MD” - törzsadatok,
+												„SI” - kimenő számla adatok, 
+												„PI” - bejövő számla adatok, 
+												„TR” - fizetési adatok, 
+												„PS” - készlet adatok,
+												„MG” - készletmozgás adatok,
+												„AS” - gazdasági események adatai, 
+												„VA” - ÁFA analitika,
+												„RD" - egyéb jelentési adatok</xs:documentation>
+											<xs:documentation xml:lang="en">Type of content that the file contains. Options: 
+												“GL” – the data of a general ledger, 
+												“MD” – master data, 
+												"SI” – sales information, 
+												“PI” – purchase information, 
+												“TR” – payment data, 
+												“PS” – physical stock, 
+												“MG” – movement of goods, 
+												“AT” – data of economic transactions or economic asset events,
+												"VA" - VAT Analytics Data,
+												"RD" - other reporting data</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="SAFTcodeType">
+												<xs:enumeration value="GL"/>
+												<xs:enumeration value="MD"/>
+												<xs:enumeration value="SI"/>
+												<xs:enumeration value="PI"/>
+												<xs:enumeration value="TR"/>
+												<xs:enumeration value="PS"/>
+												<xs:enumeration value="MG"/>
+												<xs:enumeration value="AT"/>
+												<xs:enumeration value="VA"/>
+												<xs:enumeration value="RD"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="NumberOfParts" type="xs:nonNegativeInteger">
+										<xs:annotation>
+											<xs:documentation xml:lang="hu">A fájldarabok száma.</xs:documentation>
+											<xs:documentation xml:lang="en">Total of number of parts of the file.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="PartNumber" type="xs:nonNegativeInteger">
+										<xs:annotation>
+											<xs:documentation xml:lang="hu">A fájldarab sorszáma (például 1, 2, 3, ...), ha egy SAF-T fájl több darabra van tagolva.
+Az entitás, a fájltartalom (DataType) és az időszak (PeriodStart - PeriodEnd) értékei minden fájlrészben egybeesnek.</xs:documentation>
+											<xs:documentation xml:lang="en">Number of the file part (e.g. 1, 2, 3,...), when a SAF-T file is divided in parts. 
+The values of the Entity , File Content (DataType) and period (PeriodStart – PeriodEnd) must coincide in all file parts.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="TransactionalData">
+					<xs:annotation>
+						<xs:documentation xml:lang="hu">Tranzakciós adatok és jelentések</xs:documentation>
+						<xs:documentation xml:lang="en">Transactional data and reports</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="StockMovementHeaders" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation xml:lang="hu">Árukészlet mozgás dokumentumok fejlécei</xs:documentation>
+									<xs:documentation xml:lang="en">Stock movements document headers</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="NumberOfMovementHeaders" type="xs:nonNegativeInteger">
+											<xs:annotation>
+												<xs:documentation xml:lang="hu">Árukészlet mozgás fejlécek száma az adatszolgáltatással érintett időszakban</xs:documentation>
+												<xs:documentation xml:lang="en">Number of movement headers in the selected period of the header of the file.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="Header" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation xml:lang="hu">Árukészlet mozgás fejléceinek adatai</xs:documentation>
+												<xs:documentation xml:lang="en">Information of the header of the Stock Movements.</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="SystemID" type="SAFTmiddle1textType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Egyedi azonosító, melyet a rendszer a dokumentumnak adott.</xs:documentation>
+															<xs:documentation xml:lang="en">Unique number created by the system for the document</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="MovementDate" type="xs:date">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Dokumentum dátuma</xs:documentation>
+															<xs:documentation xml:lang="en">Document Date</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="MovementPostingDate" type="xs:date" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Árukészlet mozgás főkönyvi feladásának dátuma</xs:documentation>
+															<xs:documentation xml:lang="en">Date of posting of the movement on the general ledger</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="SourceID" type="SAFTmiddle1textType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Adatbevitelt végző személy vagy rendszer azonosítója.</xs:documentation>
+															<xs:documentation xml:lang="en">Details of the person or application that entered the transaction.
+														Eg. Username</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="DocumentReference" minOccurs="0" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Árukészlet mozgást alátámasztó dokumentum</xs:documentation>
+															<xs:documentation xml:lang="en">Document reference for justifying the movement of stock.</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="DocumentType">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Dokumentum típusa. Opciók:
+„DN" - Szállítólevél,
+„DP" - Leértékelési jegyzőkönyv,
+„DR" - Káreseti jegyzőkönyv,
+„IC" - Belső fogyasztás,
+„ME" - Anyagkivételezési bizonylat,
+„MI" - Anyagbevételezési bizonylat,
+„OT" - Egyéb,
+„RD" - Készlet visszavételezési bizonylat,
+„SP" - Selejtezési jegyzőkönyv,
+„SU" - Azonnali felhasználásra beszerzett készlet bizonylat,
+„TD" - Készlet átadás-átvételi bizonylat
+												</xs:documentation>
+																		<xs:documentation xml:lang="en">Document Type. Options:
+"DN" - Delivery note,
+"DP" - Devaluation protocol,
+"DR" - Damage record,
+"IC" - Internal Consumption,
+"ME" - Material extraction document,
+"MI" - Material inward document,
+"OT" - Other,
+"RD" - Stock return document,
+"SP" - Scrapping protocol,
+"SU" - Stock for immidiate use,
+"TD" - Stock transfer document
+												</xs:documentation>
+																	</xs:annotation>
+																	<xs:simpleType>
+																		<xs:restriction base="SAFTcodeType">
+																			<xs:enumeration value="DN"/>
+																			<xs:enumeration value="DP"/>
+																			<xs:enumeration value="DR"/>
+																			<xs:enumeration value="IC"/>
+																			<xs:enumeration value="ME"/>
+																			<xs:enumeration value="MI"/>
+																			<xs:enumeration value="OT"/>
+																			<xs:enumeration value="RD"/>
+																			<xs:enumeration value="SP"/>
+																			<xs:enumeration value="SU"/>
+																			<xs:enumeration value="TD"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="DocumentNumber" type="SAFTmiddle1textType">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Dokumentum hivatkozási száma</xs:documentation>
+																		<xs:documentation xml:lang="en">Document reference number</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="DocumentLine" type="SAFTshorttextType" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Hivatkozott dokumentum tételsorának száma.</xs:documentation>
+																		<xs:documentation xml:lang="en">Line number of the document</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="Description" type="SAFTlongtextType" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Dokumentum megnevezése.</xs:documentation>
+																		<xs:documentation xml:lang="en">Description of the document</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
